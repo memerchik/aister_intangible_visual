@@ -1,0 +1,66 @@
+{
+  "prototype_name": "Ukrainian visual intangible cultural heritage classifier",
+  "selected_model": "knn_cosine_k5",
+  "selected_feature_set": "all",
+  "validation_accuracy": 0.7292418772563177,
+  "test_accuracy": 0.65424739195231,
+  "test_top_3_accuracy": 0.8956780923994039,
+  "train_examples": 1384,
+  "test_examples": 671,
+  "class_names": [
+    "01_opishnyan_ceramics",
+    "02_ornek",
+    "03_bubnivka_ceramics",
+    "04_petrykivka_painting",
+    "05_kosiv_ceramics"
+  ],
+  "image_size": [
+    96,
+    96
+  ],
+  "classification_report": {
+    "01_opishnyan_ceramics": {
+      "precision": 0.8313953488372093,
+      "recall": 0.7185929648241206,
+      "f1-score": 0.77088948787062,
+      "support": 199.0
+    },
+    "02_ornek": {
+      "precision": 0.6071428571428571,
+      "recall": 0.6181818181818182,
+      "f1-score": 0.6126126126126126,
+      "support": 165.0
+    },
+    "03_bubnivka_ceramics": {
+      "precision": 0.6896551724137931,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6779661016949152,
+      "support": 90.0
+    },
+    "04_petrykivka_painting": {
+      "precision": 0.5637583892617449,
+      "recall": 0.8235294117647058,
+      "f1-score": 0.6693227091633466,
+      "support": 102.0
+    },
+    "05_kosiv_ceramics": {
+      "precision": 0.5263157894736842,
+      "recall": 0.43478260869565216,
+      "f1-score": 0.47619047619047616,
+      "support": 115.0
+    },
+    "accuracy": 0.65424739195231,
+    "macro avg": {
+      "precision": 0.6436535114258578,
+      "recall": 0.6523506940265926,
+      "f1-score": 0.641396277506394,
+      "support": 671.0
+    },
+    "weighted avg": {
+      "precision": 0.6642695720694324,
+      "recall": 0.65424739195231,
+      "f1-score": 0.6535586578486482,
+      "support": 671.0
+    }
+  }
+}

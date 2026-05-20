@@ -1,0 +1,11 @@
+split,class_name,image_count
+dataset_dev,01_opishnyan_ceramics,405
+dataset_dev,02_ornek,351
+dataset_dev,03_bubnivka_ceramics,191
+dataset_dev,04_petrykivka_painting,205
+dataset_dev,05_kosiv_ceramics,232
+dataset_test,01_opishnyan_ceramics,199
+dataset_test,02_ornek,165
+dataset_test,03_bubnivka_ceramics,90
+dataset_test,04_petrykivka_painting,102
+dataset_test,05_kosiv_ceramics,115

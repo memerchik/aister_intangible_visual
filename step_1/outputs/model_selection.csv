@@ -1,0 +1,6 @@
+model_name,feature_name,validation_accuracy,train_examples,validation_examples
+knn_cosine_k5,all,0.7292418772563177,1107,277
+knn_cosine_k7,all,0.7292418772563177,1107,277
+knn_cosine_k3,all,0.7256317689530686,1107,277
+logistic_regression,all,0.6967509025270758,1107,277
+linear_svm,color,0.6642599277978339,1107,277
