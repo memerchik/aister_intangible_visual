@@ -6,3 +6,15 @@ __pycache__/
 step_1/data/*
 !step_1/data/README.md
 /step_1/data
+step_1/workshop_materials/data/dataset_dev/**
+!step_1/workshop_materials/data/dataset_dev/
+!step_1/workshop_materials/data/dataset_dev/01_class/
+!step_1/workshop_materials/data/dataset_dev/01_class/.gitkeep
+!step_1/workshop_materials/data/dataset_dev/02_class/
+!step_1/workshop_materials/data/dataset_dev/02_class/.gitkeep
+step_1/workshop_materials/data/dataset_test/**
+!step_1/workshop_materials/data/dataset_test/
+!step_1/workshop_materials/data/dataset_test/01_class/
+!step_1/workshop_materials/data/dataset_test/01_class/.gitkeep
+!step_1/workshop_materials/data/dataset_test/02_class/
+!step_1/workshop_materials/data/dataset_test/02_class/.gitkeep

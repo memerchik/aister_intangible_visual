@@ -31,6 +31,8 @@ The repository currently contains one documented workflow stage:
 
 - `step_1/` contains the end-to-end heritage type classification notebook, dataset, and cached outputs
 
+For teaching and hands-on exercises, use `step_1/workshop_materials/`. It contains a simplified participant notebook and a local data template for trying the same classical classification workflow on participant-chosen public-image categories.
+
 ## Why this technology
 
 This project uses a supervised classifier instead of DINOv2 retrieval because the task is category recognition, not open-ended nearest-neighbour search.
@@ -92,6 +94,8 @@ The notebook includes a dependency-install cell with:
 ```
 
 Run that cell once if needed, then continue with the rest of the notebook. The final export cell refreshes the files in `step_1/outputs/`.
+
+For the hands-on workshop version, open `step_1/workshop_materials/notebooks/classical_vision_hands_on.ipynb`.
 
 ## Limitations
 
