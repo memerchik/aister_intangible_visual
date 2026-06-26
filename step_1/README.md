@@ -5,6 +5,7 @@ This folder contains the full classification workflow for identifying visual int
 ## What is here
 
 - `notebooks/step_1-01_visual_heritage_classifier.ipynb`: full prototype notebook
+- `workshop_materials/`: simplified hands-on workshop notebook for participant-chosen public-image classification
 - `outputs/`: validation benchmark, predictions, metrics, and confusion matrix
 - `data/`: labeled development and test image splits
 
@@ -49,3 +50,5 @@ The notebook contains its own install cell:
 ```
 
 Run that cell once if your environment is missing the dependencies. The final export cell overwrites the output artifacts in `outputs/`.
+
+For participant exercises, use `workshop_materials/notebooks/classical_vision_hands_on.ipynb`. Participants first download their own public images into matching class folders, then run the notebook to train and inspect predictions.

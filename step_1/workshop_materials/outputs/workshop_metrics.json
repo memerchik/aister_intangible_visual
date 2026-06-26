@@ -1,0 +1,24 @@
+{
+  "model": "knn_cosine",
+  "n_neighbors": 5,
+  "feature_set": "HSV + HOG + LBP",
+  "image_size": [
+    96,
+    96
+  ],
+  "train_examples": 314,
+  "test_examples": 45,
+  "test_accuracy": 0.6444444444444445,
+  "test_top_3_accuracy": 0.8222222222222222,
+  "classes": [
+    "apple",
+    "banana",
+    "cherry",
+    "chickoo",
+    "grapes",
+    "kiwi",
+    "mango",
+    "orange",
+    "strawberry"
+  ]
+}

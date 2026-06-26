@@ -1,0 +1,10 @@
+,apple,banana,cherry,chickoo,grapes,kiwi,mango,orange,strawberry
+apple,5,0,0,0,0,0,0,0,0
+banana,0,5,0,0,0,0,0,0,0
+cherry,0,0,2,0,0,0,1,0,2
+chickoo,0,1,0,1,1,0,1,1,0
+grapes,0,0,0,1,3,0,1,0,0
+kiwi,0,1,0,0,0,2,0,1,1
+mango,0,3,0,1,0,0,1,0,0
+orange,0,0,0,0,0,0,0,5,0
+strawberry,0,0,0,0,0,0,0,0,5
