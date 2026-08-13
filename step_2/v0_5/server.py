@@ -471,6 +471,25 @@ def build_handler(service: ApplicationService):
                 raise ValueError("The request body must be a JSON object")
             return payload
 
+        def _discard_request_body(self) -> None:
+            """Drain an already rejected upload without retaining it in memory."""
+
+            raw_length = self.headers.get("Content-Length")
+            try:
+                remaining = int(raw_length or "0")
+            except ValueError:
+                self.close_connection = True
+                return
+            if remaining < 0 or remaining > MAX_REQUEST_BYTES:
+                self.close_connection = True
+                return
+            while remaining:
+                chunk = self.rfile.read(min(64 * 1024, remaining))
+                if not chunk:
+                    self.close_connection = True
+                    return
+                remaining -= len(chunk)
+
         def do_GET(self) -> None:  # noqa: N802
             path = urlparse(self.path).path
             if path == "/api/health":
@@ -506,11 +525,15 @@ def build_handler(service: ApplicationService):
                         prediction_request_id = service.begin_prediction()
                     except PredictionBusyError as error:
                         print("Prediction rejected: inference slot busy", flush=True)
-                        self.close_connection = True
+                        # Consume the browser's request stream in bounded
+                        # chunks before responding. Closing while the upload is
+                        # still in flight can surface as a generic fetch failure
+                        # instead of a readable HTTP 429 in some browsers.
+                        self._discard_request_body()
                         self._send_json(
                             {"error": str(error), "status": HTTPStatus.TOO_MANY_REQUESTS.value},
                             status=HTTPStatus.TOO_MANY_REQUESTS,
-                            extra_headers={"Retry-After": "3", "Connection": "close"},
+                            extra_headers={"Retry-After": "3"},
                         )
                         return
                     print(

@@ -95,6 +95,36 @@ function scoreText(value) {
 function setError(message) {
   ui.uploadError.textContent = message;
   ui.uploadError.hidden = !message;
+  if (message && !ui.uploadView.hidden) ui.uploadError.focus();
+}
+
+async function readApiResponse(response) {
+  const responseText = await response.text();
+  let payload = {};
+  if (responseText) {
+    try {
+      payload = JSON.parse(responseText);
+    } catch (_error) {
+      payload = {};
+    }
+  }
+  if (response.status === 429) {
+    const retryAfter = response.headers.get("Retry-After");
+    const waitText = retryAfter ? ` Try again in about ${retryAfter} seconds.` : " Try again shortly.";
+    throw new Error(
+      (typeof payload.error === "string"
+        ? payload.error
+        : "Another image is already being analyzed.") + waitText
+    );
+  }
+  if (!response.ok) {
+    throw new Error(
+      typeof payload.error === "string"
+        ? payload.error
+        : `The analysis service returned error ${response.status}.`
+    );
+  }
+  return payload;
 }
 
 function clearFile() {
@@ -183,9 +213,8 @@ async function analyze() {
       body: JSON.stringify({ image: state.dataUrl, file_name: state.file.name }),
       signal: controller.signal,
     });
-    const payload = await response.json();
+    const payload = await readApiResponse(response);
     if (sequence !== state.predictionSequence) return;
-    if (!response.ok) throw new Error(payload.error || "The analysis could not be completed.");
     state.result = payload;
     renderResult(payload);
     showView("result");

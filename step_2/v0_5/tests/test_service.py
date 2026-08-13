@@ -1,4 +1,5 @@
 import base64
+import http.client
 import importlib.util
 import json
 import sys
@@ -168,6 +169,59 @@ class AssistedApplicationServiceTests(unittest.TestCase):
             service.predict(self.payload)
         self.assertFalse(service.health()["prediction_busy"])
 
+    def test_busy_http_response_is_readable_and_does_not_queue_upload(self):
+        predictor = BlockingPredictor()
+        service = server_module.ApplicationService(
+            predictor, self.contribution_root, contributions_enabled=False
+        )
+        try:
+            http_server = server_module.ThreadingHTTPServer(
+                ("127.0.0.1", 0), server_module.build_handler(service)
+            )
+        except PermissionError:
+            self.skipTest("The test environment does not permit local socket binding")
+        http_server.daemon_threads = True
+        server_thread = threading.Thread(target=http_server.serve_forever)
+        server_thread.start()
+        first_result = []
+
+        def first_request():
+            connection = http.client.HTTPConnection(*http_server.server_address, timeout=5)
+            body = json.dumps(self.payload)
+            connection.request(
+                "POST",
+                "/api/predict",
+                body=body,
+                headers={"Content-Type": "application/json"},
+            )
+            response = connection.getresponse()
+            first_result.append((response.status, response.read()))
+            connection.close()
+
+        first_thread = threading.Thread(target=first_request)
+        first_thread.start()
+        self.assertTrue(predictor.started.wait(timeout=2))
+        second = http.client.HTTPConnection(*http_server.server_address, timeout=5)
+        second_body = json.dumps(self.payload)
+        second.request(
+            "POST",
+            "/api/predict",
+            body=second_body,
+            headers={"Content-Type": "application/json"},
+        )
+        response = second.getresponse()
+        response_body = json.loads(response.read())
+        self.assertEqual(response.status, 429)
+        self.assertEqual(response.getheader("Retry-After"), "3")
+        self.assertIn("already", response_body["error"])
+        second.close()
+        predictor.release.set()
+        first_thread.join(timeout=5)
+        http_server.shutdown()
+        http_server.server_close()
+        server_thread.join(timeout=5)
+        self.assertEqual(first_result[0][0], 200)
+
 
 class AssistedInterfaceContractTests(unittest.TestCase):
     def test_interface_contains_required_transparency_and_accessibility_copy(self):
@@ -190,6 +244,9 @@ class AssistedInterfaceContractTests(unittest.TestCase):
         self.assertNotIn("fonts.googleapis.com", html)
         javascript = (APP_ROOT / "static/app.js").read_text()
         self.assertNotIn("innerHTML", javascript)
+        self.assertIn("response.status === 429", javascript)
+        self.assertIn('response.headers.get("Retry-After")', javascript)
+        self.assertIn("Another image is already being analyzed", javascript)
 
     def test_render_boundary_uses_only_the_standalone_application(self):
         render_yaml = (APP_ROOT.parents[1] / "render.yaml").read_text()
