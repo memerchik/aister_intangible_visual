@@ -1,0 +1,937 @@
+{
+  "base_configuration_count": 3,
+  "base_embedding_provenance": {
+    "dinov3_center.embedding__cls": {
+      "array_name": "embedding__cls",
+      "array_sha256": "afe1e2b5d898f257df5e51b44fb5e6cef627ece658d16ed87a0a9c1bc4d5a7d4",
+      "cache_name": "dinov3_center",
+      "cache_sha256": "61f46b287d5fbf7ce3fe72585d054d7c9c44b5122bf8c8cfc18d95fd33445f30",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "a6de7aa2fa2137dd71e36d004adfff0ddf2abd85aae7b19478efb3bd5cdb080a",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_global.embedding__cls": {
+      "array_name": "embedding__cls",
+      "array_sha256": "20cb4b8e5b2c7ca8e72e8e01fe465a252d5cb96687c2178dc256a8cb3b2ac1ae",
+      "cache_name": "dinov3_global",
+      "cache_sha256": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "2783a020edd6f819e2d9530ae635e786fde7618e3c96244b1ef78fc49f927722",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_letterbox.embedding__cls": {
+      "array_name": "embedding__cls",
+      "array_sha256": "d0691de4b7d16d8fbe56bff810470f7166b7bb0760ed398f770c18ea6fd4bc79",
+      "cache_name": "dinov3_letterbox",
+      "cache_sha256": "a4551b0e94d2fc3838ae7cc036af5b748f335bd498f24a737840994477052822",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "443acf6c3b85afd5042f78daa35c426f7f4d36058ab3080de8d7ea55bd1d3faa",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    }
+  },
+  "base_recipe_stability": {
+    "details": [
+      {
+        "best_eligible_robustness_score": 0.7184787643003917,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "0",
+        "robustness_score": 0.6937919365039391,
+        "within_tie_window": false
+      },
+      {
+        "best_eligible_robustness_score": 0.6245581884758001,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "1",
+        "robustness_score": 0.6232085442537443,
+        "within_tie_window": true
+      },
+      {
+        "best_eligible_robustness_score": 0.6922499789308818,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "2",
+        "robustness_score": 0.6911368293762307,
+        "within_tie_window": true
+      },
+      {
+        "best_eligible_robustness_score": 0.7069917066829373,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "3",
+        "robustness_score": 0.7067067783238882,
+        "within_tie_window": true
+      },
+      {
+        "best_eligible_robustness_score": 0.7070244516353044,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "4",
+        "robustness_score": 0.7070244516353044,
+        "within_tie_window": true
+      }
+    ],
+    "observed_outer_searches": 4,
+    "passed": true,
+    "passing_outer_folds": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "required_outer_searches": 4
+  },
+  "ceramic_classes": [
+    "01_opishnyan_ceramics",
+    "03_bubnivka_ceramics",
+    "05_kosiv_ceramics"
+  ],
+  "class_names": [
+    "01_opishnyan_ceramics",
+    "02_ornek",
+    "03_bubnivka_ceramics",
+    "04_petrykivka_painting",
+    "05_kosiv_ceramics"
+  ],
+  "code_provenance": {
+    "combined_sha256": "50682494f1c27602b5e7741fd23daa450c099b80315254e3ed8bbe134a3ec457",
+    "files_sha256": {
+      "step_02/requirements-phase5.txt": "c2ffe53eb3944b342984716be3c01de2b8ba7b5153172d4fc4aa2fec876322af",
+      "step_02/scripts/run_phase5_source_robustness.py": "fa7dffe11ec627789b15c3eca307a3cae1ea3da3911d2dfbde952f85fc27d8ff",
+      "step_02/scripts/run_phase5_v2_pairwise.py": "5e5afb6a952b9b8fc00cb7e7fa259e288661124394ba608e8415a44ffb98b479",
+      "step_02/scripts/run_phase5_v3_consensus.py": "a62266e0e3062103df24b43fb5ceb8ceafebfce2b3ef5a42ae3c728791a76260",
+      "step_02/scripts/run_phase5_v4_motif.py": "8e55a578230eb96a92147a5ba2f43c4fdd16c8862413fdd547c8e58235729f71",
+      "step_02/scripts/run_phase5_v5_fixed_consensus.py": "323c7925985f0aefe19c6eb95408df35fc20fe3c83429d64fe95198dea3ba6f9",
+      "step_02/src/ornament_classifier/consensus.py": "3ec3fce2c5eadcd11bbb371fb8e02e6ee8fad9da99dc101ae8579e1c2c9828f4",
+      "step_02/src/ornament_classifier/contracts.py": "344df9eaf11eaffd9888f070965990143beb77428654931d82a5129b9bc7d54d",
+      "step_02/src/ornament_classifier/embeddings.py": "a47e7c7f298097fac6f462a41c7f4c858542179255939a1632b48e6284622ce1",
+      "step_02/src/ornament_classifier/embeddings_v3.py": "6e2c2101b2773307ffcb1c192079775a738dcfaa1e029402c21d15f7c3a51f64",
+      "step_02/src/ornament_classifier/embeddings_v4.py": "a933c92e0c8468cd7596ba5e4f5b2961695b9b6488f426ae7dd569f1c1bc25d2",
+      "step_02/src/ornament_classifier/fixed_consensus.py": "b707e0cf7322bb0c3a3fcf54298cc8358406653b69c9162541dba840c945f938",
+      "step_02/src/ornament_classifier/motif.py": "a1904c5585b0843effb2ec9ab8e3a1bd00e685536332c2647dcec2c9c4f6da4b",
+      "step_02/src/ornament_classifier/pairwise.py": "4aea0a62cc8bfc68cc5cf3611f464c262048537568161d9154d8032059a0293a",
+      "step_02/src/ornament_classifier/paths.py": "0c50381674c12dab7c4e876fc5f2b28fb621710849705735c2984b19482eeb0d",
+      "step_02/src/ornament_classifier/robustness.py": "811dde659adb0498ade9c948bba840893a516753e0b4cebf083bf9a31b5b6a33"
+    }
+  },
+  "development_image_count": 1693,
+  "evaluation_scope": "development_only_selection_aware_nested_source_atomic_cv",
+  "experiment_contract_path": "step_02/phases/phase_05_source_robustness/experiment_contract_v5.json",
+  "experiment_contract_sha256": "c9473a7e20c57049fc4bc648f1133c5269434a955f955f390f10594adb80a70d",
+  "experiment_version": "step02_phase5_v5_fixed_motif_consensus_v1",
+  "fixed_consensus_candidate_count": 1,
+  "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+  "fixed_consensus_head_weights": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+  ],
+  "fixed_consensus_stability": {
+    "details": [
+      {
+        "configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+        "eligibility_failures": [],
+        "eligible": true,
+        "outer_fold": "0",
+        "readiness_score": 0.756766253349087
+      },
+      {
+        "configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+        "eligibility_failures": [],
+        "eligible": true,
+        "outer_fold": "1",
+        "readiness_score": 0.7835704547664273
+      },
+      {
+        "configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+        "eligibility_failures": [],
+        "eligible": true,
+        "outer_fold": "2",
+        "readiness_score": 0.8154119833863318
+      },
+      {
+        "configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+        "eligibility_failures": [],
+        "eligible": true,
+        "outer_fold": "3",
+        "readiness_score": 0.8650021735978963
+      },
+      {
+        "configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+        "eligibility_failures": [],
+        "eligible": true,
+        "outer_fold": "4",
+        "readiness_score": 0.8458980525953017
+      }
+    ],
+    "observed_outer_searches": 5,
+    "passed": true,
+    "passing_outer_folds": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "required_outer_searches": 4
+  },
+  "full_development_candidate": {
+    "base_c_value": 10.0,
+    "base_configuration_id": "global_cls__c10__source0p5",
+    "base_feature_family": "global_cls",
+    "base_source_group_exponent": 0.5,
+    "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+    "fixed_consensus_eligibility_failures": [],
+    "fixed_consensus_eligible": true
+  },
+  "full_development_oof_metrics": {
+    "accuracy": 0.9438865918487891,
+    "balanced_accuracy": 0.9483729793248894,
+    "boundary_score": 0.8686077099665352,
+    "bubnivka_precision": 0.7886178861788617,
+    "bubnivka_recall": 0.9107981220657277,
+    "bubnivka_to_opishnyan_errors": 18,
+    "ceramic_macro_f1": 0.9108618330633301,
+    "ceramic_worst_group_recall": 0.6624037073689744,
+    "hard_three_accuracy": 0.7228260869565217,
+    "macro_f1": 0.9407849609940324,
+    "motif_applied_count": 1693,
+    "opishnyan_recall": 0.8762475049900199,
+    "opishnyan_to_bubnivka_errors": 49,
+    "per_class_f1": {
+      "01_opishnyan_ceramics": 0.9136316337148803,
+      "02_ornek": 0.9830124575311439,
+      "03_bubnivka_ceramics": 0.8453159041394336,
+      "04_petrykivka_painting": 0.9883268482490273,
+      "05_kosiv_ceramics": 0.9736379613356766
+    },
+    "per_class_group_recall": {
+      "01_opishnyan_ceramics": 0.6624037073689744,
+      "02_ornek": 0.9885057471264368,
+      "03_bubnivka_ceramics": 0.9435897435897436,
+      "04_petrykivka_painting": 0.9868603042876901,
+      "05_kosiv_ceramics": 0.9945733411321245
+    },
+    "per_class_precision": {
+      "01_opishnyan_ceramics": 0.9543478260869566,
+      "02_ornek": 0.9774774774774775,
+      "03_bubnivka_ceramics": 0.7886178861788617,
+      "04_petrykivka_painting": 1.0,
+      "05_kosiv_ceramics": 0.9584775086505191
+    },
+    "per_class_recall": {
+      "01_opishnyan_ceramics": 0.8762475049900199,
+      "02_ornek": 0.9886104783599089,
+      "03_bubnivka_ceramics": 0.9107981220657277,
+      "04_petrykivka_painting": 0.9769230769230769,
+      "05_kosiv_ceramics": 0.9892857142857143
+    },
+    "per_class_support": {
+      "01_opishnyan_ceramics": 501,
+      "02_ornek": 439,
+      "03_bubnivka_ceramics": 213,
+      "04_petrykivka_painting": 260,
+      "05_kosiv_ceramics": 280
+    },
+    "readiness_score": 0.8400813895656738,
+    "robustness_score": 0.7685429927370345,
+    "source_group_balanced_accuracy": 0.9151865687009938
+  },
+  "model_fit_policy": {
+    "blas_threads_per_fit": 1,
+    "convergence_warnings_treated_as_errors": true,
+    "max_iterations": 10000,
+    "penalty": "l2",
+    "seed": 20260719,
+    "solver": "lbfgs",
+    "tolerance": 1e-06
+  },
+  "motif_embedding_provenance": {
+    "cache_fingerprint_sha256": "7c0e76849ec8bc31ab433aea1d2264f638db81284c150935b04c10b73aa3cf64",
+    "cache_path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__motif_tiles_v4.npz",
+    "cache_sha256": "97ee78769b6b4349b58e9b2cb27c9f4b58748ecf7cd9fbcfcc554c2fa122db40",
+    "experiment_contract_path": "step_02/phases/phase_05_source_robustness/experiment_contract_v4.json",
+    "experiment_contract_sha256": "7df72082a99d835a1bbbc91c9eb69ca399d1242cd97e9ca64a0ea38135ec42da",
+    "extraction_contract_sha256": "19df4814d2d915c461f267eed89282e5474abb1ac0d37fc50d9dbf25be7c33ff",
+    "metadata": {
+      "arrays": {
+        "content_sha256s": {
+          "dtype": "<U64",
+          "sha256": "6601c580f5d4afdcbe183d822347d46d711d4c35a8b2d276e9849cdd5d002d6b",
+          "shape": [
+            1693
+          ]
+        },
+        "embedding__texture_dispersion": {
+          "dtype": "float32",
+          "sha256": "511364d819242600d0ef8c448314845420d2c103dd9047c2ef5b064fd2c07cd0",
+          "shape": [
+            1693,
+            384
+          ]
+        },
+        "embedding__texture_top2_mean": {
+          "dtype": "float32",
+          "sha256": "2fb236867dfc8bb05357effa8a1d135b406d6518271d86918486190b0434be6d",
+          "shape": [
+            1693,
+            384
+          ]
+        },
+        "embedding__texture_weighted_mean": {
+          "dtype": "float32",
+          "sha256": "6ab8af66012b7f2489de342b7f9ec1f20a8badec36883cba8758a7e4a9d1b99f",
+          "shape": [
+            1693,
+            384
+          ]
+        },
+        "embedding__uniform_mean": {
+          "dtype": "float32",
+          "sha256": "c935e91a7c1c0357c84be9c8ec68cd6d7ae1bcde16889c817439131f15ffaf56",
+          "shape": [
+            1693,
+            384
+          ]
+        },
+        "image_ids": {
+          "dtype": "<U20",
+          "sha256": "5e525d8d176cc477d013a4e5c9f1a703a8b6cad070d16d6150cadd39dceac718",
+          "shape": [
+            1693
+          ]
+        },
+        "proposal_boxes": {
+          "dtype": "int32",
+          "sha256": "0cea33f0358d0e15fc686f0daad94299e6a0eef122e6859853d7ea3dc0dd7808",
+          "shape": [
+            1693,
+            6,
+            4
+          ]
+        },
+        "proposal_ids": {
+          "dtype": "<U24",
+          "sha256": "eb0f69b1d45ffb6942614ca907b8100d07fe0bab7a3884044e05360c75334e35",
+          "shape": [
+            1693,
+            6
+          ]
+        },
+        "proposal_positions": {
+          "dtype": "float32",
+          "sha256": "813846c864840d672f1391b7060362aa28d75eb72913b61a9869546e94e8b802",
+          "shape": [
+            1693,
+            6,
+            2
+          ]
+        },
+        "proposal_scales": {
+          "dtype": "float32",
+          "sha256": "f3c64bcbccff61e1bad84f80647b7d4d977abc04f1d14453c292694702195143",
+          "shape": [
+            1693,
+            6
+          ]
+        },
+        "proposal_scores": {
+          "dtype": "float64",
+          "sha256": "0442e42c2a577d2a7db06865187095b5bbc455e5d88cd6386e4fbef4f1e49854",
+          "shape": [
+            1693,
+            6
+          ]
+        },
+        "tile_embeddings": {
+          "dtype": "float32",
+          "sha256": "7004ca0a695290b60bc945603155408c8d0fae3fb46cb7a346bbdcd3ec94c96a",
+          "shape": [
+            1693,
+            6,
+            384
+          ]
+        }
+      },
+      "cache_fingerprint_sha256": "7c0e76849ec8bc31ab433aea1d2264f638db81284c150935b04c10b73aa3cf64",
+      "cache_identity": {
+        "aggregation_policy": {
+          "descriptors": {
+            "texture_dispersion": "unit-normalized square root of the texture-weighted per-dimension variance",
+            "texture_top2_mean": "unit-normalized mean of the two highest-texture tile embeddings",
+            "texture_weighted_mean": "unit-normalized mean weighted by softmax of within-image standardized texture scores",
+            "uniform_mean": "unit-normalized arithmetic mean of six tile embeddings"
+          },
+          "labels_used": false,
+          "learned_parameters": false,
+          "tile_count": 6,
+          "tile_embedding_normalization": "L2 unit norm"
+        },
+        "content_sha256s_sha256": "6601c580f5d4afdcbe183d822347d46d711d4c35a8b2d276e9849cdd5d002d6b",
+        "experiment_version": "step02_phase5_v4_motif_extraction_v1",
+        "extraction_contract_sha256": "19df4814d2d915c461f267eed89282e5474abb1ac0d37fc50d9dbf25be7c33ff",
+        "extractor_script_sha256": "2028eba44560bbb747cfc40d320046c71e17d37c6aaba7b244baeb6fe06f4ce0",
+        "image_ids_sha256": "5e525d8d176cc477d013a4e5c9f1a703a8b6cad070d16d6150cadd39dceac718",
+        "motif_module_sha256": "a1904c5585b0843effb2ec9ab8e3a1bd00e685536332c2647dcec2c9c4f6da4b",
+        "proposal_policy": {
+          "coordinate_space": "original image pixels after RGB conversion",
+          "fallback": "if NMS retains fewer than six, append remaining candidates in the same frozen order",
+          "label_free": true,
+          "maximum_iou": 0.6,
+          "pool_maximum_count": 18,
+          "positions": [
+            0.0,
+            0.5,
+            1.0
+          ],
+          "proposal_count": 6,
+          "scales": [
+            0.45,
+            0.65
+          ],
+          "scales_relative_to_shortest_side": true,
+          "score_resize": "bilinear",
+          "score_size": 64,
+          "selection_order": "descending texture score then stable proposal id",
+          "source_free": true,
+          "texture_score": "0.50 * mean grayscale first-difference energy + 0.30 * grayscale standard deviation + 0.20 * mean RGB max-minus-min chroma",
+          "window_shape": "square"
+        },
+        "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+        "weight_sha256": "4610ad75edef83e75afdebf162d148dc628045ea6cbb83d67d4708c709c4f91d"
+      },
+      "conversion_validation": {
+        "cosine_similarity": [
+          0.9999999403953552,
+          1.0,
+          1.0000001192092896
+        ],
+        "development_indices": [
+          0,
+          846,
+          1692
+        ],
+        "maximum_absolute_error": 3.0174851417541504e-07,
+        "passed": true
+      },
+      "deterministic_algorithms": true,
+      "device": "cpu",
+      "encoder": {
+        "architecture": "ViT-S/16 with four register tokens and query/value bias",
+        "crop_resize": "each selected square proposal resized directly to 224x224 with bicubic interpolation",
+        "device": "cpu",
+        "feature": "final normalized CLS token",
+        "feature_dimension": 384,
+        "fine_tuning": false,
+        "input_size": 224,
+        "license": "DINOv3 License (custom; deployment review required)",
+        "mean": [
+          0.485,
+          0.456,
+          0.406
+        ],
+        "model_id": "facebook/dinov3-vits16-pretrain-lvd1689m",
+        "row_normalization": "L2 unit norm",
+        "std": [
+          0.229,
+          0.224,
+          0.225
+        ],
+        "timm_graph": "vit_small_patch16_dinov3_qkvb",
+        "weight_sha256": "4610ad75edef83e75afdebf162d148dc628045ea6cbb83d67d4708c709c4f91d"
+      },
+      "sealed_test_evaluated": false,
+      "software": {
+        "Pillow": "12.3.0",
+        "numpy": "2.5.1",
+        "python": "3.12.13",
+        "timm": "1.0.28",
+        "torch": "2.13.0"
+      }
+    }
+  },
+  "motif_proposal_count_per_image": 6,
+  "nested_aggregate_oof_metrics": {
+    "accuracy": 0.9450679267572357,
+    "balanced_accuracy": 0.9492263275734475,
+    "boundary_score": 0.8731076563233342,
+    "bubnivka_precision": 0.7983539094650206,
+    "bubnivka_recall": 0.9107981220657277,
+    "bubnivka_to_opishnyan_errors": 18,
+    "ceramic_macro_f1": 0.9134366723315731,
+    "ceramic_worst_group_recall": 0.6632662844800651,
+    "hard_three_accuracy": 0.7391304347826086,
+    "macro_f1": 0.9419565645376679,
+    "motif_applied_count": 1693,
+    "opishnyan_recall": 0.8802395209580839,
+    "opishnyan_to_bubnivka_errors": 46,
+    "per_class_f1": {
+      "01_opishnyan_ceramics": 0.9158878504672897,
+      "02_ornek": 0.9830124575311439,
+      "03_bubnivka_ceramics": 0.8508771929824561,
+      "04_petrykivka_painting": 0.9864603481624759,
+      "05_kosiv_ceramics": 0.9735449735449735
+    },
+    "per_class_group_recall": {
+      "01_opishnyan_ceramics": 0.6632662844800651,
+      "02_ornek": 0.9885057471264368,
+      "03_bubnivka_ceramics": 0.9435897435897436,
+      "04_petrykivka_painting": 0.9870908252650991,
+      "05_kosiv_ceramics": 0.990089036199389
+    },
+    "per_class_precision": {
+      "01_opishnyan_ceramics": 0.9545454545454546,
+      "02_ornek": 0.9774774774774775,
+      "03_bubnivka_ceramics": 0.7983539094650206,
+      "04_petrykivka_painting": 0.9922178988326849,
+      "05_kosiv_ceramics": 0.9616724738675958
+    },
+    "per_class_recall": {
+      "01_opishnyan_ceramics": 0.8802395209580839,
+      "02_ornek": 0.9886104783599089,
+      "03_bubnivka_ceramics": 0.9107981220657277,
+      "04_petrykivka_painting": 0.9807692307692307,
+      "05_kosiv_ceramics": 0.9857142857142858
+    },
+    "per_class_support": {
+      "01_opishnyan_ceramics": 501,
+      "02_ornek": 439,
+      "03_bubnivka_ceramics": 213,
+      "04_petrykivka_painting": 260,
+      "05_kosiv_ceramics": 280
+    },
+    "readiness_score": 0.8446582751960225,
+    "robustness_score": 0.768883636299588,
+    "source_group_balanced_accuracy": 0.9145083273321468
+  },
+  "nested_outer_fold_metrics": [
+    {
+      "accuracy": 0.984,
+      "balanced_accuracy": 0.9752503444163427,
+      "bubnivka_precision": 1.0,
+      "bubnivka_recall": 0.9069767441860465,
+      "ceramic_macro_f1": 0.9769585672664783,
+      "ceramic_worst_group_recall": 0.9375,
+      "fit_count": 12,
+      "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+      "fixed_consensus_eligibility_failures": "",
+      "fixed_consensus_eligible_on_inner_oof": true,
+      "hard_three_accuracy": null,
+      "macro_f1": 0.9789770312064705,
+      "maximum_iterations": 121,
+      "motif_applied_count": 500,
+      "opishnyan_recall": 0.9885057471264368,
+      "outer_fold": "0",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.9885057471264368,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":0.9375,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.9885057471264368,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":0.9069767441860465,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "robustness_score": 0.9589263498024398,
+      "selected_base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "source_group_balanced_accuracy": 0.9813549955791334,
+      "train_examples": 1193,
+      "validation_examples": 500
+    },
+    {
+      "accuracy": 0.9795081967213115,
+      "balanced_accuracy": 0.9493356643356645,
+      "bubnivka_precision": 0.9347826086956522,
+      "bubnivka_recall": 1.0,
+      "ceramic_macro_f1": 0.9191475257697789,
+      "ceramic_worst_group_recall": 0.8,
+      "fit_count": 4,
+      "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+      "fixed_consensus_eligibility_failures": "",
+      "fixed_consensus_eligible_on_inner_oof": true,
+      "hard_three_accuracy": null,
+      "macro_f1": 0.9460785597965662,
+      "maximum_iterations": 101,
+      "motif_applied_count": 244,
+      "opishnyan_recall": 0.8,
+      "outer_fold": "1",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.8,\"02_ornek\":0.9659090909090909,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.8,\"02_ornek\":0.9659090909090909,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "robustness_score": 0.8682936579320822,
+      "selected_base_configuration_id": "global_cls__c10__source0p5",
+      "source_group_balanced_accuracy": 0.9493356643356645,
+      "train_examples": 1449,
+      "validation_examples": 244
+    },
+    {
+      "accuracy": 0.9740740740740741,
+      "balanced_accuracy": 0.9706253049276306,
+      "bubnivka_precision": 1.0,
+      "bubnivka_recall": 0.8837209302325582,
+      "ceramic_macro_f1": 0.9470622510995002,
+      "ceramic_worst_group_recall": 0.8954545454545454,
+      "fit_count": 12,
+      "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+      "fixed_consensus_eligibility_failures": "",
+      "fixed_consensus_eligible_on_inner_oof": true,
+      "hard_three_accuracy": null,
+      "macro_f1": 0.9651527459440274,
+      "maximum_iterations": 132,
+      "motif_applied_count": 270,
+      "opishnyan_recall": 1.0,
+      "outer_fold": "2",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":1.0,\"02_ornek\":0.9886363636363636,\"03_bubnivka_ceramics\":0.8954545454545454,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":1.0,\"02_ornek\":0.9886363636363636,\"03_bubnivka_ceramics\":0.8837209302325582,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "robustness_score": 0.9326052598897258,
+      "selected_base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "source_group_balanced_accuracy": 0.972972027972028,
+      "train_examples": 1423,
+      "validation_examples": 270
+    },
+    {
+      "accuracy": 0.868421052631579,
+      "balanced_accuracy": 0.875932400932401,
+      "bubnivka_precision": 0.5517241379310345,
+      "bubnivka_recall": 0.7619047619047619,
+      "ceramic_macro_f1": 0.7919674185463658,
+      "ceramic_worst_group_recall": 0.7211538461538461,
+      "fit_count": 12,
+      "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+      "fixed_consensus_eligibility_failures": "",
+      "fixed_consensus_eligible_on_inner_oof": true,
+      "hard_three_accuracy": 0.7211538461538461,
+      "macro_f1": 0.863768616230602,
+      "maximum_iterations": 116,
+      "motif_applied_count": 342,
+      "opishnyan_recall": 0.7211538461538461,
+      "outer_fold": "3",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.7211538461538461,\"02_ornek\":0.9886363636363636,\"03_bubnivka_ceramics\":0.9166666666666666,\"04_petrykivka_painting\":0.9966329966329965,\"05_kosiv_ceramics\":0.9528985507246377}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.7211538461538461,\"02_ornek\":0.9886363636363636,\"03_bubnivka_ceramics\":0.7619047619047619,\"04_petrykivka_painting\":0.9615384615384616,\"05_kosiv_ceramics\":0.9464285714285714}",
+      "robustness_score": 0.8066705935589589,
+      "selected_base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "source_group_balanced_accuracy": 0.9151976847629022,
+      "train_examples": 1351,
+      "validation_examples": 342
+    },
+    {
+      "accuracy": 0.9169139465875371,
+      "balanced_accuracy": 0.9424285714285714,
+      "bubnivka_precision": 0.6774193548387096,
+      "bubnivka_recall": 1.0,
+      "ceramic_macro_f1": 0.8666329351998078,
+      "ceramic_worst_group_recall": 0.5964315550781717,
+      "fit_count": 4,
+      "fixed_consensus_configuration_id": "fixed_base_plus_three_motif_heads__equal_centered_logits",
+      "fixed_consensus_eligibility_failures": "",
+      "fixed_consensus_eligible_on_inner_oof": true,
+      "hard_three_accuracy": 0.7625,
+      "macro_f1": 0.91658993061141,
+      "maximum_iterations": 93,
+      "motif_applied_count": 337,
+      "opishnyan_recall": 0.73,
+      "outer_fold": "4",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.5964315550781717,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":1.0,\"05_kosiv_ceramics\":0.9951690821256037}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.73,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":1.0,\"05_kosiv_ceramics\":0.9821428571428571}",
+      "robustness_score": 0.7231747724594202,
+      "selected_base_configuration_id": "global_cls__c10__source0p5",
+      "source_group_balanced_accuracy": 0.9183201274407551,
+      "train_examples": 1356,
+      "validation_examples": 337
+    }
+  ],
+  "nested_selected_base_by_outer_fold": {
+    "0": "three_view_cls_logit_ensemble__c100__source0p5",
+    "1": "global_cls__c10__source0p5",
+    "2": "three_view_cls_logit_ensemble__c100__source0p5",
+    "3": "three_view_cls_logit_ensemble__c100__source0p5",
+    "4": "global_cls__c10__source0p5"
+  },
+  "pair_classes": [
+    "01_opishnyan_ceramics",
+    "03_bubnivka_ceramics"
+  ],
+  "performance_estimate": {
+    "available": false,
+    "nested_development_estimate_available": true,
+    "reason": "Nested OOF estimates the fixed v5 procedure, but repeated v1-v4 development findings informed it."
+  },
+  "phase": "step02_phase_5_source_robustness_v5",
+  "phase_6_transition_allowed": false,
+  "previous_phase5_comparison": {
+    "v1": {
+      "accuracy": 0.9397519196692262,
+      "balanced_accuracy": 0.9433875153374318,
+      "macro_f1": 0.9361346585193265,
+      "promotion_decision": "reject",
+      "source_robustness_score": 0.7108830417592783
+    },
+    "v2": {
+      "accuracy": 0.9379799173065564,
+      "balanced_accuracy": 0.9405706139289812,
+      "macro_f1": 0.9342112429575122,
+      "promotion_decision": "reject",
+      "source_robustness_score": 0.7076696069681316
+    },
+    "v3": {
+      "accuracy": 0.9391612522150029,
+      "balanced_accuracy": 0.9451473758980008,
+      "macro_f1": 0.9358149120035083,
+      "promotion_decision": "reject",
+      "source_robustness_score": 0.682122066819854
+    },
+    "v4": {
+      "accuracy": 0.9468399291199054,
+      "balanced_accuracy": 0.9502556302107994,
+      "macro_f1": 0.9436224250741656,
+      "promotion_decision": "reject",
+      "source_robustness_score": 0.7422187981057914
+    },
+    "v5": {
+      "accuracy": 0.9450679267572357,
+      "balanced_accuracy": 0.9492263275734475,
+      "macro_f1": 0.9419565645376679,
+      "source_robustness_score": 0.768883636299588
+    }
+  },
+  "probability_policy": {
+    "calibrated": false,
+    "interpretation": "uncalibrated ranking scores only",
+    "threshold_selection_used": false
+  },
+  "promotion_decision": "reject",
+  "promotion_gates": {
+    "all_passed": false,
+    "all_required": true,
+    "failed_gates": [
+      "bubnivka_precision",
+      "opishnyan_to_bubnivka_errors",
+      "worst_fold_accuracy"
+    ],
+    "gate_count": 21,
+    "passed_count": 18,
+    "promotion_decision": "reject",
+    "results": [
+      {
+        "actual": 0.9450679267572357,
+        "comparison": ">=",
+        "gate": "overall_accuracy",
+        "passed": true,
+        "threshold": 0.925
+      },
+      {
+        "actual": 0.9419565645376679,
+        "comparison": ">=",
+        "gate": "overall_macro_f1",
+        "passed": true,
+        "threshold": 0.9234
+      },
+      {
+        "actual": 0.8802395209580839,
+        "comparison": ">=",
+        "gate": "opishnyan_recall",
+        "passed": true,
+        "threshold": 0.875
+      },
+      {
+        "actual": 0.7983539094650206,
+        "comparison": ">=",
+        "gate": "bubnivka_precision",
+        "passed": false,
+        "threshold": 0.82
+      },
+      {
+        "actual": 0.9134366723315731,
+        "comparison": ">=",
+        "gate": "ceramic_macro_f1",
+        "passed": true,
+        "threshold": 0.91
+      },
+      {
+        "actual": 46.0,
+        "comparison": "<=",
+        "gate": "opishnyan_to_bubnivka_errors",
+        "passed": false,
+        "threshold": 40.0
+      },
+      {
+        "actual": 0.7272727272727273,
+        "comparison": ">=",
+        "gate": "challenging_opishnyan_accuracy",
+        "passed": true,
+        "threshold": 0.7
+      },
+      {
+        "actual": 0.7391304347826086,
+        "comparison": ">=",
+        "gate": "hard_three_opishnyan_pooled_accuracy",
+        "passed": true,
+        "threshold": 0.72
+      },
+      {
+        "actual": 0.7487388342651501,
+        "comparison": ">=",
+        "gate": "hard_three_opishnyan_cohort_macro_accuracy",
+        "passed": true,
+        "threshold": 0.7
+      },
+      {
+        "actual": 0.8857910655718989,
+        "comparison": ">=",
+        "gate": "large_named_source_macro_accuracy",
+        "passed": true,
+        "threshold": 0.875
+      },
+      {
+        "actual": 0.868421052631579,
+        "comparison": ">=",
+        "gate": "worst_fold_accuracy",
+        "passed": false,
+        "threshold": 0.875
+      },
+      {
+        "actual": 0.050520816124955105,
+        "comparison": "<=",
+        "gate": "fold_accuracy_std",
+        "passed": true,
+        "threshold": 0.055
+      },
+      {
+        "actual": 0.9886104783599089,
+        "comparison": ">=",
+        "gate": "recall_floor:02_ornek",
+        "passed": true,
+        "threshold": 0.9663
+      },
+      {
+        "actual": 0.9107981220657277,
+        "comparison": ">=",
+        "gate": "recall_floor:03_bubnivka_ceramics",
+        "passed": true,
+        "threshold": 0.9096
+      },
+      {
+        "actual": 0.9807692307692307,
+        "comparison": ">=",
+        "gate": "recall_floor:04_petrykivka_painting",
+        "passed": true,
+        "threshold": 0.9531
+      },
+      {
+        "actual": 0.9857142857142858,
+        "comparison": ">=",
+        "gate": "recall_floor:05_kosiv_ceramics",
+        "passed": true,
+        "threshold": 0.9586
+      },
+      {
+        "actual": true,
+        "comparison": "required",
+        "gate": "base_recipe_stability",
+        "passed": true,
+        "threshold": true
+      },
+      {
+        "actual": true,
+        "comparison": "required",
+        "gate": "fixed_consensus_stability",
+        "passed": true,
+        "threshold": true
+      },
+      {
+        "actual": 0.9450679267572357,
+        "comparison": ">=",
+        "gate": "v1_accuracy_non_regression",
+        "passed": true,
+        "threshold": 0.9377519196692262
+      },
+      {
+        "actual": 0.9419565645376679,
+        "comparison": ">=",
+        "gate": "v1_macro_f1_non_regression",
+        "passed": true,
+        "threshold": 0.9341346585193265
+      },
+      {
+        "actual": 0.768883636299588,
+        "comparison": ">=",
+        "gate": "v1_source_robustness_non_regression",
+        "passed": true,
+        "threshold": 0.7058830417592783
+      }
+    ],
+    "supporting_values": {
+      "hard_three_cohort_accuracies": {
+        "src_global_opn_gray_catalog_b": 0.7211538461538461,
+        "src_global_opn_shelf_figurines": 0.7631578947368421,
+        "src_global_opn_shop_cubbies": 0.7619047619047619
+      },
+      "large_named_source_cohort_accuracies": {
+        "src_global_bub_fair_vendor_a": 1.0,
+        "src_global_bub_museum_interior": 0.6666666666666666,
+        "src_global_bub_vognik_watermark": 1.0,
+        "src_global_kos_shop_camera_series": 0.9565217391304348,
+        "src_global_kos_textile_archive": 1.0,
+        "src_global_opn_gray_catalog_b": 0.7211538461538461,
+        "src_global_opn_museum_display_logo": 1.0,
+        "src_global_opn_roundmark_catalog": 0.9885057471264368,
+        "src_global_opn_shelf_figurines": 0.7631578947368421,
+        "src_global_opn_shop_cubbies": 0.7619047619047619
+      },
+      "large_named_source_cohorts": [
+        "src_global_bub_fair_vendor_a",
+        "src_global_bub_museum_interior",
+        "src_global_bub_vognik_watermark",
+        "src_global_kos_shop_camera_series",
+        "src_global_kos_textile_archive",
+        "src_global_opn_gray_catalog_b",
+        "src_global_opn_museum_display_logo",
+        "src_global_opn_roundmark_catalog",
+        "src_global_opn_shelf_figurines",
+        "src_global_opn_shop_cubbies"
+      ]
+    }
+  },
+  "required_outputs": [
+    "metrics.json",
+    "base_grid.csv",
+    "consensus_recipe.csv",
+    "motif_proposals.csv",
+    "inner_search.csv",
+    "outer_fold_metrics.csv",
+    "nested_oof_predictions.csv",
+    "full_development_selection.csv",
+    "selected_oof_predictions.csv",
+    "per_class_metrics.csv",
+    "diagnostic_slices.csv",
+    "confusion_pairs.csv",
+    "confusion_matrix.csv",
+    "confusion_matrix.png"
+  ],
+  "script_sha256": "323c7925985f0aefe19c6eb95408df35fc20fe3c83429d64fe95198dea3ba6f9",
+  "sealed_test_evaluated": false,
+  "software": {
+    "matplotlib": "3.9.4",
+    "numpy": "2.0.2",
+    "python": "3.9.6",
+    "scikit_learn": "1.6.1",
+    "threadpoolctl": "3.6.0"
+  },
+  "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+  "split_seed": 20260719,
+  "split_version": "step02_source_atomic_v3",
+  "v1_reproduction_validation": {
+    "aggregate_metrics_match": true,
+    "expected_decision_fingerprint_sha256": "4533decae2de7855c914758b622a1f43e1825ecfc63285b95714b60585947a15",
+    "full_base_recipe_matches": true,
+    "observed_decision_fingerprint_sha256": "4533decae2de7855c914758b622a1f43e1825ecfc63285b95714b60585947a15",
+    "outer_base_recipes_match": true,
+    "probability_identity_required": false,
+    "validated": true
+  }
+}

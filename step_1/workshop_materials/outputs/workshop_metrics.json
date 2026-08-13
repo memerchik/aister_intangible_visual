@@ -6,19 +6,15 @@
     96,
     96
   ],
-  "train_examples": 314,
-  "test_examples": 45,
-  "test_accuracy": 0.6444444444444445,
-  "test_top_3_accuracy": 0.8222222222222222,
+  "train_examples": 1384,
+  "test_examples": 671,
+  "test_accuracy": 0.6602086438152012,
+  "test_top_3_accuracy": 0.9090909090909091,
   "classes": [
-    "apple",
-    "banana",
-    "cherry",
-    "chickoo",
-    "grapes",
-    "kiwi",
-    "mango",
-    "orange",
-    "strawberry"
+    "01_opishnyan_ceramics",
+    "02_ornek",
+    "03_bubnivka_ceramics",
+    "04_petrykivka_painting",
+    "05_kosiv_ceramics"
   ]
 }

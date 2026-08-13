@@ -1,0 +1,2 @@
+configuration_id,candidate_count,selection_after_base,head_count,head_ids,head_weights,motif_c_value,motif_source_group_exponent,combination
+fixed_base_plus_three_motif_heads__equal_centered_logits,1,False,4,base_anchor|uniform_mean|texture_weighted_mean|texture_top2_mean,0.25|0.25|0.25|0.25,10.0,0.5,equal mean of centered log probabilities then softmax

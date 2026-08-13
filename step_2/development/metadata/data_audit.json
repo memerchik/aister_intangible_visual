@@ -1,0 +1,87 @@
+{
+  "phase": "step_02_phase_1_data_truth",
+  "generated_at_utc": "2026-07-16T13:20:11.873617+00:00",
+  "data_root": "step_02/data",
+  "dataset_fingerprint_sha256": "c084105a5ab6fd67e82b771a88b76e66bc6de574494f0153953a8d9c9e0ea610",
+  "image_count": 2055,
+  "readable_image_count": 2055,
+  "unreadable_image_count": 0,
+  "class_count": 5,
+  "split_count": 2,
+  "format_counts": {
+    "JPEG": 2017,
+    "MPO": 2,
+    "PNG": 36
+  },
+  "quality_flag_counts": {
+    "extreme_aspect_ratio": 44,
+    "large_file": 3,
+    "ok": 2008
+  },
+  "exact_duplicate_group_count": 7,
+  "exact_duplicate_extra_copy_count": 7,
+  "exact_cross_split_pair_count": 2,
+  "perceptual_review_group_count": 47,
+  "perceptual_review_pair_count": 77,
+  "perceptual_cross_split_pair_count": 11,
+  "candidate_object_group_count": 1769,
+  "candidate_multi_image_group_count": 143,
+  "images_in_multi_image_candidate_groups": 429,
+  "candidate_cross_split_group_count": 13,
+  "candidate_cross_label_group_count": 0,
+  "manual_review_image_count": 2055,
+  "unknown_provenance_count": 2055,
+  "unknown_license_count": 2055,
+  "class_summary": [
+    {
+      "current_split": "dataset_dev",
+      "ornament_label": "01_opishnyan_ceramics",
+      "image_count": 405
+    },
+    {
+      "current_split": "dataset_dev",
+      "ornament_label": "02_ornek",
+      "image_count": 351
+    },
+    {
+      "current_split": "dataset_dev",
+      "ornament_label": "03_bubnivka_ceramics",
+      "image_count": 191
+    },
+    {
+      "current_split": "dataset_dev",
+      "ornament_label": "04_petrykivka_painting",
+      "image_count": 205
+    },
+    {
+      "current_split": "dataset_dev",
+      "ornament_label": "05_kosiv_ceramics",
+      "image_count": 232
+    },
+    {
+      "current_split": "dataset_test",
+      "ornament_label": "01_opishnyan_ceramics",
+      "image_count": 199
+    },
+    {
+      "current_split": "dataset_test",
+      "ornament_label": "02_ornek",
+      "image_count": 165
+    },
+    {
+      "current_split": "dataset_test",
+      "ornament_label": "03_bubnivka_ceramics",
+      "image_count": 90
+    },
+    {
+      "current_split": "dataset_test",
+      "ornament_label": "04_petrykivka_painting",
+      "image_count": 102
+    },
+    {
+      "current_split": "dataset_test",
+      "ornament_label": "05_kosiv_ceramics",
+      "image_count": 115
+    }
+  ]
+}

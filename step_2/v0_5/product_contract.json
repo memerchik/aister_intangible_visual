@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "application_id": "aister_assisted_ornament_classifier_v0_5",
+  "display_version": "v0.5",
+  "frozen_on": "2026-07-20",
+  "deployment_profile_updated_on": "2026-08-11",
+  "status": "provisional_human_assisted",
+  "purpose": "Provide an immediate, transparent visual best-match suggestion for one of five ornament traditions while the formal production promotion path remains blocked.",
+  "evaluation_boundary": {
+    "formal_phase_6_started": false,
+    "sealed_test_access": "forbidden",
+    "sealed_test_evaluated": false,
+    "production_accuracy_claim_permitted": false,
+    "development_results_may_be_described_only_with_an_explicit_development_label": true
+  },
+  "model_recipe": {
+    "source": "Phase 5 v4 full-development selected recipe",
+    "base_representation": "DINOv3 ViT-S/16 CLS averaged across letterbox plus five crops",
+    "motif_representation": "texture-weighted mean of six label-free motif-tile DINOv3 CLS embeddings",
+    "classifier": "five-class L2 logistic regression",
+    "c_value": 10.0,
+    "source_group_exponent": 0.5,
+    "training_scope": "all 1693 development records only",
+    "calibration": false,
+    "unknown_class_rejection": false
+  },
+  "decision_policy": {
+    "response_mode": "immediate_non_blocking",
+    "primary_wording": "best visual match",
+    "score_wording": "ranking score",
+    "confidence_wording_forbidden": true,
+    "always_return_all_five_ranked_classes": true,
+    "human_comparison_classes": [
+      "01_opishnyan_ceramics",
+      "03_bubnivka_ceramics"
+    ],
+    "human_comparison_rule": "Recommend comparison whenever either boundary class is ranked first; do not block the response.",
+    "official_or_high_stakes_identification": "requires qualified human review outside this application"
+  },
+  "privacy_and_learning": {
+    "default_prediction_storage": "none",
+    "in_memory_prediction_cache": "bounded and cleared when the server stops",
+    "contribution_mode": "explicit_opt_in_only",
+    "contribution_requires": [
+      "affirmative consent",
+      "a user-confirmed or corrected label"
+    ],
+    "contribution_status": "pending_expert_review",
+    "automatic_training_from_predictions": false,
+    "automatic_training_from_contributions": false,
+    "deletion_support": "contribution identifier is returned to the contributor"
+  },
+  "input_policy": {
+    "accepted_formats": ["JPEG", "PNG", "WEBP"],
+    "maximum_upload_bytes": 12582912,
+    "maximum_decoded_pixels": 30000000,
+    "minimum_dimension_pixels": 32,
+    "exif_orientation": "normalize before inference",
+    "alpha_background": "white"
+  },
+  "classes": [
+    "01_opishnyan_ceramics",
+    "02_ornek",
+    "03_bubnivka_ceramics",
+    "04_petrykivka_painting",
+    "05_kosiv_ceramics"
+  ],
+  "deployment_boundaries": {
+    "intended_release": "local research preview or controlled supervisor showcase",
+    "hosted_showcase_contribution_collection": false,
+    "hosted_showcase_prediction_storage": "none",
+    "hosted_showcase_is_not_a_v1_release": true,
+    "public_deployment_requires_data_rights_review": true,
+    "public_deployment_requires_dinov3_license_review": true,
+    "monitoring_and_model_versioning_required_before_production": true
+  }
+}

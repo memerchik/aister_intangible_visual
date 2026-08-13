@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4efe5">
+    <meta name="description" content="AISTER assisted visual identification for five Ukrainian ornament traditions.">
+    <title>AISTER Ornament Lens · v0.5</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/app.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="AISTER Ornament Lens home">
+        <img src="/aister-logo.png" alt="" width="1000" height="1000">
+        <span class="visually-hidden">AISTER Ornament Lens</span>
+      </a>
+      <div class="header-status" aria-label="Application status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Assisted preview</span>
+        <b>v0.5</b>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="uploadView" class="upload-view">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Intangible heritage</p>
+            <h1>Find the ornament<br><em>behind the object.</em></h1>
+            <p class="hero-intro">
+              Upload a cup, plate, rug, painting, or detail. The model looks past
+              the object and ranks five ornament traditions by visual similarity.
+            </p>
+            <ul class="tradition-ribbon" aria-label="Supported traditions">
+              <li class="tone-opishnyan">Opishnyan</li>
+              <li class="tone-ornek">Örnek</li>
+              <li class="tone-bubnivka">Bubnivka</li>
+              <li class="tone-petrykivka">Petrykivka</li>
+              <li class="tone-kosiv">Kosiv</li>
+            </ul>
+          </div>
+
+          <div class="upload-card-wrap">
+            <div class="upload-card">
+              <div class="card-heading">
+                <span class="step-number">01</span>
+                <div>
+                  <h2>Choose an image</h2>
+                  <p>One object or a close ornament detail works best.</p>
+                </div>
+              </div>
+
+              <input id="fileInput" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp">
+              <label id="dropZone" class="drop-zone" for="fileInput" tabindex="0">
+                <span class="upload-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" role="img">
+                    <path d="M24 33V12m0 0-8 8m8-8 8 8M9 31v6a3 3 0 0 0 3 3h24a3 3 0 0 0 3-3v-6"/>
+                  </svg>
+                </span>
+                <strong>Drop your image here</strong>
+                <span>or click to browse</span>
+                <small>JPEG, PNG, or WebP · up to 12 MB</small>
+              </label>
+
+              <div id="selectedFile" class="selected-file" hidden>
+                <img id="selectedPreview" alt="Selected ornament preview">
+                <div>
+                  <strong id="selectedName"></strong>
+                  <span id="selectedMeta"></span>
+                </div>
+                <button id="removeFile" class="icon-button" type="button" aria-label="Remove selected image">x</button>
+              </div>
+
+              <p id="uploadError" class="form-error" role="alert" hidden></p>
+              <button id="analyzeButton" class="primary-button" type="button" disabled>
+                <span>Analyze ornament</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+
+              <p class="privacy-line">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v7H6v-7a2 2 0 0 1 2-2Z"/></svg>
+                Prediction images are not saved by default.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <section class="how-it-works" aria-labelledby="howTitle">
+          <div class="section-intro">
+            <p class="eyebrow">eyebrow text</p>
+            <h2 id="howTitle">A suggestion you can inspect.</h2>
+          </div>
+          <ol>
+            <li>
+              <span>01</span>
+              <h3>See the full object</h3>
+              <p>Six views preserve the overall silhouette, layout, and palette.</p>
+            </li>
+            <li>
+              <span>02</span>
+              <h3>Focus on the motif</h3>
+              <p>Six label-free regions emphasize the most ornament-rich areas.</p>
+            </li>
+            <li>
+              <span>03</span>
+              <h3>Compare every match</h3>
+              <p>All five ranking scores stay visible so the model never hides alternatives.</p>
+            </li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="loadingView" class="loading-view" aria-live="polite" hidden>
+        <div class="analysis-orbit" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <b>A</b>
+        </div>
+        <p class="eyebrow">Reading visual structure</p>
+        <h1>Looking for the ornament…</h1>
+        <p id="loadingMessage">Separating motif from object shape</p>
+        <div class="loading-rule"><span></span></div>
+        <small>This usually takes a few seconds on the local CPU.</small>
+      </section>
+
+      <section id="resultView" class="result-view" hidden>
+        <div class="result-toolbar">
+          <div>
+            <p class="eyebrow">Analysis complete</p>
+            <h1>Your visual match</h1>
+          </div>
+          <button id="newAnalysisTop" class="secondary-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Analyze another
+          </button>
+        </div>
+
+        <div class="result-grid">
+          <section class="image-panel" aria-labelledby="imagePanelTitle">
+            <div class="panel-label">
+              <span id="imagePanelTitle">Uploaded image</span>
+              <button id="motifToggle" class="text-button" type="button" aria-pressed="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+                Motif focus on
+              </button>
+            </div>
+            <div class="result-image-stage">
+              <div class="image-frame">
+                <img id="resultImage" alt="Uploaded ornament being analyzed">
+                <svg id="motifOverlay" class="motif-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-label="Six motif regions selected by the model"></svg>
+              </div>
+            </div>
+            <p class="motif-caption"><span aria-hidden="true"></span> Outlines show the six texture-rich regions used for motif analysis.</p>
+          </section>
+
+          <section class="match-panel" aria-labelledby="matchTitle">
+            <div class="match-kicker">
+              <span>Best visual match</span>
+              <span id="processingTime"></span>
+            </div>
+            <div id="resultSeal" class="result-seal" aria-hidden="true"><span></span></div>
+            <h2 id="matchTitle"></h2>
+            <p id="matchKind" class="match-kind"></p>
+            <div class="top-score-row">
+              <strong id="topScore"></strong>
+              <span>ranking score</span>
+            </div>
+            <p id="matchExplanation" class="match-explanation"></p>
+            <a id="heritageSource" class="source-link" href="#" target="_blank" rel="noreferrer" hidden>
+              Read the heritage description
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m-8 0h8v8"/></svg>
+            </a>
+
+            <div id="reviewNotice" class="review-notice" role="note">
+              <span class="notice-icon" aria-hidden="true">i</span>
+              <div>
+                <strong id="reviewTitle"></strong>
+                <p id="reviewReason"></p>
+              </div>
+            </div>
+
+            <div class="result-actions">
+              <button id="confirmTop" class="primary-button" type="button">Confirm this match</button>
+              <button id="chooseAnother" class="secondary-button" type="button">Choose another</button>
+            </div>
+          </section>
+        </div>
+
+        <section class="ranking-section" aria-labelledby="rankingTitle">
+          <div class="section-intro compact">
+            <p class="eyebrow">Not just the first answer</p>
+            <h2 id="rankingTitle">All five visual matches</h2>
+            <p>Scores are useful for ranking alternatives. They are not calibrated probabilities.</p>
+          </div>
+          <ol id="rankingList" class="ranking-list"></ol>
+        </section>
+
+        <section id="feedbackPanel" class="feedback-panel" aria-labelledby="feedbackTitle" hidden>
+          <div class="feedback-heading">
+            <div>
+              <p class="eyebrow">Human decision</p>
+              <h2 id="feedbackTitle">Confirm the final identification</h2>
+            </div>
+            <button id="closeFeedback" class="icon-button" type="button" aria-label="Close confirmation panel">×</button>
+          </div>
+          <div class="feedback-grid">
+            <div class="field-group">
+              <label for="finalLabel">Final ornament tradition</label>
+              <select id="finalLabel"></select>
+              <p>Your selection updates this result locally. It is not saved automatically.</p>
+            </div>
+            <div class="local-result-card">
+              <span>Human-selected result</span>
+              <strong id="humanSelectedName"></strong>
+              <button id="copySummary" class="text-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h11v11H8zM5 16H4V5h11v1"/></svg>
+                Copy result summary
+              </button>
+            </div>
+          </div>
+
+          <details id="contributionDetails" class="contribution-details">
+            <summary>Help improve a future model <span>Optional</span></summary>
+            <div class="contribution-body">
+              <p>
+                You can contribute this image and your selected label to a separate review queue.
+                It will not be added to training until rights, duplicates, sources, and the label are checked by an expert.
+              </p>
+              <div class="field-group">
+                <label for="contributionNote">Context or correction note <span>Optional</span></label>
+                <textarea id="contributionNote" maxlength="500" rows="3" placeholder="What helped you identify it? Is the image from a known collection or maker?"></textarea>
+              </div>
+              <label class="consent-check">
+                <input id="contributionConsent" type="checkbox">
+                <span>I have the right to share this image and agree that it may be stored for research and model improvement.</span>
+              </label>
+              <button id="contributeButton" class="primary-button" type="button" disabled>Contribute for expert review</button>
+              <p id="contributionStatus" class="form-status" role="status"></p>
+            </div>
+          </details>
+        </section>
+
+        <details class="technical-note">
+          <summary>About this preview and its limits</summary>
+          <div>
+            <p>
+              v0.5 packages the strongest fixed Phase 5 v4 development recipe. Its selection-conditional
+              development estimate is 94.2% accuracy, but the model was not promoted: the Opishnyan/Bubnivka
+              precision boundary missed the frozen gates, scores are uncalibrated, and the sealed test remains untouched.
+            </p>
+            <p>
+              Use it for visual exploration and assisted cataloguing—not as an autonomous or official cultural attribution.
+              Public deployment also requires dataset-rights and DINOv3 licence review.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <section class="tradition-guide" aria-labelledby="guideTitle">
+        <div class="section-intro">
+          <p class="eyebrow">The five traditions</p>
+          <h2 id="guideTitle">A compact field guide.</h2>
+          <p>Use these hints to compare the model’s alternatives, not as strict rules.</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-card tone-opishnyan">
+            <span class="guide-number">01</span><span class="guide-motif" aria-hidden="true"></span>
+            <h3>Opishnyan</h3><p>Painted ceramics · compare composition, line rhythm, palette, and vessel form.</p>
+          </article>
+          <article class="guide-card tone-ornek">
+            <span class="guide-number">02</span><span class="guide-motif" aria-hidden="true"></span>
+            <h3>Örnek</h3><p>Crimean Tatar symbolic compositions using floral or geometric signs across many crafts.</p>
+            <a href="https://ich.unesco.org/en/RL/ornek-a-crimean-tatar-ornament-and-knowledge-about-it-01601?RL=01601" target="_blank" rel="noreferrer">UNESCO source</a>
+          </article>
+          <article class="guide-card tone-bubnivka">
+            <span class="guide-number">03</span><span class="guide-motif" aria-hidden="true"></span>
+            <h3>Bubnivka</h3><p>Painted ceramics · compare repeated borders, palette, and motif placement on the vessel.</p>
+          </article>
+          <article class="guide-card tone-petrykivka">
+            <span class="guide-number">04</span><span class="guide-motif" aria-hidden="true"></span>
+            <h3>Petrykivka</h3><p>Decorative painting with fantastic flowers and other natural elements.</p>
+            <a href="https://ich.unesco.org/en/RL/petrykivka-decorative-painting-as-a-phenomenon-of-the-ukrainian-ornamental-folk-art-00893" target="_blank" rel="noreferrer">UNESCO source</a>
+          </article>
+          <article class="guide-card tone-kosiv">
+            <span class="guide-number">05</span><span class="guide-motif" aria-hidden="true"></span>
+            <h3>Kosiv</h3><p>Graphic contour drawing, figurative motifs, and characteristic green and yellow ceramic colours.</p>
+            <a href="https://ich.unesco.org/en/RL/tradition-of-kosiv-painted-ceramics-01456?RL=01456" target="_blank" rel="noreferrer">UNESCO source</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-brand"><strong>AISTER</strong><span>Ornament Lens · assisted preview v0.5</span></div>
+      <p>Built to support human curiosity and care for living cultural heritage.</p>
+      <span>Five traditions · one visual comparison</span>
+    </footer>
+  </body>
+</html>

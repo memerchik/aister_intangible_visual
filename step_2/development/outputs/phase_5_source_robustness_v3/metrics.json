@@ -1,0 +1,789 @@
+{
+  "base_configuration_count": 3,
+  "base_recipe_stability": {
+    "details": [
+      {
+        "best_eligible_robustness_score": 0.7184787643003917,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "0",
+        "robustness_score": 0.6937919365039391,
+        "within_tie_window": false
+      },
+      {
+        "best_eligible_robustness_score": 0.6245581884758001,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "1",
+        "robustness_score": 0.6232085442537443,
+        "within_tie_window": true
+      },
+      {
+        "best_eligible_robustness_score": 0.6922499789308818,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "2",
+        "robustness_score": 0.6911368293762307,
+        "within_tie_window": true
+      },
+      {
+        "best_eligible_robustness_score": 0.7069917066829373,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "3",
+        "robustness_score": 0.7067067783238882,
+        "within_tie_window": true
+      },
+      {
+        "best_eligible_robustness_score": 0.7070244516353044,
+        "configuration_id": "global_cls__c10__source0p5",
+        "eligible": true,
+        "outer_fold": "4",
+        "robustness_score": 0.7070244516353044,
+        "within_tie_window": true
+      }
+    ],
+    "observed_outer_searches_within_tie_window": 4,
+    "passed": true,
+    "passing_outer_folds": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "required_outer_searches_within_tie_window": 4
+  },
+  "ceramic_classes": [
+    "01_opishnyan_ceramics",
+    "03_bubnivka_ceramics",
+    "05_kosiv_ceramics"
+  ],
+  "class_names": [
+    "01_opishnyan_ceramics",
+    "02_ornek",
+    "03_bubnivka_ceramics",
+    "04_petrykivka_painting",
+    "05_kosiv_ceramics"
+  ],
+  "code_provenance": {
+    "combined_sha256": "6b98a52a71deba773ccf2d46d70762c041a4264c5bc5bf654f17d86271187644",
+    "files_sha256": {
+      "step_02/requirements-phase5.txt": "c2ffe53eb3944b342984716be3c01de2b8ba7b5153172d4fc4aa2fec876322af",
+      "step_02/scripts/run_phase5_source_robustness.py": "fa7dffe11ec627789b15c3eca307a3cae1ea3da3911d2dfbde952f85fc27d8ff",
+      "step_02/scripts/run_phase5_v2_pairwise.py": "5e5afb6a952b9b8fc00cb7e7fa259e288661124394ba608e8415a44ffb98b479",
+      "step_02/scripts/run_phase5_v3_consensus.py": "a62266e0e3062103df24b43fb5ceb8ceafebfce2b3ef5a42ae3c728791a76260",
+      "step_02/src/ornament_classifier/consensus.py": "3ec3fce2c5eadcd11bbb371fb8e02e6ee8fad9da99dc101ae8579e1c2c9828f4",
+      "step_02/src/ornament_classifier/contracts.py": "344df9eaf11eaffd9888f070965990143beb77428654931d82a5129b9bc7d54d",
+      "step_02/src/ornament_classifier/embeddings.py": "a47e7c7f298097fac6f462a41c7f4c858542179255939a1632b48e6284622ce1",
+      "step_02/src/ornament_classifier/embeddings_v3.py": "6e2c2101b2773307ffcb1c192079775a738dcfaa1e029402c21d15f7c3a51f64",
+      "step_02/src/ornament_classifier/pairwise.py": "4aea0a62cc8bfc68cc5cf3611f464c262048537568161d9154d8032059a0293a",
+      "step_02/src/ornament_classifier/paths.py": "0c50381674c12dab7c4e876fc5f2b28fb621710849705735c2984b19482eeb0d",
+      "step_02/src/ornament_classifier/robustness.py": "811dde659adb0498ade9c948bba840893a516753e0b4cebf083bf9a31b5b6a33"
+    }
+  },
+  "development_image_count": 1693,
+  "embedding_provenance": {
+    "clip_center.embedding__model_pool": {
+      "array_name": "embedding__model_pool",
+      "array_sha256": "08f31922c3d211415456658dce6d575d356ccdf0647547b656db5cc46ed15a1b",
+      "cache_name": "clip_center",
+      "cache_sha256": "da017906fa2e0ec89edcf8a75d5d0398412cf28d58a498ea17b06e430fd5a173",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "8f24f4feedc5756da368ce6630fe0457bafb930a8c2892d193fd050a7fd6be36",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "convnext_center.embedding__model_pool": {
+      "array_name": "embedding__model_pool",
+      "array_sha256": "2f25a7c883c8f8079008c20b5d61cd17dbcfd9c34c1443cf76cd9d18d618f2b6",
+      "cache_name": "convnext_center",
+      "cache_sha256": "9bcc214f4ababedfcad0d6fb6d08e006e065f9b59eb5391907e303c1bbc3be43",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "456ec1a93e9009d70d05fca35cc7384b19daf7b945abf82c475e073de7ff90be",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov2_center.embedding__model_pool": {
+      "array_name": "embedding__model_pool",
+      "array_sha256": "fb78867a34f0d54c6a2ded738e990ac7153d72304f4441dcd8662ed5ebe5e16c",
+      "cache_name": "dinov2_center",
+      "cache_sha256": "6f41ab83146e97e242c0c52e49f49d84a31198cdf4772793259280eade1b350a",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "3dd88d11dc93c06947fd9a6556eb1b9dd3832bebf405ed18daa867bff9d0456f",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_center.embedding__cls": {
+      "array_name": "embedding__cls",
+      "array_sha256": "afe1e2b5d898f257df5e51b44fb5e6cef627ece658d16ed87a0a9c1bc4d5a7d4",
+      "cache_name": "dinov3_center",
+      "cache_sha256": "61f46b287d5fbf7ce3fe72585d054d7c9c44b5122bf8c8cfc18d95fd33445f30",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "a6de7aa2fa2137dd71e36d004adfff0ddf2abd85aae7b19478efb3bd5cdb080a",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_global.embedding__cls": {
+      "array_name": "embedding__cls",
+      "array_sha256": "20cb4b8e5b2c7ca8e72e8e01fe465a252d5cb96687c2178dc256a8cb3b2ac1ae",
+      "cache_name": "dinov3_global",
+      "cache_sha256": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "2783a020edd6f819e2d9530ae635e786fde7618e3c96244b1ef78fc49f927722",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_global.embedding__cls_patch_concat": {
+      "array_name": "embedding__cls_patch_concat",
+      "array_sha256": "b72d02796fdf82710690f4d57f1528871ac7bd0789b873611ab7694583dc0d1b",
+      "cache_name": "dinov3_global",
+      "cache_sha256": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "2783a020edd6f819e2d9530ae635e786fde7618e3c96244b1ef78fc49f927722",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_letterbox.embedding__cls": {
+      "array_name": "embedding__cls",
+      "array_sha256": "d0691de4b7d16d8fbe56bff810470f7166b7bb0760ed398f770c18ea6fd4bc79",
+      "cache_name": "dinov3_letterbox",
+      "cache_sha256": "a4551b0e94d2fc3838ae7cc036af5b748f335bd498f24a737840994477052822",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "443acf6c3b85afd5042f78daa35c426f7f4d36058ab3080de8d7ea55bd1d3faa",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "dinov3_letterbox.embedding__cls_patch_concat": {
+      "array_name": "embedding__cls_patch_concat",
+      "array_sha256": "67162b1a0e4668bfa2f20bfdb94686b2521488a4490701088c71f73fd4eeccc3",
+      "cache_name": "dinov3_letterbox",
+      "cache_sha256": "a4551b0e94d2fc3838ae7cc036af5b748f335bd498f24a737840994477052822",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "443acf6c3b85afd5042f78daa35c426f7f4d36058ab3080de8d7ea55bd1d3faa",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    },
+    "mobilenet_center.embedding__model_pool": {
+      "array_name": "embedding__model_pool",
+      "array_sha256": "99bf3d1f999c6a2451cdddae27eebb1279ae99c092afaf53b9a85ec060e9b814",
+      "cache_name": "mobilenet_center",
+      "cache_sha256": "bf0efd7c72bed8d4a60048a8c61def49bcb65d2f10fd5435153c27e330ce1ffc",
+      "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+      "embedding_fingerprint_sha256": "9af53797366a51e0fe22c08cfbaff7aa880a20adbbc40efe1b63bcdf0b4fb535",
+      "experiment_contract_path": "/Users/memerchik/Documents/GitHub/aister_intangible_visual/step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+      "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+      "experiment_version": "nested_cross_encoder_consensus_v3",
+      "phase": "phase_05_source_robustness",
+      "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b"
+    }
+  },
+  "evaluation_scope": "development_only_selection_aware_nested_source_atomic_cv",
+  "experiment_contract_path": "step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+  "experiment_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+  "experiment_version": "nested_cross_encoder_consensus_v3",
+  "full_development_selected_candidate": {
+    "base_c_value": 10.0,
+    "base_configuration_id": "global_cls__c10__source0p5",
+    "base_feature_family": "global_cls",
+    "base_source_group_exponent": 0.5,
+    "encoder_count": 3,
+    "fusion_blend_weight": 0.15,
+    "fusion_configuration_id": "structural_four__multiclass__blend0p15",
+    "fusion_family": "structural_four",
+    "fusion_mode": "multiclass",
+    "head_count": 4
+  },
+  "full_development_selected_oof_metrics": {
+    "accuracy": 0.9373892498523332,
+    "balanced_accuracy": 0.9423854195444952,
+    "boundary_score": 0.8603641552691466,
+    "bubnivka_precision": 0.7813765182186235,
+    "bubnivka_recall": 0.9061032863849765,
+    "bubnivka_to_opishnyan_errors": 19,
+    "ceramic_macro_f1": 0.9019323671497586,
+    "ceramic_worst_group_recall": 0.589660528955854,
+    "fusion_applied_count": 1693,
+    "hard_three_accuracy": 0.7119565217391305,
+    "macro_f1": 0.9339741816328837,
+    "opishnyan_recall": 0.8642714570858283,
+    "opishnyan_to_bubnivka_errors": 50,
+    "per_class_f1": {
+      "01_opishnyan_ceramics": 0.9068062827225131,
+      "02_ornek": 0.9796380090497737,
+      "03_bubnivka_ceramics": 0.8391304347826087,
+      "04_petrykivka_painting": 0.9844357976653697,
+      "05_kosiv_ceramics": 0.9598603839441536
+    },
+    "per_class_group_recall": {
+      "01_opishnyan_ceramics": 0.589660528955854,
+      "02_ornek": 0.9862068965517241,
+      "03_bubnivka_ceramics": 0.9227106227106225,
+      "04_petrykivka_painting": 0.9787920700783771,
+      "05_kosiv_ceramics": 0.9818678104893741
+    },
+    "per_class_precision": {
+      "01_opishnyan_ceramics": 0.9537444933920705,
+      "02_ornek": 0.9730337078651685,
+      "03_bubnivka_ceramics": 0.7813765182186235,
+      "04_petrykivka_painting": 0.9960629921259843,
+      "05_kosiv_ceramics": 0.9385665529010239
+    },
+    "per_class_recall": {
+      "01_opishnyan_ceramics": 0.8642714570858283,
+      "02_ornek": 0.9863325740318907,
+      "03_bubnivka_ceramics": 0.9061032863849765,
+      "04_petrykivka_painting": 0.9730769230769231,
+      "05_kosiv_ceramics": 0.9821428571428571
+    },
+    "per_class_support": {
+      "01_opishnyan_ceramics": 501,
+      "02_ornek": 439,
+      "03_bubnivka_ceramics": 213,
+      "04_petrykivka_painting": 260,
+      "05_kosiv_ceramics": 280
+    },
+    "readiness_score": 0.8175560716488934,
+    "robustness_score": 0.7099351180637254,
+    "source_group_balanced_accuracy": 0.8918475857571904
+  },
+  "fusion_configuration_count": 28,
+  "fusion_recipe_stability": {
+    "details": [
+      {
+        "best_eligible_readiness_score": 0.7594480320707006,
+        "configuration_id": "structural_four__multiclass__blend0p15",
+        "eligible": true,
+        "outer_fold": "0",
+        "readiness_score": 0.7467123003730606,
+        "within_tie_window": false
+      },
+      {
+        "best_eligible_readiness_score": 0.7653795173862933,
+        "configuration_id": "structural_four__multiclass__blend0p15",
+        "eligible": false,
+        "outer_fold": "1",
+        "readiness_score": 0.743516977869348,
+        "within_tie_window": false
+      },
+      {
+        "best_eligible_readiness_score": 0.8046364059261685,
+        "configuration_id": "structural_four__multiclass__blend0p15",
+        "eligible": false,
+        "outer_fold": "2",
+        "readiness_score": 0.7914759517205022,
+        "within_tie_window": false
+      },
+      {
+        "best_eligible_readiness_score": 0.8491496623239123,
+        "configuration_id": "structural_four__multiclass__blend0p15",
+        "eligible": true,
+        "outer_fold": "3",
+        "readiness_score": 0.8319520835431273,
+        "within_tie_window": false
+      },
+      {
+        "best_eligible_readiness_score": 0.8432987817226875,
+        "configuration_id": "structural_four__multiclass__blend0p15",
+        "eligible": false,
+        "outer_fold": "4",
+        "readiness_score": 0.7992495505815355,
+        "within_tie_window": false
+      }
+    ],
+    "observed_outer_searches_within_tie_window": 0,
+    "passed": false,
+    "passing_outer_folds": [],
+    "required_outer_searches_within_tie_window": 4
+  },
+  "model_fit_policy": {
+    "blas_threads_per_fit": 1,
+    "convergence_warnings_treated_as_errors": true,
+    "max_iterations": 10000,
+    "penalty": "l2",
+    "seed": 20260719,
+    "solver": "lbfgs",
+    "tolerance": 1e-06
+  },
+  "nested_aggregate_oof_metrics": {
+    "accuracy": 0.9391612522150029,
+    "balanced_accuracy": 0.9451473758980008,
+    "boundary_score": 0.8653217962887103,
+    "bubnivka_precision": 0.784,
+    "bubnivka_recall": 0.92018779342723,
+    "bubnivka_to_opishnyan_errors": 13,
+    "ceramic_macro_f1": 0.9063972610326053,
+    "ceramic_worst_group_recall": 0.5547340121546893,
+    "fusion_applied_count": 1143,
+    "hard_three_accuracy": 0.7119565217391305,
+    "macro_f1": 0.9358149120035083,
+    "opishnyan_recall": 0.8642714570858283,
+    "opishnyan_to_bubnivka_errors": 50,
+    "per_class_f1": {
+      "01_opishnyan_ceramics": 0.9125395152792413,
+      "02_ornek": 0.9774266365688488,
+      "03_bubnivka_ceramics": 0.8466522678185745,
+      "04_petrykivka_painting": 0.9824561403508771,
+      "05_kosiv_ceramics": 0.96
+    },
+    "per_class_group_recall": {
+      "01_opishnyan_ceramics": 0.5547340121546893,
+      "02_ornek": 0.9862068965517241,
+      "03_bubnivka_ceramics": 0.9214285714285714,
+      "04_petrykivka_painting": 0.9785615491009682,
+      "05_kosiv_ceramics": 0.9863521154221095
+    },
+    "per_class_precision": {
+      "01_opishnyan_ceramics": 0.9665178571428571,
+      "02_ornek": 0.9686800894854586,
+      "03_bubnivka_ceramics": 0.784,
+      "04_petrykivka_painting": 0.9960474308300395,
+      "05_kosiv_ceramics": 0.9355932203389831
+    },
+    "per_class_recall": {
+      "01_opishnyan_ceramics": 0.8642714570858283,
+      "02_ornek": 0.9863325740318907,
+      "03_bubnivka_ceramics": 0.92018779342723,
+      "04_petrykivka_painting": 0.9692307692307692,
+      "05_kosiv_ceramics": 0.9857142857142858
+    },
+    "per_class_support": {
+      "01_opishnyan_ceramics": 501,
+      "02_ornek": 439,
+      "03_bubnivka_ceramics": 213,
+      "04_petrykivka_painting": 260,
+      "05_kosiv_ceramics": 280
+    },
+    "readiness_score": 0.8113567066144536,
+    "robustness_score": 0.682122066819854,
+    "source_group_balanced_accuracy": 0.8854566289316125
+  },
+  "nested_outer_fold_metrics": [
+    {
+      "accuracy": 0.976,
+      "balanced_accuracy": 0.9577254274728212,
+      "bubnivka_precision": 0.972972972972973,
+      "bubnivka_recall": 0.8372093023255814,
+      "ceramic_macro_f1": 0.9539856915200217,
+      "ceramic_worst_group_recall": 0.88125,
+      "fit_count": 7,
+      "fusion_applied_count": 500,
+      "fusion_blend_weight": 0.3,
+      "fusion_family": "structural_four",
+      "fusion_mode": "multiclass",
+      "hard_three_accuracy": null,
+      "macro_f1": 0.9638562607457908,
+      "maximum_iterations": 121,
+      "opishnyan_recall": 0.9885057471264368,
+      "outer_fold": "0",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.9885057471264368,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":0.88125,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":0.9821428571428571}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.9885057471264368,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":0.8372093023255814,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":0.9821428571428571}",
+      "robustness_score": 0.9219236723756276,
+      "selected_base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "selected_fusion_configuration_id": "structural_four__multiclass__blend0p3",
+      "source_group_balanced_accuracy": 0.9665335670077049,
+      "train_examples": 1193,
+      "validation_examples": 500
+    },
+    {
+      "accuracy": 0.9754098360655737,
+      "balanced_accuracy": 0.9093356643356643,
+      "bubnivka_precision": 0.9347826086956522,
+      "bubnivka_recall": 1.0,
+      "ceramic_macro_f1": 0.8995827583941126,
+      "ceramic_worst_group_recall": 0.6,
+      "fit_count": 5,
+      "fusion_applied_count": 244,
+      "fusion_blend_weight": 0.3,
+      "fusion_family": "independent_four",
+      "fusion_mode": "multiclass",
+      "hard_three_accuracy": null,
+      "macro_f1": 0.9332102063142267,
+      "maximum_iterations": 133,
+      "opishnyan_recall": 0.6,
+      "outer_fold": "1",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.6,\"02_ornek\":0.9659090909090909,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.6,\"02_ornek\":0.9659090909090909,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "robustness_score": 0.7229689346028215,
+      "selected_base_configuration_id": "global_cls__c10__source0p5",
+      "selected_fusion_configuration_id": "independent_four__multiclass__blend0p3",
+      "source_group_balanced_accuracy": 0.9093356643356643,
+      "train_examples": 1449,
+      "validation_examples": 244
+    },
+    {
+      "accuracy": 0.9740740740740741,
+      "balanced_accuracy": 0.9730037404456009,
+      "bubnivka_precision": 1.0,
+      "bubnivka_recall": 0.9069767441860465,
+      "ceramic_macro_f1": 0.9530162622914524,
+      "ceramic_worst_group_recall": 0.9,
+      "fit_count": 7,
+      "fusion_applied_count": 270,
+      "fusion_blend_weight": 0.15,
+      "fusion_family": "independent_four",
+      "fusion_mode": "multiclass",
+      "hard_three_accuracy": null,
+      "macro_f1": 0.9675691592273432,
+      "maximum_iterations": 148,
+      "opishnyan_recall": 1.0,
+      "outer_fold": "2",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":1.0,\"02_ornek\":0.9772727272727273,\"03_bubnivka_ceramics\":0.9,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":1.0,\"02_ornek\":0.9772727272727273,\"03_bubnivka_ceramics\":0.9069767441860465,\"04_petrykivka_painting\":0.9807692307692307,\"05_kosiv_ceramics\":1.0}",
+      "robustness_score": 0.9344343147511583,
+      "selected_base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "selected_fusion_configuration_id": "independent_four__multiclass__blend0p15",
+      "source_group_balanced_accuracy": 0.9716083916083917,
+      "train_examples": 1423,
+      "validation_examples": 270
+    },
+    {
+      "accuracy": 0.8859649122807017,
+      "balanced_accuracy": 0.8985514485514485,
+      "bubnivka_precision": 0.5901639344262295,
+      "bubnivka_recall": 0.8571428571428571,
+      "ceramic_macro_f1": 0.8246434249243952,
+      "ceramic_worst_group_recall": 0.7403846153846154,
+      "fit_count": 7,
+      "fusion_applied_count": 129,
+      "fusion_blend_weight": 0.5,
+      "fusion_family": "independent_four",
+      "fusion_mode": "pair_majority",
+      "hard_three_accuracy": 0.7403846153846154,
+      "macro_f1": 0.8824485356772632,
+      "maximum_iterations": 126,
+      "opishnyan_recall": 0.7403846153846154,
+      "outer_fold": "3",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.7403846153846154,\"02_ornek\":0.9886363636363636,\"03_bubnivka_ceramics\":0.95,\"04_petrykivka_painting\":0.994949494949495,\"05_kosiv_ceramics\":0.9565217391304348}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.7403846153846154,\"02_ornek\":0.9886363636363636,\"03_bubnivka_ceramics\":0.8571428571428571,\"04_petrykivka_painting\":0.9423076923076923,\"05_kosiv_ceramics\":0.9642857142857143}",
+      "robustness_score": 0.8228935013219448,
+      "selected_base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "selected_fusion_configuration_id": "independent_four__pair_majority__blend0p5",
+      "source_group_balanced_accuracy": 0.9260984426201817,
+      "train_examples": 1351,
+      "validation_examples": 342
+    },
+    {
+      "accuracy": 0.884272997032641,
+      "balanced_accuracy": 0.9167362637362638,
+      "bubnivka_precision": 0.6268656716417911,
+      "bubnivka_recall": 1.0,
+      "ceramic_macro_f1": 0.8200736386012735,
+      "ceramic_worst_group_recall": 0.49325695190356844,
+      "fit_count": 1,
+      "fusion_applied_count": 0,
+      "fusion_blend_weight": 0.0,
+      "fusion_family": "none",
+      "fusion_mode": "none",
+      "hard_three_accuracy": 0.675,
+      "macro_f1": 0.8836282325108412,
+      "maximum_iterations": 93,
+      "opishnyan_recall": 0.64,
+      "outer_fold": "4",
+      "per_class_group_recall_json": "{\"01_opishnyan_ceramics\":0.49325695190356844,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":0.9615384615384616,\"05_kosiv_ceramics\":0.9951690821256037}",
+      "per_class_recall_json": "{\"01_opishnyan_ceramics\":0.64,\"02_ornek\":1.0,\"03_bubnivka_ceramics\":1.0,\"04_petrykivka_painting\":0.9615384615384616,\"05_kosiv_ceramics\":0.9821428571428571}",
+      "robustness_score": 0.6347301383184937,
+      "selected_base_configuration_id": "global_cls__c10__source0p5",
+      "selected_fusion_configuration_id": "fusion_none",
+      "source_group_balanced_accuracy": 0.8899928991135267,
+      "train_examples": 1356,
+      "validation_examples": 337
+    }
+  ],
+  "nested_selected_recipes_by_outer_fold": {
+    "0": {
+      "base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "fusion_configuration_id": "structural_four__multiclass__blend0p3"
+    },
+    "1": {
+      "base_configuration_id": "global_cls__c10__source0p5",
+      "fusion_configuration_id": "independent_four__multiclass__blend0p3"
+    },
+    "2": {
+      "base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "fusion_configuration_id": "independent_four__multiclass__blend0p15"
+    },
+    "3": {
+      "base_configuration_id": "three_view_cls_logit_ensemble__c100__source0p5",
+      "fusion_configuration_id": "independent_four__pair_majority__blend0p5"
+    },
+    "4": {
+      "base_configuration_id": "global_cls__c10__source0p5",
+      "fusion_configuration_id": "fusion_none"
+    }
+  },
+  "pair_classes": [
+    "01_opishnyan_ceramics",
+    "03_bubnivka_ceramics"
+  ],
+  "performance_estimate": {
+    "available": false,
+    "nested_development_estimate_available": true,
+    "reason": "Nested OOF estimates the adaptive v3 procedure, but v1/v2 development findings informed the frozen cross-encoder family."
+  },
+  "phase": "step02_phase_5_source_robustness_v3",
+  "phase_6_transition_allowed": false,
+  "probability_policy": {
+    "calibrated": false,
+    "interpretation": "uncalibrated ranking scores only",
+    "threshold_selection_used": false
+  },
+  "promotion_decision": "reject",
+  "promotion_gates": {
+    "all_passed": false,
+    "all_required": true,
+    "failed_gates": [
+      "opishnyan_recall",
+      "bubnivka_precision",
+      "ceramic_macro_f1",
+      "opishnyan_to_bubnivka_errors",
+      "challenging_opishnyan_accuracy",
+      "hard_three_opishnyan_pooled_accuracy",
+      "hard_three_opishnyan_cohort_macro_accuracy",
+      "fusion_recipe_stability",
+      "v1_source_robustness_non_regression"
+    ],
+    "gate_count": 21,
+    "passed_count": 12,
+    "promotion_decision": "reject",
+    "results": [
+      {
+        "actual": 0.9391612522150029,
+        "comparison": ">=",
+        "gate": "overall_accuracy",
+        "passed": true,
+        "threshold": 0.925
+      },
+      {
+        "actual": 0.9358149120035083,
+        "comparison": ">=",
+        "gate": "overall_macro_f1",
+        "passed": true,
+        "threshold": 0.9234
+      },
+      {
+        "actual": 0.8642714570858283,
+        "comparison": ">=",
+        "gate": "opishnyan_recall",
+        "passed": false,
+        "threshold": 0.875
+      },
+      {
+        "actual": 0.784,
+        "comparison": ">=",
+        "gate": "bubnivka_precision",
+        "passed": false,
+        "threshold": 0.82
+      },
+      {
+        "actual": 0.9063972610326053,
+        "comparison": ">=",
+        "gate": "ceramic_macro_f1",
+        "passed": false,
+        "threshold": 0.91
+      },
+      {
+        "actual": 50.0,
+        "comparison": "<=",
+        "gate": "opishnyan_to_bubnivka_errors",
+        "passed": false,
+        "threshold": 40.0
+      },
+      {
+        "actual": 0.6889952153110048,
+        "comparison": ">=",
+        "gate": "challenging_opishnyan_accuracy",
+        "passed": false,
+        "threshold": 0.7
+      },
+      {
+        "actual": 0.7119565217391305,
+        "comparison": ">=",
+        "gate": "hard_three_opishnyan_pooled_accuracy",
+        "passed": false,
+        "threshold": 0.72
+      },
+      {
+        "actual": 0.6995935351198509,
+        "comparison": ">=",
+        "gate": "hard_three_opishnyan_cohort_macro_accuracy",
+        "passed": false,
+        "threshold": 0.7
+      },
+      {
+        "actual": 0.8843808091616424,
+        "comparison": ">=",
+        "gate": "large_named_source_macro_accuracy",
+        "passed": true,
+        "threshold": 0.875
+      },
+      {
+        "actual": 0.884272997032641,
+        "comparison": ">=",
+        "gate": "worst_fold_accuracy",
+        "passed": true,
+        "threshold": 0.875
+      },
+      {
+        "actual": 0.04932678788699411,
+        "comparison": "<=",
+        "gate": "fold_accuracy_std",
+        "passed": true,
+        "threshold": 0.055
+      },
+      {
+        "actual": 0.9863325740318907,
+        "comparison": ">=",
+        "gate": "recall_floor:02_ornek",
+        "passed": true,
+        "threshold": 0.9663
+      },
+      {
+        "actual": 0.92018779342723,
+        "comparison": ">=",
+        "gate": "recall_floor:03_bubnivka_ceramics",
+        "passed": true,
+        "threshold": 0.9096
+      },
+      {
+        "actual": 0.9692307692307692,
+        "comparison": ">=",
+        "gate": "recall_floor:04_petrykivka_painting",
+        "passed": true,
+        "threshold": 0.9531
+      },
+      {
+        "actual": 0.9857142857142858,
+        "comparison": ">=",
+        "gate": "recall_floor:05_kosiv_ceramics",
+        "passed": true,
+        "threshold": 0.9586
+      },
+      {
+        "actual": true,
+        "comparison": "required",
+        "gate": "base_recipe_stability",
+        "passed": true,
+        "threshold": true
+      },
+      {
+        "actual": false,
+        "comparison": "required",
+        "gate": "fusion_recipe_stability",
+        "passed": false,
+        "threshold": true
+      },
+      {
+        "actual": 0.9391612522150029,
+        "comparison": ">=",
+        "gate": "v1_accuracy_non_regression",
+        "passed": true,
+        "threshold": 0.9377519196692262
+      },
+      {
+        "actual": 0.9358149120035083,
+        "comparison": ">=",
+        "gate": "v1_macro_f1_non_regression",
+        "passed": true,
+        "threshold": 0.9341346585193265
+      },
+      {
+        "actual": 0.682122066819854,
+        "comparison": ">=",
+        "gate": "v1_source_robustness_non_regression",
+        "passed": false,
+        "threshold": 0.7058830417592783
+      }
+    ],
+    "supporting_values": {
+      "hard_three_cohort_accuracies": {
+        "src_global_opn_gray_catalog_b": 0.7403846153846154,
+        "src_global_opn_shelf_figurines": 0.7631578947368421,
+        "src_global_opn_shop_cubbies": 0.5952380952380952
+      },
+      "large_named_source_cohort_accuracies": {
+        "src_global_bub_fair_vendor_a": 1.0,
+        "src_global_bub_museum_interior": 0.8,
+        "src_global_bub_vognik_watermark": 1.0,
+        "src_global_kos_shop_camera_series": 0.9565217391304348,
+        "src_global_kos_textile_archive": 1.0,
+        "src_global_opn_gray_catalog_b": 0.7403846153846154,
+        "src_global_opn_museum_display_logo": 1.0,
+        "src_global_opn_roundmark_catalog": 0.9885057471264368,
+        "src_global_opn_shelf_figurines": 0.7631578947368421,
+        "src_global_opn_shop_cubbies": 0.5952380952380952
+      },
+      "large_named_source_cohorts": [
+        "src_global_bub_fair_vendor_a",
+        "src_global_bub_museum_interior",
+        "src_global_bub_vognik_watermark",
+        "src_global_kos_shop_camera_series",
+        "src_global_kos_textile_archive",
+        "src_global_opn_gray_catalog_b",
+        "src_global_opn_museum_display_logo",
+        "src_global_opn_roundmark_catalog",
+        "src_global_opn_shelf_figurines",
+        "src_global_opn_shop_cubbies"
+      ]
+    }
+  },
+  "required_outputs": [
+    "metrics.json",
+    "base_grid.csv",
+    "fusion_grid.csv",
+    "inner_search.csv",
+    "outer_fold_metrics.csv",
+    "nested_oof_predictions.csv",
+    "full_development_selection.csv",
+    "selected_oof_predictions.csv",
+    "per_class_metrics.csv",
+    "diagnostic_slices.csv",
+    "confusion_pairs.csv",
+    "confusion_matrix.csv",
+    "confusion_matrix.png"
+  ],
+  "script_sha256": "a62266e0e3062103df24b43fb5ceb8ceafebfce2b3ef5a42ae3c728791a76260",
+  "sealed_test_evaluated": false,
+  "software": {
+    "matplotlib": "3.9.4",
+    "numpy": "2.0.2",
+    "python": "3.9.6",
+    "scikit_learn": "1.6.1",
+    "threadpoolctl": "3.6.0"
+  },
+  "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+  "split_seed": 20260719,
+  "split_version": "step02_source_atomic_v3",
+  "v1_reproduction_validation": {
+    "aggregate_metrics_match": true,
+    "expected_decision_fingerprint_sha256": "4533decae2de7855c914758b622a1f43e1825ecfc63285b95714b60585947a15",
+    "full_base_recipe_matches": true,
+    "observed_decision_fingerprint_sha256": "4533decae2de7855c914758b622a1f43e1825ecfc63285b95714b60585947a15",
+    "outer_base_recipes_match": true,
+    "probability_identity_required": false,
+    "validated": true
+  }
+}

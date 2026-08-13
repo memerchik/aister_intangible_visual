@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "phase": "phase_05_source_robustness",
+  "iteration": "v4",
+  "experiment_version": "step02_phase5_v4_motif_localization_v1",
+  "status": "frozen_before_fit",
+  "frozen_on": "2026-07-19",
+  "question": "Can label-free motif-localized DINOv3 descriptors resolve the persistent Opishnyan/Bubnivka boundary without sacrificing v1 aggregate or source robustness?",
+  "scope": {
+    "development_only": true,
+    "development_image_count": 1693,
+    "outer_folds": ["0", "1", "2", "3", "4"],
+    "source_atomic_isolation_required": true,
+    "sealed_test_access": "forbidden",
+    "sealed_test_embeddings": "forbidden",
+    "sealed_test_predictions": "forbidden",
+    "calibration": "forbidden",
+    "threshold_selection": "forbidden",
+    "manual_per_image_override": "forbidden"
+  },
+  "seed": 20260719,
+  "input_contract": {
+    "development_csv": "step_02/splits/development.csv",
+    "development_csv_sha256": "6edfe64bcf549cf2875be41e0b07cd535706ccc0b1962d624be1f7eb64dc7023",
+    "split_audit": "step_02/splits/split_audit.json",
+    "split_audit_sha256": "ff49b48c3f071853ba4f4a5efe7410241df6d9f9f020b319f7570c64f2489f35",
+    "split_version": "step02_source_atomic_v3",
+    "split_seed": 20260719,
+    "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+    "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+    "motif_extraction_contract": "step_02/phases/phase_05_source_robustness/motif_extraction_contract_v4.json",
+    "motif_extraction_contract_sha256": "19df4814d2d915c461f267eed89282e5474abb1ac0d37fc50d9dbf25be7c33ff",
+    "phase_5_v1_metrics": "step_02/outputs/phase_5_source_robustness/metrics.json",
+    "phase_5_v1_metrics_sha256": "c248d1143ccd70e7706a8aaa61946fe478fba8ebb7cb037ede818efbb270fe58",
+    "phase_5_v1_nested_predictions": "step_02/outputs/phase_5_source_robustness/nested_oof_predictions.csv",
+    "phase_5_v1_nested_predictions_sha256": "b1522e2cfe122961be7de2d9dbead65a59011cadecefe2770189b2c953ab05bc",
+    "phase_5_v1_nested_decision_fingerprint_sha256": "4533decae2de7855c914758b622a1f43e1825ecfc63285b95714b60585947a15",
+    "phase_5_v2_metrics": "step_02/outputs/phase_5_source_robustness_v2/metrics.json",
+    "phase_5_v2_metrics_sha256": "6b01234a4b04985d26185bdded6fb5382f5186e04895d1571687ad1011b174d3",
+    "phase_5_v2_nested_predictions": "step_02/outputs/phase_5_source_robustness_v2/nested_oof_predictions.csv",
+    "phase_5_v2_nested_predictions_sha256": "3163e5f64ce628c751875974f2d346aeac92899039160a4cb8323001e9908f17",
+    "phase_5_v3_metrics": "step_02/outputs/phase_5_source_robustness_v3/metrics.json",
+    "phase_5_v3_metrics_sha256": "c624e2c6a8254716f0fc62abe2d493e3d40ad67be447787ed86528aee14b89e0",
+    "phase_5_v3_nested_predictions": "step_02/outputs/phase_5_source_robustness_v3/nested_oof_predictions.csv",
+    "phase_5_v3_nested_predictions_sha256": "a57fcd9efd1b7251392c974e6275f0c57e32fe81d8d334efed2403a5eb5e2b6f",
+    "phase_5_v3_contract": "step_02/phases/phase_05_source_robustness/experiment_contract_v3.json",
+    "phase_5_v3_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980"
+  },
+  "base_embedding_contract": {
+    "source": "the exact three DINOv3 CLS arrays loaded through the frozen v3 allowlist",
+    "v3_contract_sha256": "828cc5aa45724518e10808929589722133ce336ee272cb8bda20b5089c0dc980",
+    "references": [
+      "dinov3_center.embedding__cls",
+      "dinov3_letterbox.embedding__cls",
+      "dinov3_global.embedding__cls"
+    ],
+    "cache_files_sha256": {
+      ".cache/step_02/pretrained_embeddings/dinov3_vits16__center_crop__a6de7aa2fa2137dd.npz": "61f46b287d5fbf7ce3fe72585d054d7c9c44b5122bf8c8cfc18d95fd33445f30",
+      ".cache/step_02/pretrained_embeddings/dinov3_vits16__letterbox__443acf6c3b85afd5.npz": "a4551b0e94d2fc3838ae7cc036af5b748f335bd498f24a737840994477052822",
+      ".cache/step_02/pretrained_embeddings/dinov3_vits16__global_fivecrop__2783a020edd6f819.npz": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa"
+    },
+    "array_sha256": {
+      "dinov3_center.embedding__cls": "afe1e2b5d898f257df5e51b44fb5e6cef627ece658d16ed87a0a9c1bc4d5a7d4",
+      "dinov3_letterbox.embedding__cls": "d0691de4b7d16d8fbe56bff810470f7166b7bb0760ed398f770c18ea6fd4bc79",
+      "dinov3_global.embedding__cls": "20cb4b8e5b2c7ca8e72e8e01fe465a252d5cb96687c2178dc256a8cb3b2ac1ae"
+    }
+  },
+  "motif_cache": {
+    "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__motif_tiles_v4.npz",
+    "file_sha256": "97ee78769b6b4349b58e9b2cb27c9f4b58748ecf7cd9fbcfcc554c2fa122db40",
+    "fingerprint": "7c0e76849ec8bc31ab433aea1d2264f638db81284c150935b04c10b73aa3cf64",
+    "extraction_contract_sha256": "19df4814d2d915c461f267eed89282e5474abb1ac0d37fc50d9dbf25be7c33ff",
+    "descriptor_names": [
+      "uniform_mean",
+      "texture_weighted_mean",
+      "texture_top2_mean",
+      "texture_dispersion"
+    ],
+    "required_arrays": [
+      "image_ids",
+      "content_sha256s",
+      "proposal_ids",
+      "proposal_boxes",
+      "proposal_scores",
+      "proposal_scales",
+      "proposal_positions",
+      "tile_embeddings",
+      "embedding__uniform_mean",
+      "embedding__texture_weighted_mean",
+      "embedding__texture_top2_mean",
+      "embedding__texture_dispersion",
+      "fingerprint",
+      "metadata_json"
+    ],
+    "arrays": {
+      "content_sha256s": {"shape": [1693], "dtype": "<U64", "sha256": "6601c580f5d4afdcbe183d822347d46d711d4c35a8b2d276e9849cdd5d002d6b"},
+      "embedding__texture_dispersion": {"shape": [1693, 384], "dtype": "float32", "sha256": "511364d819242600d0ef8c448314845420d2c103dd9047c2ef5b064fd2c07cd0"},
+      "embedding__texture_top2_mean": {"shape": [1693, 384], "dtype": "float32", "sha256": "2fb236867dfc8bb05357effa8a1d135b406d6518271d86918486190b0434be6d"},
+      "embedding__texture_weighted_mean": {"shape": [1693, 384], "dtype": "float32", "sha256": "6ab8af66012b7f2489de342b7f9ec1f20a8badec36883cba8758a7e4a9d1b99f"},
+      "embedding__uniform_mean": {"shape": [1693, 384], "dtype": "float32", "sha256": "c935e91a7c1c0357c84be9c8ec68cd6d7ae1bcde16889c817439131f15ffaf56"},
+      "image_ids": {"shape": [1693], "dtype": "<U20", "sha256": "5e525d8d176cc477d013a4e5c9f1a703a8b6cad070d16d6150cadd39dceac718"},
+      "proposal_boxes": {"shape": [1693, 6, 4], "dtype": "int32", "sha256": "0cea33f0358d0e15fc686f0daad94299e6a0eef122e6859853d7ea3dc0dd7808"},
+      "proposal_ids": {"shape": [1693, 6], "dtype": "<U24", "sha256": "eb0f69b1d45ffb6942614ca907b8100d07fe0bab7a3884044e05360c75334e35"},
+      "proposal_positions": {"shape": [1693, 6, 2], "dtype": "float32", "sha256": "813846c864840d672f1391b7060362aa28d75eb72913b61a9869546e94e8b802"},
+      "proposal_scales": {"shape": [1693, 6], "dtype": "float32", "sha256": "f3c64bcbccff61e1bad84f80647b7d4d977abc04f1d14453c292694702195143"},
+      "proposal_scores": {"shape": [1693, 6], "dtype": "float64", "sha256": "0442e42c2a577d2a7db06865187095b5bbc455e5d88cd6386e4fbef4f1e49854"},
+      "tile_embeddings": {"shape": [1693, 6, 384], "dtype": "float32", "sha256": "7004ca0a695290b60bc945603155408c8d0fae3fb46cb7a346bbdcd3ec94c96a"}
+    }
+  },
+  "base_procedure": {
+    "source": "exact Phase 5 v1 base procedure with no specialist",
+    "configurations": [
+      {"id": "global_cls__c10__source0", "feature_family": "global_cls", "c_value": 10.0, "source_group_exponent": 0.0, "role": "exact_phase_4_reference"},
+      {"id": "global_cls__c10__source0p5", "feature_family": "global_cls", "c_value": 10.0, "source_group_exponent": 0.5, "role": "v1_full_development_winner"},
+      {"id": "three_view_cls_logit_ensemble__c100__source0p5", "feature_family": "three_view_cls_logit_ensemble", "c_value": 100.0, "source_group_exponent": 0.5, "role": "v1_outer_finalist"}
+    ],
+    "selection_rule": {
+      "source_group_balanced_accuracy": "mean of five per-class unweighted source-group recalls",
+      "ceramic_worst_group_recall": "minimum source-group recall across Opishnyan, Bubnivka, and Kosiv",
+      "robustness_score": "harmonic mean of source-group balanced accuracy and ceramic worst-group recall",
+      "eligibility_relative_to_exact_reference": {
+        "maximum_macro_f1_drop": 0.01,
+        "maximum_ornek_recall_drop": 0.02,
+        "maximum_petrykivka_recall_drop": 0.02
+      },
+      "tie_window": 0.005,
+      "tie_breakers": [
+        "higher minimum inner-fold source-group balanced accuracy",
+        "higher ordinary macro F1",
+        "lower view count",
+        "C=10",
+        "lower source-group exponent",
+        "stable configuration id"
+      ]
+    },
+    "specialist": "none_fixed_from_v1"
+  },
+  "motif_grid": {
+    "application": "concatenate one frozen image-level motif descriptor to every embedding block in the selected base family, then refit the same classifier kind",
+    "descriptors": [
+      "uniform_mean",
+      "texture_weighted_mean",
+      "texture_top2_mean",
+      "texture_dispersion"
+    ],
+    "c_values": [1.0, 10.0],
+    "source_group_exponent": 0.5,
+    "complexity_rank": {
+      "uniform_mean": 1,
+      "texture_weighted_mean": 2,
+      "texture_top2_mean": 3,
+      "texture_dispersion": 4
+    },
+    "none_configuration": "motif_none",
+    "configuration_count_including_none": 9,
+    "fit_policy": "one five-class logistic probe for a single-block base or one probe per base block followed by centered-logit averaging for the three-view base",
+    "forbidden": "no learned crop selector, source feature, object-type feature, prior-error routing, true-label routing, threshold grid, probability correction, or per-image override"
+  },
+  "nested_evaluation": {
+    "outer_rule": "hold out one canonical cv_fold; never use it for base, descriptor, C, eligibility, ranking, or stability selection",
+    "inner_rule": "on the remaining four canonical folds, build pooled inner OOF predictions by holding out each fold once and fitting on the other three",
+    "sequential_rule": "select the exact v1 base first, then select motif_none or one motif augmentation while keeping that base fixed",
+    "outer_prediction_rule": "refit the selected representation procedure on all four outer-training folds and predict the outer fold exactly once",
+    "full_development_selection": "after nested reporting, apply the identical five-fold base-then-motif OOF procedure on development rows only",
+    "v1_reproduction_rule": "the motif_none nested path must reproduce the pinned Phase 5 v1 per-image argmax fingerprint before v4 outputs are accepted"
+  },
+  "motif_selection_rule": {
+    "readiness_score": "nine-value harmonic mean of accuracy, macro F1, source-group balanced accuracy, ceramic worst-group recall, Opishnyan recall, Bubnivka recall, Bubnivka precision, ceramic macro F1, and hard-three Opishnyan pooled accuracy",
+    "eligibility_relative_to_uncorrected_selected_base": {
+      "maximum_accuracy_drop": 0.003,
+      "maximum_macro_f1_drop": 0.003,
+      "maximum_source_robustness_drop": 0.003,
+      "maximum_opishnyan_group_recall_drop": 0.005,
+      "maximum_other_class_recall_drop": {
+        "02_ornek": 0.005,
+        "04_petrykivka_painting": 0.005,
+        "05_kosiv_ceramics": 0.005
+      }
+    },
+    "tie_window": 0.0015,
+    "tie_breakers": [
+      "higher minimum inner-fold readiness score",
+      "higher source robustness score",
+      "higher ordinary macro F1",
+      "lower frozen descriptor complexity rank",
+      "fewer added descriptor blocks",
+      "stable configuration id"
+    ]
+  },
+  "stability_rule": {
+    "base_recipe": "the full-development base winner must be eligible and within the base robustness-score tie window in at least four of five outer inner searches",
+    "motif_recipe": "the full-development motif winner must be eligible and within the motif readiness-score tie window for that outer-selected base in at least four of five outer inner searches",
+    "required_outer_searches_within_tie_window": 4,
+    "all_required": true
+  },
+  "promotion_gates": {
+    "overall_accuracy_min": 0.925,
+    "overall_macro_f1_min": 0.9234,
+    "opishnyan_recall_min": 0.875,
+    "bubnivka_precision_min": 0.82,
+    "ceramic_macro_f1_min": 0.91,
+    "opishnyan_to_bubnivka_errors_max": 40,
+    "challenging_opishnyan_accuracy_min": 0.7,
+    "hard_three_opishnyan_pooled_accuracy_min": 0.72,
+    "hard_three_opishnyan_cohort_macro_accuracy_min": 0.7,
+    "large_named_source_macro_accuracy_min": 0.875,
+    "large_named_source_minimum_size": 20,
+    "worst_fold_accuracy_min": 0.875,
+    "fold_accuracy_std_max": 0.055,
+    "other_class_recall_floors": {
+      "02_ornek": 0.9663,
+      "03_bubnivka_ceramics": 0.9096,
+      "04_petrykivka_painting": 0.9531,
+      "05_kosiv_ceramics": 0.9586
+    },
+    "base_recipe_stability_required": true,
+    "motif_recipe_stability_required": true,
+    "v1_non_regression": {
+      "accuracy_min": 0.9377519196692262,
+      "macro_f1_min": 0.9341346585193265,
+      "source_robustness_min": 0.7058830417592783
+    },
+    "all_required": true,
+    "phase_6_transition": "allowed only when every promotion result passes and promotion_decision is promote"
+  },
+  "diagnostic_slice_definitions": {
+    "hard_three_opishnyan_cohorts": [
+      "src_global_opn_gray_catalog_b",
+      "src_global_opn_shelf_figurines",
+      "src_global_opn_shop_cubbies"
+    ],
+    "challenging_opishnyan": "true Opishnyan rows in the hard-three cohorts or with blank source_atomic_cohort_ids",
+    "large_named_source": "nonblank source_atomic_cohort_ids with at least 20 development images",
+    "pair_classes": ["01_opishnyan_ceramics", "03_bubnivka_ceramics"],
+    "ceramic_classes": [
+      "01_opishnyan_ceramics",
+      "03_bubnivka_ceramics",
+      "05_kosiv_ceramics"
+    ]
+  },
+  "output_contract": {
+    "directory": "step_02/outputs/phase_5_source_robustness_v4",
+    "required": [
+      "metrics.json",
+      "base_grid.csv",
+      "motif_grid.csv",
+      "motif_proposals.csv",
+      "inner_search.csv",
+      "outer_fold_metrics.csv",
+      "nested_oof_predictions.csv",
+      "full_development_selection.csv",
+      "selected_oof_predictions.csv",
+      "per_class_metrics.csv",
+      "diagnostic_slices.csv",
+      "confusion_pairs.csv",
+      "confusion_matrix.csv",
+      "confusion_matrix.png"
+    ]
+  }
+}

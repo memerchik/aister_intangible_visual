@@ -1,0 +1,16 @@
+production_split,ornament_label,image_count,class_total,class_fraction
+train,01_opishnyan_ceramics,397,589,0.674024
+train,02_ornek,361,516,0.699612
+train,03_bubnivka_ceramics,167,280,0.596429
+train,04_petrykivka_painting,214,306,0.699346
+train,05_kosiv_ceramics,230,332,0.692771
+validation,01_opishnyan_ceramics,104,589,0.176570
+validation,02_ornek,78,516,0.151163
+validation,03_bubnivka_ceramics,46,280,0.164286
+validation,04_petrykivka_painting,46,306,0.150327
+validation,05_kosiv_ceramics,50,332,0.150602
+test,01_opishnyan_ceramics,88,589,0.149406
+test,02_ornek,77,516,0.149225
+test,03_bubnivka_ceramics,67,280,0.239286
+test,04_petrykivka_painting,46,306,0.150327
+test,05_kosiv_ceramics,52,332,0.156627

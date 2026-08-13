@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: aister-ornament-lens-v0-5
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: step_2/v0_5
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: AISTER_THREADS
+        value: 1
+      - key: AISTER_ENABLE_CONTRIBUTIONS
+        value: "false"
+      - key: AISTER_DINOV3_WEIGHT
+        value: /tmp/aister-model/model.safetensors
+      - key: HF_TOKEN
+        sync: false

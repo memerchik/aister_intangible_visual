@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "move": {
+    "from": "step_02",
+    "to": "step_2/development"
+  },
+  "policy": "Frozen experiment artifacts retain their historical paths and hashes. A current file may differ only when this manifest binds the historical hash to the post-relocation hash.",
+  "changed_files": {
+    "step_02/scripts/run_phase5_source_robustness.py": {
+      "current_path": "step_2/development/scripts/run_phase5_source_robustness.py",
+      "historical_sha256": "fa7dffe11ec627789b15c3eca307a3cae1ea3da3911d2dfbde952f85fc27d8ff",
+      "current_sha256": "0fdc306650a13e7643f6ed58751d733d0893515204d52661b13aa2c7b2e94a27",
+      "reason": "repository-root bootstrap updated after directory relocation"
+    },
+    "step_02/scripts/run_phase5_v2_pairwise.py": {
+      "current_path": "step_2/development/scripts/run_phase5_v2_pairwise.py",
+      "historical_sha256": "5e5afb6a952b9b8fc00cb7e7fa259e288661124394ba608e8415a44ffb98b479",
+      "current_sha256": "120fab824eaffa33893baf198cfac88a442246609577d858208a20c0bcc50460",
+      "reason": "repository-root bootstrap updated after directory relocation"
+    },
+    "step_02/scripts/run_phase5_v3_consensus.py": {
+      "current_path": "step_2/development/scripts/run_phase5_v3_consensus.py",
+      "historical_sha256": "a62266e0e3062103df24b43fb5ceb8ceafebfce2b3ef5a42ae3c728791a76260",
+      "current_sha256": "9cacd2ecdcdd5b6e63b798ca8ec075f3d58108dee411f3c571741138ff7f3d6b",
+      "reason": "repository-root bootstrap updated after directory relocation"
+    },
+    "step_02/scripts/run_phase5_v4_motif.py": {
+      "current_path": "step_2/development/scripts/run_phase5_v4_motif.py",
+      "historical_sha256": "8e55a578230eb96a92147a5ba2f43c4fdd16c8862413fdd547c8e58235729f71",
+      "current_sha256": "6e1951bfe165b72e59d49c8023a482d7088b08d5658cc4c524b139b5259213cb",
+      "reason": "repository-root bootstrap updated after directory relocation"
+    },
+    "step_02/scripts/run_phase5_v4_motif_extraction.py": {
+      "current_path": "step_2/development/scripts/run_phase5_v4_motif_extraction.py",
+      "historical_sha256": "2028eba44560bbb747cfc40d320046c71e17d37c6aaba7b244baeb6fe06f4ce0",
+      "current_sha256": "291693c53437d152cd2bdbebd8be27a2ffa91d0ec2afa604e6d618ce0a9b2182",
+      "reason": "repository-root bootstrap updated after directory relocation"
+    },
+    "step_02/scripts/run_phase5_v5_fixed_consensus.py": {
+      "current_path": "step_2/development/scripts/run_phase5_v5_fixed_consensus.py",
+      "historical_sha256": "323c7925985f0aefe19c6eb95408df35fc20fe3c83429d64fe95198dea3ba6f9",
+      "current_sha256": "ce249690599d1e03f0b9b8294193bbf1d0e60c1ce810107579ccb11a66d69ae4",
+      "reason": "repository-root bootstrap updated after directory relocation"
+    },
+    "step_02/src/ornament_classifier/embeddings.py": {
+      "current_path": "step_2/development/src/ornament_classifier/embeddings.py",
+      "historical_sha256": "a47e7c7f298097fac6f462a41c7f4c858542179255939a1632b48e6284622ce1",
+      "current_sha256": "bf67658df1fe1de227e5dc9182de444163913bad12682be22dae91de31ce6ddb",
+      "reason": "frozen contract paths now pass through the relocation resolver"
+    },
+    "step_02/src/ornament_classifier/embeddings_v4.py": {
+      "current_path": "step_2/development/src/ornament_classifier/embeddings_v4.py",
+      "historical_sha256": "a933c92e0c8468cd7596ba5e4f5b2961695b9b6488f426ae7dd569f1c1bc25d2",
+      "current_sha256": "ef547f98ccc6b490e687b4331e74bd069a2b9dd19a59ce3b4998b3c9acf8d385",
+      "reason": "frozen cache paths now pass through the relocation resolver"
+    },
+    "step_02/src/ornament_classifier/paths.py": {
+      "current_path": "step_2/development/src/ornament_classifier/paths.py",
+      "historical_sha256": "0c50381674c12dab7c4e876fc5f2b28fb621710849705735c2984b19482eeb0d",
+      "current_sha256": "b6ec5b93fddd560a0d453ce282ee4379dab1154e71c5c04de609167598f0520f",
+      "reason": "added an explicit resolver for immutable pre-relocation paths"
+    }
+  }
+}

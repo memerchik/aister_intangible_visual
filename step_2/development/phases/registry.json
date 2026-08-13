@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-07-19",
+  "purpose": "Navigation registry only; canonical artifacts remain outside the phase folders.",
+  "evaluation_contract": "../splits/README.md",
+  "sealed_test": {
+    "manifest": "../splits/test.csv",
+    "image_count": 330,
+    "status": "sealed_unevaluated"
+  },
+  "phases": [
+    {
+      "id": "phase_01",
+      "slug": "data_truth",
+      "status": "complete",
+      "navigation": "phase_01_data_truth/README.md",
+      "findings": "../PHASE_1_FINDINGS.md",
+      "entrypoint": "../scripts/build_manifest.py"
+    },
+    {
+      "id": "phase_02",
+      "slug": "evaluation_protocol",
+      "status": "complete",
+      "navigation": "phase_02_evaluation_protocol/README.md",
+      "findings": "../PHASE_2_FINDINGS.md",
+      "entrypoint": "../scripts/build_splits.py"
+    },
+    {
+      "id": "phase_03",
+      "slug": "classical_baseline",
+      "status": "complete",
+      "navigation": "phase_03_classical_baseline/README.md",
+      "findings": "../PHASE_3_FINDINGS.md",
+      "entrypoint": "../scripts/run_classical_baseline.py"
+    },
+    {
+      "id": "phase_04",
+      "slug": "pretrained_screen",
+      "status": "complete",
+      "navigation": "phase_04_pretrained_screen/README.md",
+      "findings": "../PHASE_4_FINDINGS.md",
+      "entrypoint": "../scripts/run_pretrained_embeddings.py"
+    },
+    {
+      "id": "phase_05",
+      "slug": "source_robustness",
+      "status": "complete",
+      "outcome": "v1_v2_v3_v4_v5_candidates_rejected",
+      "navigation": "phase_05_source_robustness/README.md",
+      "findings": "../PHASE_5_V5_FINDINGS.md",
+      "entrypoint": "../scripts/run_phase5_v5_fixed_consensus.py",
+      "outputs": "../outputs/phase_5_source_robustness_v5",
+      "experiment_contract": "phase_05_source_robustness/experiment_contract_v5.json",
+      "previous_iterations": [
+        {
+          "version": "v4",
+          "findings": "../PHASE_5_V4_FINDINGS.md",
+          "entrypoint": "../scripts/run_phase5_v4_motif.py",
+          "outputs": "../outputs/phase_5_source_robustness_v4",
+          "experiment_contract": "phase_05_source_robustness/experiment_contract_v4.json",
+          "outcome": "candidate_rejected"
+        },
+        {
+          "version": "v3",
+          "findings": "../PHASE_5_V3_FINDINGS.md",
+          "entrypoint": "../scripts/run_phase5_v3_consensus.py",
+          "outputs": "../outputs/phase_5_source_robustness_v3",
+          "experiment_contract": "phase_05_source_robustness/experiment_contract_v3.json",
+          "outcome": "candidate_rejected"
+        },
+        {
+          "version": "v2",
+          "findings": "../PHASE_5_V2_FINDINGS.md",
+          "entrypoint": "../scripts/run_phase5_v2_pairwise.py",
+          "outputs": "../outputs/phase_5_source_robustness_v2",
+          "experiment_contract": "phase_05_source_robustness/experiment_contract_v2.json",
+          "outcome": "candidate_rejected"
+        },
+        {
+          "version": "v1",
+          "findings": "../PHASE_5_FINDINGS.md",
+          "entrypoint": "../scripts/run_phase5_source_robustness.py",
+          "outputs": "../outputs/phase_5_source_robustness",
+          "experiment_contract": "phase_05_source_robustness/experiment_contract.json",
+          "outcome": "candidate_rejected"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Known-working Phase 5 cached-head environment (Python 3.9.6, macOS arm64).
+# Pretrained feature extraction remains governed by requirements-phase4.txt.
+numpy==2.0.2
+matplotlib==3.9.4
+scikit-learn==1.6.1
+threadpoolctl==3.6.0

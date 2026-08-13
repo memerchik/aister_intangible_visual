@@ -1,0 +1,79 @@
+{
+  "audit_fingerprint_sha256": "9cdaaa669450148bc93e3f7e7eb0172c77cca98a5c78e3e4ba68b6ef18fbf748",
+  "audit_version": "step02_dinov3_similarity_v1",
+  "auto_merge_performed": false,
+  "current_split_status": "invalidated_pending_similarity_adjudication_and_reseal",
+  "embedding": {
+    "cached_image_count": 1720,
+    "embedding_dimensions": {
+      "cls_patch_concat": 768,
+      "patch_mean": 384
+    },
+    "embedding_fingerprint_sha256": "4068d7dbf3d564b8e43db3330039306017eee1c964816ef44bccf06a6982cfcd",
+    "encoder_alias": "dinov3_vits16",
+    "extracted_image_count": 303,
+    "model_id": "facebook/dinov3-vits16-pretrain-lvd1689m",
+    "model_source": "facebook/dinov3-vits16-pretrain-lvd1689m",
+    "parameter_count": 21596544,
+    "source_cache_files": [
+      ".cache/step_02/pretrained_embeddings/dinov3_vits16__center_crop__2a7f09d9894f0b68.npz"
+    ],
+    "view_mode": "center_crop",
+    "weight_sha256": "4610ad75edef83e75afdebf162d148dc628045ea6cbb83d67d4708c709c4f91d"
+  },
+  "exclusion_rule": "exclude pairs already sharing a confirmed object or non-empty confirmed source group",
+  "input": {
+    "excluded_image_count": 32,
+    "included_image_count": 2023,
+    "manifest": "step_02/splits/split_manifest.csv",
+    "manifest_row_count": 2055,
+    "manifest_sha256": "2d7c32558e6b33d972aaf49f5a1911f956267676b7a0c3c8cf1ea2db1d9e22ad"
+  },
+  "output_sha256": {
+    "component_candidates.csv": "a40ffca9a136e17a89d63c812112e6b838b972cf81d452329e1815b512618a54",
+    "component_members.csv": "315ec8d4edc1143251a16796d8be9336cdfecd2755b1709b68a8b7335eed7cfa",
+    "pair_candidates.csv": "c0e9d28fde3e4aec0a8ab8873cd983a0a263a1a35b83fadf58e35d20387c0777"
+  },
+  "purpose": "review-only semantic duplicate and source candidate discovery",
+  "summary": {
+    "candidate_component_count": 46,
+    "candidate_image_count": 118,
+    "candidate_pair_count": 82,
+    "component_size_distribution": {
+      "2": 28,
+      "3": 14,
+      "4": 2,
+      "6": 2
+    },
+    "critical_component_count": 13,
+    "critical_pair_count": 29,
+    "cross_cv_fold_component_count": 36,
+    "cross_cv_fold_pair_count": 50,
+    "cross_label_pair_count": 0,
+    "cross_production_split_component_count": 20,
+    "cross_production_split_pair_count": 32,
+    "eligible_pair_count": 2044700,
+    "excluded_confirmed_relation_union_pair_count": 553,
+    "excluded_confirmed_same_object_pair_count": 318,
+    "excluded_confirmed_same_source_pair_count": 548,
+    "pair_label_distribution": {
+      "01_opishnyan_ceramics|01_opishnyan_ceramics": 63,
+      "02_ornek|02_ornek": 6,
+      "03_bubnivka_ceramics|03_bubnivka_ceramics": 6,
+      "04_petrykivka_painting|04_petrykivka_painting": 3,
+      "05_kosiv_ceramics|05_kosiv_ceramics": 4
+    },
+    "same_candidate_group_pair_count": 4,
+    "same_label_pair_count": 82,
+    "total_unordered_pair_count": 2045253,
+    "touches_current_test_component_count": 10,
+    "touches_current_test_pair_count": 12
+  },
+  "thresholds": {
+    "candidate_union_rule": "cls_patch_concat >= 0.93 OR patch_mean >= 0.98",
+    "cls_patch_concat": 0.93,
+    "critical_cls_patch_concat": 0.95,
+    "critical_patch_mean": 0.985,
+    "patch_mean": 0.98
+  }
+}
