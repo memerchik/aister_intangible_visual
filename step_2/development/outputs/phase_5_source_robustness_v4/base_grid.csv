@@ -1,0 +1,4 @@
+configuration_id,feature_family,feature_kind,embedding_blocks,c_value,source_group_exponent,view_count
+global_cls__c10__source0,global_cls,single_embedding,dinov3_global.embedding__cls,10.0,0.0,6
+global_cls__c10__source0p5,global_cls,single_embedding,dinov3_global.embedding__cls,10.0,0.5,6
+three_view_cls_logit_ensemble__c100__source0p5,three_view_cls_logit_ensemble,centered_logit_ensemble,dinov3_center.embedding__cls|dinov3_letterbox.embedding__cls|dinov3_global.embedding__cls,100.0,0.5,8

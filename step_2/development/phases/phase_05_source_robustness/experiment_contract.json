@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "phase": "phase_05_source_robustness",
+  "experiment_version": "nested_source_robust_heads_v1",
+  "status": "frozen_before_fit",
+  "frozen_on": "2026-07-19",
+  "seed": 20260719,
+  "scope": {
+    "evaluation": "development_only_selection_aware_nested_source_atomic_cv",
+    "development_image_count": 1693,
+    "outer_folds": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "sealed_test_access": "forbidden",
+    "probabilities": "uncalibrated_ranking_scores_only"
+  },
+  "input_contract": {
+    "development_csv": "step_02/splits/development.csv",
+    "development_csv_sha256": "6edfe64bcf549cf2875be41e0b07cd535706ccc0b1962d624be1f7eb64dc7023",
+    "split_audit": "step_02/splits/split_audit.json",
+    "split_audit_sha256": "ff49b48c3f071853ba4f4a5efe7410241df6d9f9f020b319f7570c64f2489f35",
+    "split_version": "step02_source_atomic_v3",
+    "split_seed": 20260719,
+    "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+    "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+    "phase_4_metrics": "step_02/outputs/phase_4_pretrained/metrics.json",
+    "phase_4_metrics_sha256": "e72a6c9ba0136ddc1286d944801152d4c7cca4aed3371e5705cfe7fbb2d10f85"
+  },
+  "candidate_set_provenance": {
+    "status": "development_informed_not_pristine",
+    "statement": "Phase 4 OOF errors informed the source-robustness objective and ceramic specialist family. A read-only fixed-C development pre-screen informed the bounded view set. Nested evaluation reduces direct tuning reuse but cannot make Phase 5 an unbiased final estimate; only the sealed test can do that.",
+    "fixed_c_prescreen": [
+      {
+        "candidate": "global_cls",
+        "accuracy": 0.9308919078558772,
+        "worst_class_recall": 0.8343313373253493,
+        "minimum_fold_accuracy": 0.857566765578635
+      },
+      {
+        "candidate": "global_center_cls_concat",
+        "accuracy": 0.9315,
+        "worst_class_recall": 0.8463,
+        "minimum_fold_accuracy": 0.8665
+      },
+      {
+        "candidate": "three_view_cls_concat",
+        "accuracy": 0.9333,
+        "worst_class_recall": 0.8483,
+        "minimum_fold_accuracy": 0.8487
+      }
+    ],
+    "prohibited_adaptation": "Phase 4 per-image error membership must not be used as a training feature, hard-negative weight, or fold-specific rule."
+  },
+  "cache_allowlist": {
+    "dinov3_center": {
+      "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__center_crop__a6de7aa2fa2137dd.npz",
+      "file_sha256": "61f46b287d5fbf7ce3fe72585d054d7c9c44b5122bf8c8cfc18d95fd33445f30",
+      "fingerprint": "a6de7aa2fa2137dd71e36d004adfff0ddf2abd85aae7b19478efb3bd5cdb080a",
+      "arrays": {
+        "embedding__cls": {
+          "shape": [
+            1693,
+            384
+          ],
+          "dtype": "float32",
+          "sha256": "afe1e2b5d898f257df5e51b44fb5e6cef627ece658d16ed87a0a9c1bc4d5a7d4"
+        }
+      }
+    },
+    "dinov3_letterbox": {
+      "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__letterbox__443acf6c3b85afd5.npz",
+      "file_sha256": "a4551b0e94d2fc3838ae7cc036af5b748f335bd498f24a737840994477052822",
+      "fingerprint": "443acf6c3b85afd5042f78daa35c426f7f4d36058ab3080de8d7ea55bd1d3faa",
+      "arrays": {
+        "embedding__cls": {
+          "shape": [
+            1693,
+            384
+          ],
+          "dtype": "float32",
+          "sha256": "d0691de4b7d16d8fbe56bff810470f7166b7bb0760ed398f770c18ea6fd4bc79"
+        },
+        "embedding__cls_patch_concat": {
+          "shape": [
+            1693,
+            768
+          ],
+          "dtype": "float32",
+          "sha256": "67162b1a0e4668bfa2f20bfdb94686b2521488a4490701088c71f73fd4eeccc3"
+        }
+      }
+    },
+    "dinov3_global": {
+      "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__global_fivecrop__2783a020edd6f819.npz",
+      "file_sha256": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa",
+      "fingerprint": "2783a020edd6f819e2d9530ae635e786fde7618e3c96244b1ef78fc49f927722",
+      "arrays": {
+        "embedding__cls": {
+          "shape": [
+            1693,
+            384
+          ],
+          "dtype": "float32",
+          "sha256": "20cb4b8e5b2c7ca8e72e8e01fe465a252d5cb96687c2178dc256a8cb3b2ac1ae"
+        }
+      }
+    }
+  },
+  "base_feature_families": [
+    {
+      "id": "global_cls",
+      "kind": "single_embedding",
+      "blocks": [
+        "dinov3_global.embedding__cls"
+      ],
+      "inference_cost_rank": 6
+    },
+    {
+      "id": "letterbox_cls_patch",
+      "kind": "single_embedding",
+      "blocks": [
+        "dinov3_letterbox.embedding__cls_patch_concat"
+      ],
+      "inference_cost_rank": 1
+    },
+    {
+      "id": "three_view_cls_logit_ensemble",
+      "kind": "centered_logit_ensemble",
+      "blocks": [
+        "dinov3_center.embedding__cls",
+        "dinov3_letterbox.embedding__cls",
+        "dinov3_global.embedding__cls"
+      ],
+      "inference_cost_rank": 8
+    }
+  ],
+  "base_grid": {
+    "c_values": [
+      10.0,
+      100.0
+    ],
+    "source_group_exponents": [
+      0.0,
+      0.5
+    ],
+    "configuration_count": 12,
+    "exact_phase_4_reference": {
+      "feature_family": "global_cls",
+      "c_value": 10.0,
+      "source_group_exponent": 0.0
+    }
+  },
+  "source_weighting": {
+    "group_field": "source_atomic_split_group_id",
+    "formula": "raw_weight_i = within_training_group_size ** (-source_group_exponent)",
+    "class_normalization": "normalize raw weights within each training class so every class has equal total mass, then normalize global mean weight to one",
+    "fit_scope": "recompute group sizes and normalizers using training rows only"
+  },
+  "ceramic_specialist": {
+    "versions_compared_after_base_selection": [
+      "none",
+      "three_way_conditional"
+    ],
+    "classes": [
+      "01_opishnyan_ceramics",
+      "03_bubnivka_ceramics",
+      "05_kosiv_ceramics"
+    ],
+    "training": "fit the same selected feature family, C, and source exponent on training-only ceramic rows",
+    "prediction": "preserve the base ceramic probability mass and replace only its conditional three-class distribution with the specialist distribution",
+    "forbidden": "no learned gate, blend grid, per-example Phase 4 error routing, or threshold selection"
+  },
+  "nested_evaluation": {
+    "outer_rule": "hold out one canonical cv_fold; never use it for candidate, C, source exponent, specialist, or tie-break selection",
+    "inner_rule": "on the remaining four canonical folds, create pooled inner OOF predictions by holding out each fold once and fitting on the other three",
+    "outer_prediction_rule": "refit the selected inner procedure on all four outer-training folds and predict the outer fold exactly once",
+    "full_development_selection": "after nested reporting, apply the identical five-fold OOF selection rule once on all development rows to freeze the Phase 6 candidate",
+    "interpretation": "nested OOF estimates the adaptive Phase 5 procedure but remains development-informed because Phase 4 diagnostics shaped the candidate family"
+  },
+  "selection_rule": {
+    "group_recall": "for each true class, average correctness within each source-atomic group, then average group accuracies within that class",
+    "source_group_balanced_accuracy": "mean of the five class group recalls",
+    "ceramic_worst_group_recall": "minimum group recall across Opishnyan, Bubnivka, and Kosiv",
+    "robustness_score": "harmonic mean of source_group_balanced_accuracy and ceramic_worst_group_recall",
+    "eligibility_relative_to_exact_reference": {
+      "maximum_macro_f1_drop": 0.01,
+      "maximum_ornek_recall_drop": 0.02,
+      "maximum_petrykivka_recall_drop": 0.02
+    },
+    "tie_window": 0.005,
+    "tie_breakers": [
+      "higher minimum inner-fold source-group balanced accuracy",
+      "higher ordinary macro F1",
+      "lower inference cost rank",
+      "no specialist",
+      "C=10",
+      "lower source-group exponent",
+      "stable configuration id"
+    ],
+    "specialist_selection": "compare no-specialist and three-way specialist only after the base configuration is selected, using the same eligibility, score, and tie rule"
+  },
+  "stability_rule": {
+    "base_recipe": "the full-development base winner must be within the robustness-score tie window of the best base recipe in at least four of five outer inner searches",
+    "interpretation": "failure means recipe instability and prevents promotion even if aggregate metrics are high"
+  },
+  "promotion_gates": {
+    "overall_accuracy_min": 0.925,
+    "overall_macro_f1_min": 0.9234,
+    "opishnyan_recall_min": 0.875,
+    "bubnivka_precision_min": 0.82,
+    "ceramic_macro_f1_min": 0.91,
+    "opishnyan_to_bubnivka_errors_max": 40,
+    "challenging_opishnyan_accuracy_min": 0.70,
+    "hard_three_opishnyan_pooled_accuracy_min": 0.72,
+    "hard_three_opishnyan_cohort_macro_accuracy_min": 0.70,
+    "large_named_source_macro_accuracy_min": 0.875,
+    "large_named_source_minimum_size": 20,
+    "worst_fold_accuracy_min": 0.875,
+    "fold_accuracy_std_max": 0.055,
+    "other_class_recall_floors": {
+      "02_ornek": 0.9663,
+      "03_bubnivka_ceramics": 0.9096,
+      "04_petrykivka_painting": 0.9531,
+      "05_kosiv_ceramics": 0.9586
+    },
+    "all_required": true
+  },
+  "diagnostic_slice_definitions": {
+    "hard_three_opishnyan_cohorts": [
+      "src_global_opn_gray_catalog_b",
+      "src_global_opn_shelf_figurines",
+      "src_global_opn_shop_cubbies"
+    ],
+    "challenging_opishnyan": "true Opishnyan rows in the hard-three cohorts or with blank source_atomic_cohort_ids",
+    "large_named_source": "nonblank source_atomic_cohort_ids with at least 20 development images",
+    "ceramic_classes": [
+      "01_opishnyan_ceramics",
+      "03_bubnivka_ceramics",
+      "05_kosiv_ceramics"
+    ]
+  },
+  "output_contract": {
+    "directory": "step_02/outputs/phase_5_source_robustness",
+    "required": [
+      "metrics.json",
+      "base_grid.csv",
+      "inner_search.csv",
+      "outer_fold_metrics.csv",
+      "nested_oof_predictions.csv",
+      "full_development_selection.csv",
+      "selected_oof_predictions.csv",
+      "per_class_metrics.csv",
+      "diagnostic_slices.csv",
+      "confusion_pairs.csv",
+      "confusion_matrix.csv",
+      "confusion_matrix.png"
+    ]
+  }
+}

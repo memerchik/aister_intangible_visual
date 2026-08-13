@@ -1,10 +1,6 @@
-,apple,banana,cherry,chickoo,grapes,kiwi,mango,orange,strawberry
-apple,5,0,0,0,0,0,0,0,0
-banana,0,5,0,0,0,0,0,0,0
-cherry,0,0,2,0,0,0,1,0,2
-chickoo,0,1,0,1,1,0,1,1,0
-grapes,0,0,0,1,3,0,1,0,0
-kiwi,0,1,0,0,0,2,0,1,1
-mango,0,3,0,1,0,0,1,0,0
-orange,0,0,0,0,0,0,0,5,0
-strawberry,0,0,0,0,0,0,0,0,5
+,01_opishnyan_ceramics,02_ornek,03_bubnivka_ceramics,04_petrykivka_painting,05_kosiv_ceramics
+01_opishnyan_ceramics,150,16,18,4,11
+02_ornek,4,93,14,30,24
+03_bubnivka_ceramics,4,13,69,1,3
+04_petrykivka_painting,2,7,5,77,11
+05_kosiv_ceramics,9,32,6,14,54

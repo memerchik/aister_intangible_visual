@@ -1,0 +1,50 @@
+{
+  "application_version": "v0.5",
+  "array_sha256": {
+    "classes": "1e07d48a9095adf5157a3a8fa16a7874c223d90e5ac07f0765c39d8dfded69bd",
+    "coefficients": "32b8cb4fdd8a4aa5f7e38eeccb83f61bdc2082e31e800767e293ae598c0ec1c7",
+    "intercept": "2fba3b6638d09bf3cfa9c9e916e71f63ecdfa8e092d7521a4dc5056f810516f1"
+  },
+  "artifact_sha256": "0286eede067de4028e744c3ef0d11efc07d488a6670f65d58e07316f0c0fc2c1",
+  "calibrated": false,
+  "development_evidence": {
+    "accuracy": 0.941523922031896,
+    "macro_f1": 0.9386036923727085,
+    "phase_5_v4_contract_sha256": "7df72082a99d835a1bbbc91c9eb69ca399d1242cd97e9ca64a0ea38135ec42da",
+    "phase_5_v4_metrics_sha256": "c53116230d3e558ab31538dee25c1c35131fb0e6176002bcc9214f70fbc727f3",
+    "promotion_decision": "reject",
+    "scope": "selection_conditional_oof_not_sealed_test"
+  },
+  "model_id": "v4_full_development_global_plus_texture_weighted_motif",
+  "product_contract_path": "step_02/application_v0_5/product_contract.json",
+  "product_contract_sha256": "23ec152ece18ecd18cf6edd306a31c69acec8b545416d1ddbe0eaea406b8c477",
+  "public_deployment_ready": false,
+  "recipe": {
+    "base": "global_fivecrop_cls",
+    "c_value": 10.0,
+    "classifier": "sklearn_logistic_regression_l2_lbfgs",
+    "encoder": "facebook/dinov3-vits16-pretrain-lvd1689m",
+    "encoder_weight_sha256": "4610ad75edef83e75afdebf162d148dc628045ea6cbb83d67d4708c709c4f91d",
+    "feature_dimensions": 768,
+    "fit_seed": 20260719,
+    "iterations": [
+      72
+    ],
+    "motif": "texture_weighted_mean",
+    "source_group_exponent": 0.5
+  },
+  "schema_version": 1,
+  "score_type": "uncalibrated_ranking_score",
+  "sealed_test_evaluated": false,
+  "status": "provisional_human_assisted_not_promoted",
+  "training": {
+    "global_embedding_cache_sha256": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa",
+    "image_count": 1693,
+    "image_ids_sha256": "17f56c3683b0d9475fe8488d9a61f7af1fc7879f8946e88551d7e96f96873dc9",
+    "motif_embedding_cache_sha256": "97ee78769b6b4349b58e9b2cb27c9f4b58748ecf7cd9fbcfcc554c2fa122db40",
+    "scope": "development_only",
+    "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+    "split_version": "step02_source_atomic_v3"
+  },
+  "unknown_class_rejection": false
+}

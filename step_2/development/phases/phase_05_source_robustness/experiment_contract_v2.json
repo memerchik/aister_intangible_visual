@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "phase": "phase_05_source_robustness",
+  "iteration": "v2",
+  "experiment_version": "nested_pairwise_ceramic_correction_v2",
+  "status": "frozen_before_fit",
+  "frozen_on": "2026-07-19",
+  "seed": 20260719,
+  "scope": {
+    "evaluation": "development_only_selection_aware_nested_source_atomic_cv",
+    "development_image_count": 1693,
+    "outer_folds": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "sealed_test_access": "forbidden",
+    "probabilities": "uncalibrated_ranking_scores_only"
+  },
+  "input_contract": {
+    "development_csv": "step_02/splits/development.csv",
+    "development_csv_sha256": "6edfe64bcf549cf2875be41e0b07cd535706ccc0b1962d624be1f7eb64dc7023",
+    "split_audit": "step_02/splits/split_audit.json",
+    "split_audit_sha256": "ff49b48c3f071853ba4f4a5efe7410241df6d9f9f020b319f7570c64f2489f35",
+    "split_version": "step02_source_atomic_v3",
+    "split_seed": 20260719,
+    "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+    "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+    "phase_5_v1_contract": "step_02/phases/phase_05_source_robustness/experiment_contract.json",
+    "phase_5_v1_contract_sha256": "55d0dd0d3665b4b84b33a9c9461763c6858452bd0b10b679fd9b77fbe630a87f",
+    "phase_5_v1_metrics": "step_02/outputs/phase_5_source_robustness/metrics.json",
+    "phase_5_v1_metrics_sha256": "c248d1143ccd70e7706a8aaa61946fe478fba8ebb7cb037ede818efbb270fe58",
+    "phase_5_v1_full_selection": "step_02/outputs/phase_5_source_robustness/full_development_selection.csv",
+    "phase_5_v1_full_selection_sha256": "57f693ae4642b2eb26e39b840ffc5c913e21de0ead3e4b83de36e6ca2f78b815",
+    "phase_5_v1_nested_predictions": "step_02/outputs/phase_5_source_robustness/nested_oof_predictions.csv",
+    "phase_5_v1_nested_predictions_sha256": "b1522e2cfe122961be7de2d9dbead65a59011cadecefe2770189b2c953ab05bc",
+    "phase_5_v1_nested_decision_fingerprint_sha256": "4533decae2de7855c914758b622a1f43e1825ecfc63285b95714b60585947a15"
+  },
+  "candidate_set_provenance": {
+    "status": "development_informed_not_pristine",
+    "statement": "Phase 5 v1 fixed 26 prior errors and introduced 11, but failed five frozen gates because the Opishnyan/Bubnivka boundary remained asymmetric. V2 is a separately frozen correction experiment designed from those aggregate and class-level v1 findings. No new model fit or candidate pre-screen was performed before this contract was frozen.",
+    "v1_failed_gates": [
+      "opishnyan_recall",
+      "bubnivka_precision",
+      "ceramic_macro_f1",
+      "opishnyan_to_bubnivka_errors",
+      "recall_floor:03_bubnivka_ceramics"
+    ],
+    "v1_selected_base": "global_cls__c10__source0p5",
+    "v1_outer_base_finalists": [
+      "global_cls__c10__source0p5",
+      "three_view_cls_logit_ensemble__c100__source0p5"
+    ],
+    "prohibited_adaptation": "Do not use per-image v1 correctness or error membership as a feature, sample weight, route, fold-specific rule, threshold target, or candidate-selection input. Do not relax v1 gates after observing v2."
+  },
+  "cache_allowlist": {
+    "dinov3_center": {
+      "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__center_crop__a6de7aa2fa2137dd.npz",
+      "file_sha256": "61f46b287d5fbf7ce3fe72585d054d7c9c44b5122bf8c8cfc18d95fd33445f30",
+      "fingerprint": "a6de7aa2fa2137dd71e36d004adfff0ddf2abd85aae7b19478efb3bd5cdb080a",
+      "arrays": {
+        "embedding__cls": {
+          "shape": [
+            1693,
+            384
+          ],
+          "dtype": "float32",
+          "sha256": "afe1e2b5d898f257df5e51b44fb5e6cef627ece658d16ed87a0a9c1bc4d5a7d4"
+        },
+        "embedding__cls_patch_concat": {
+          "shape": [
+            1693,
+            768
+          ],
+          "dtype": "float32",
+          "sha256": "e6629152abb3991d1bda8600990d03d93b9b804f11611dabab20d010a89d6ff3"
+        }
+      }
+    },
+    "dinov3_letterbox": {
+      "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__letterbox__443acf6c3b85afd5.npz",
+      "file_sha256": "a4551b0e94d2fc3838ae7cc036af5b748f335bd498f24a737840994477052822",
+      "fingerprint": "443acf6c3b85afd5042f78daa35c426f7f4d36058ab3080de8d7ea55bd1d3faa",
+      "arrays": {
+        "embedding__cls": {
+          "shape": [
+            1693,
+            384
+          ],
+          "dtype": "float32",
+          "sha256": "d0691de4b7d16d8fbe56bff810470f7166b7bb0760ed398f770c18ea6fd4bc79"
+        },
+        "embedding__cls_patch_concat": {
+          "shape": [
+            1693,
+            768
+          ],
+          "dtype": "float32",
+          "sha256": "67162b1a0e4668bfa2f20bfdb94686b2521488a4490701088c71f73fd4eeccc3"
+        }
+      }
+    },
+    "dinov3_global": {
+      "path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__global_fivecrop__2783a020edd6f819.npz",
+      "file_sha256": "cf04c78f40db527306f7775e1c9277f99ec2ab97c8aaf5180e09f87e6af35bfa",
+      "fingerprint": "2783a020edd6f819e2d9530ae635e786fde7618e3c96244b1ef78fc49f927722",
+      "arrays": {
+        "embedding__cls": {
+          "shape": [
+            1693,
+            384
+          ],
+          "dtype": "float32",
+          "sha256": "20cb4b8e5b2c7ca8e72e8e01fe465a252d5cb96687c2178dc256a8cb3b2ac1ae"
+        },
+        "embedding__cls_patch_concat": {
+          "shape": [
+            1693,
+            768
+          ],
+          "dtype": "float32",
+          "sha256": "b72d02796fdf82710690f4d57f1528871ac7bd0789b873611ab7694583dc0d1b"
+        }
+      }
+    }
+  },
+  "base_procedure": {
+    "feature_families": [
+      {
+        "id": "global_cls",
+        "kind": "single_embedding",
+        "blocks": [
+          "dinov3_global.embedding__cls"
+        ],
+        "view_count": 6
+      },
+      {
+        "id": "three_view_cls_logit_ensemble",
+        "kind": "centered_logit_ensemble",
+        "blocks": [
+          "dinov3_center.embedding__cls",
+          "dinov3_letterbox.embedding__cls",
+          "dinov3_global.embedding__cls"
+        ],
+        "view_count": 8
+      }
+    ],
+    "configurations": [
+      {
+        "id": "global_cls__c10__source0",
+        "feature_family": "global_cls",
+        "c_value": 10.0,
+        "source_group_exponent": 0.0,
+        "role": "exact_phase_4_reference"
+      },
+      {
+        "id": "global_cls__c10__source0p5",
+        "feature_family": "global_cls",
+        "c_value": 10.0,
+        "source_group_exponent": 0.5,
+        "role": "v1_full_development_winner"
+      },
+      {
+        "id": "three_view_cls_logit_ensemble__c100__source0p5",
+        "feature_family": "three_view_cls_logit_ensemble",
+        "c_value": 100.0,
+        "source_group_exponent": 0.5,
+        "role": "v1_outer_finalist"
+      }
+    ],
+    "selection_rule": {
+      "source_group_balanced_accuracy": "mean of five per-class unweighted source-group recalls",
+      "ceramic_worst_group_recall": "minimum source-group recall across Opishnyan, Bubnivka, and Kosiv",
+      "robustness_score": "harmonic mean of source-group balanced accuracy and ceramic worst-group recall",
+      "eligibility_relative_to_exact_reference": {
+        "maximum_macro_f1_drop": 0.01,
+        "maximum_ornek_recall_drop": 0.02,
+        "maximum_petrykivka_recall_drop": 0.02
+      },
+      "tie_window": 0.005,
+      "tie_breakers": [
+        "higher minimum inner-fold source-group balanced accuracy",
+        "higher ordinary macro F1",
+        "lower view count",
+        "C=10",
+        "lower source-group exponent",
+        "stable configuration id"
+      ]
+    },
+    "specialist": "none_fixed_from_v1"
+  },
+  "source_weighting": {
+    "group_field": "source_atomic_split_group_id",
+    "formula": "raw_weight_i = within_training_group_size ** (-source_group_exponent)",
+    "class_normalization": "normalize raw weights within each training class so every observed class has equal total mass, then normalize global mean weight to one",
+    "fit_scope": "recompute group sizes and class normalizers from the current training rows only"
+  },
+  "pairwise_correction": {
+    "classes": [
+      "01_opishnyan_ceramics",
+      "03_bubnivka_ceramics"
+    ],
+    "versions": [
+      "none",
+      "pairwise_conditional_logit_blend"
+    ],
+    "feature_families": [
+      {
+        "id": "pair_global_cls",
+        "kind": "single_embedding",
+        "blocks": [
+          "dinov3_global.embedding__cls"
+        ],
+        "required_views": [
+          "global_fivecrop"
+        ]
+      },
+      {
+        "id": "pair_global_cls_patch",
+        "kind": "single_embedding",
+        "blocks": [
+          "dinov3_global.embedding__cls_patch_concat"
+        ],
+        "required_views": [
+          "global_fivecrop"
+        ]
+      },
+      {
+        "id": "pair_letterbox_cls_patch",
+        "kind": "single_embedding",
+        "blocks": [
+          "dinov3_letterbox.embedding__cls_patch_concat"
+        ],
+        "required_views": [
+          "letterbox"
+        ]
+      },
+      {
+        "id": "pair_three_view_cls_patch_logit_ensemble",
+        "kind": "centered_logit_ensemble",
+        "blocks": [
+          "dinov3_center.embedding__cls_patch_concat",
+          "dinov3_letterbox.embedding__cls_patch_concat",
+          "dinov3_global.embedding__cls_patch_concat"
+        ],
+        "required_views": [
+          "center_crop",
+          "letterbox",
+          "global_fivecrop"
+        ]
+      }
+    ],
+    "c_values": [
+      10.0,
+      100.0
+    ],
+    "source_group_exponents": [
+      0.0,
+      0.5
+    ],
+    "blend_weights": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "grid_configuration_count_excluding_none": 64,
+    "grid_configuration_count_including_none": 65,
+    "training": "fit a binary logistic probe only on the two declared pair classes from the current training rows, using the declared pair feature family, C, and fold-local source weights",
+    "application": "for every validation row, preserve the base total probability mass assigned to the pair; blend the base and pair-head conditional log-odds with the declared fixed blend weight; replace only the two pair columns; leave all other class columns exactly unchanged",
+    "combined_view_count": "count the union of image views required by the selected base and correction family",
+    "forbidden": "no learned gate, per-example v1 error routing, true-label routing, threshold grid, class-bias grid, calibration, or modification of non-pair probability columns"
+  },
+  "nested_evaluation": {
+    "outer_rule": "hold out one canonical cv_fold; never use it for base, pair family, C, source exponent, blend, eligibility, ranking, or stability selection",
+    "inner_rule": "on the remaining four canonical folds, build pooled inner OOF predictions by holding out each fold once and fitting on the other three",
+    "sequential_rule": "select the base from the three frozen base configurations first; then select none or one pairwise correction while keeping that base fixed",
+    "outer_prediction_rule": "refit the selected base and optional pair correction on all four outer-training folds and predict the outer fold exactly once",
+    "full_development_selection": "after nested reporting, apply the identical five-fold base-then-correction OOF procedure on all development rows to freeze or reject the possible Phase 6 recipe",
+    "v1_reproduction_rule": "the uncorrected nested base procedure must reproduce the pinned Phase 5 v1 nested per-image argmax fingerprint before any v2 result is accepted"
+  },
+  "correction_selection_rule": {
+    "ceramic_macro_f1": "unweighted mean of Opishnyan, Bubnivka, and Kosiv per-class F1",
+    "boundary_score": "four-value harmonic mean of Opishnyan recall, Bubnivka recall, Bubnivka precision, and ceramic macro F1",
+    "eligibility_relative_to_uncorrected_selected_base": {
+      "maximum_accuracy_drop": 0.005,
+      "maximum_macro_f1_drop": 0.005,
+      "maximum_source_robustness_drop": 0.005,
+      "maximum_opishnyan_group_recall_drop": 0.005,
+      "maximum_other_class_recall_drop": {
+        "02_ornek": 0.005,
+        "04_petrykivka_painting": 0.005,
+        "05_kosiv_ceramics": 0.005
+      }
+    },
+    "tie_window": 0.002,
+    "tie_breakers": [
+      "higher minimum inner-fold boundary score",
+      "higher source robustness score",
+      "higher ordinary macro F1",
+      "lower combined view count",
+      "none correction",
+      "lower blend weight",
+      "C=10",
+      "lower source-group exponent",
+      "stable configuration id"
+    ]
+  },
+  "stability_rule": {
+    "base_recipe": "the full-development base winner must be eligible and within the base robustness-score tie window of the best eligible base in at least four of five outer inner searches",
+    "correction_recipe": "the full-development correction winner must be eligible and within the correction boundary-score tie window of the best eligible correction for that outer-selected base in at least four of five outer inner searches",
+    "all_required": true
+  },
+  "promotion_gates": {
+    "overall_accuracy_min": 0.925,
+    "overall_macro_f1_min": 0.9234,
+    "opishnyan_recall_min": 0.875,
+    "bubnivka_precision_min": 0.82,
+    "ceramic_macro_f1_min": 0.91,
+    "opishnyan_to_bubnivka_errors_max": 40,
+    "challenging_opishnyan_accuracy_min": 0.7,
+    "hard_three_opishnyan_pooled_accuracy_min": 0.72,
+    "hard_three_opishnyan_cohort_macro_accuracy_min": 0.7,
+    "large_named_source_macro_accuracy_min": 0.875,
+    "large_named_source_minimum_size": 20,
+    "worst_fold_accuracy_min": 0.875,
+    "fold_accuracy_std_max": 0.055,
+    "other_class_recall_floors": {
+      "02_ornek": 0.9663,
+      "03_bubnivka_ceramics": 0.9096,
+      "04_petrykivka_painting": 0.9531,
+      "05_kosiv_ceramics": 0.9586
+    },
+    "base_recipe_stability_required": true,
+    "correction_recipe_stability_required": true,
+    "all_required": true
+  },
+  "diagnostic_slice_definitions": {
+    "hard_three_opishnyan_cohorts": [
+      "src_global_opn_gray_catalog_b",
+      "src_global_opn_shelf_figurines",
+      "src_global_opn_shop_cubbies"
+    ],
+    "challenging_opishnyan": "true Opishnyan rows in the hard-three cohorts or with blank source_atomic_cohort_ids",
+    "large_named_source": "nonblank source_atomic_cohort_ids with at least 20 development images",
+    "ceramic_classes": [
+      "01_opishnyan_ceramics",
+      "03_bubnivka_ceramics",
+      "05_kosiv_ceramics"
+    ]
+  },
+  "output_contract": {
+    "directory": "step_02/outputs/phase_5_source_robustness_v2",
+    "required": [
+      "metrics.json",
+      "base_grid.csv",
+      "correction_grid.csv",
+      "inner_search.csv",
+      "outer_fold_metrics.csv",
+      "nested_oof_predictions.csv",
+      "full_development_selection.csv",
+      "selected_oof_predictions.csv",
+      "per_class_metrics.csv",
+      "diagnostic_slices.csv",
+      "confusion_pairs.csv",
+      "confusion_matrix.csv",
+      "confusion_matrix.png"
+    ]
+  }
+}

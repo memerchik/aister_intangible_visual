@@ -1,0 +1,6 @@
+# AISTER v0.5 runtime dependencies other than PyTorch.
+# Docker installs the pinned CPU-only PyTorch wheel separately.
+numpy==2.0.2
+Pillow==11.3.0
+timm==1.0.26
+safetensors==0.7.0

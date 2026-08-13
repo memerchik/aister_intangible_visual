@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "phase": "phase_05_source_robustness",
+  "iteration": "v4",
+  "experiment_version": "step02_phase5_v4_motif_extraction_v1",
+  "status": "frozen_before_extraction",
+  "frozen_on": "2026-07-19",
+  "purpose": "Create label-free motif-tile DINOv3 representations from the existing source-atomic development images before any v4 classifier fit.",
+  "scope": {
+    "development_only": true,
+    "development_image_count": 1693,
+    "labels_permitted_for_extraction": false,
+    "source_ids_permitted_for_extraction": false,
+    "prior_error_membership_permitted_for_extraction": false,
+    "sealed_test_access": "forbidden",
+    "sealed_test_embeddings": "forbidden",
+    "sealed_test_predictions": "forbidden"
+  },
+  "input_contract": {
+    "development_csv": "step_02/splits/development.csv",
+    "development_csv_sha256": "6edfe64bcf549cf2875be41e0b07cd535706ccc0b1962d624be1f7eb64dc7023",
+    "development_image_count": 1693,
+    "split_audit": "step_02/splits/split_audit.json",
+    "split_audit_sha256": "ff49b48c3f071853ba4f4a5efe7410241df6d9f9f020b319f7570c64f2489f35",
+    "split_version": "step02_source_atomic_v3",
+    "split_seed": 20260719,
+    "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+    "data_fingerprint_sha256": "39c195336191e36a9a9a2c1cd8edec5160a68fe99366910b4d09c47e1c20024d",
+    "reference_center_cache": ".cache/step_02/pretrained_embeddings/dinov3_vits16__center_crop__a6de7aa2fa2137dd.npz",
+    "reference_center_cache_sha256": "61f46b287d5fbf7ce3fe72585d054d7c9c44b5122bf8c8cfc18d95fd33445f30",
+    "motif_module": "step_02/src/ornament_classifier/motif.py",
+    "motif_module_sha256": "a1904c5585b0843effb2ec9ab8e3a1bd00e685536332c2647dcec2c9c4f6da4b"
+  },
+  "proposal_policy": {
+    "coordinate_space": "original image pixels after RGB conversion",
+    "window_shape": "square",
+    "scales_relative_to_shortest_side": true,
+    "scales": [0.45, 0.65],
+    "positions": [0.0, 0.5, 1.0],
+    "pool_maximum_count": 18,
+    "proposal_count": 6,
+    "score_size": 64,
+    "score_resize": "bilinear",
+    "texture_score": "0.50 * mean grayscale first-difference energy + 0.30 * grayscale standard deviation + 0.20 * mean RGB max-minus-min chroma",
+    "selection_order": "descending texture score then stable proposal id",
+    "maximum_iou": 0.60,
+    "fallback": "if NMS retains fewer than six, append remaining candidates in the same frozen order",
+    "label_free": true,
+    "source_free": true
+  },
+  "encoder": {
+    "model_id": "facebook/dinov3-vits16-pretrain-lvd1689m",
+    "architecture": "ViT-S/16 with four register tokens and query/value bias",
+    "timm_graph": "vit_small_patch16_dinov3_qkvb",
+    "weight_sha256": "4610ad75edef83e75afdebf162d148dc628045ea6cbb83d67d4708c709c4f91d",
+    "license": "DINOv3 License (custom; deployment review required)",
+    "input_size": 224,
+    "crop_resize": "each selected square proposal resized directly to 224x224 with bicubic interpolation",
+    "mean": [0.485, 0.456, 0.406],
+    "std": [0.229, 0.224, 0.225],
+    "feature": "final normalized CLS token",
+    "feature_dimension": 384,
+    "row_normalization": "L2 unit norm",
+    "device": "cpu",
+    "fine_tuning": false
+  },
+  "conversion_validation": {
+    "reason": "The local Transformers-format DINOv3 state is loaded into an equivalent timm graph so v4 needs no new dependency or model download.",
+    "development_indices": [0, 846, 1692],
+    "reference_array": "embedding__cls",
+    "reference_preprocessing": "Phase 4 center crop",
+    "maximum_absolute_error": 0.00001,
+    "minimum_cosine": 0.99999,
+    "required_before_tile_extraction": true
+  },
+  "aggregation_policy": {
+    "tile_count": 6,
+    "tile_embedding_normalization": "L2 unit norm",
+    "descriptors": {
+      "uniform_mean": "unit-normalized arithmetic mean of six tile embeddings",
+      "texture_weighted_mean": "unit-normalized mean weighted by softmax of within-image standardized texture scores",
+      "texture_top2_mean": "unit-normalized mean of the two highest-texture tile embeddings",
+      "texture_dispersion": "unit-normalized square root of the texture-weighted per-dimension variance"
+    },
+    "labels_used": false,
+    "learned_parameters": false
+  },
+  "reproducibility": {
+    "torch_seed": 20260719,
+    "deterministic_algorithms_required": true,
+    "default_threads": 4,
+    "default_batch_images": 4,
+    "archive_format": "deterministic ZIP-compressed NumPy arrays with fixed member timestamps and ordering",
+    "image_bytes_verified_before_use": true
+  },
+  "output_contract": {
+    "cache_path": ".cache/step_02/pretrained_embeddings/dinov3_vits16__motif_tiles_v4.npz",
+    "required_arrays": [
+      "image_ids",
+      "content_sha256s",
+      "proposal_ids",
+      "proposal_boxes",
+      "proposal_scores",
+      "proposal_scales",
+      "proposal_positions",
+      "tile_embeddings",
+      "embedding__uniform_mean",
+      "embedding__texture_weighted_mean",
+      "embedding__texture_top2_mean",
+      "embedding__texture_dispersion",
+      "fingerprint",
+      "metadata_json"
+    ],
+    "cache_must_record": [
+      "extraction contract SHA-256",
+      "input and image-order fingerprints",
+      "weight SHA-256",
+      "proposal and aggregation policies",
+      "implementation SHA-256 values",
+      "per-array shape, dtype, and SHA-256",
+      "conversion validation",
+      "runtime versions",
+      "sealed-test status"
+    ]
+  }
+}

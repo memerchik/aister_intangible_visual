@@ -1,0 +1,10 @@
+configuration_id,descriptor,c_value,source_group_exponent,complexity_rank,descriptor_dimensions,application
+motif_none,none,,0.5,0,0,none
+motif_uniform_mean__c1__source0p5,uniform_mean,1.0,0.5,1,384,concatenate descriptor to every selected base feature block
+motif_uniform_mean__c10__source0p5,uniform_mean,10.0,0.5,1,384,concatenate descriptor to every selected base feature block
+motif_texture_weighted_mean__c1__source0p5,texture_weighted_mean,1.0,0.5,2,384,concatenate descriptor to every selected base feature block
+motif_texture_weighted_mean__c10__source0p5,texture_weighted_mean,10.0,0.5,2,384,concatenate descriptor to every selected base feature block
+motif_texture_top2_mean__c1__source0p5,texture_top2_mean,1.0,0.5,3,384,concatenate descriptor to every selected base feature block
+motif_texture_top2_mean__c10__source0p5,texture_top2_mean,10.0,0.5,3,384,concatenate descriptor to every selected base feature block
+motif_texture_dispersion__c1__source0p5,texture_dispersion,1.0,0.5,4,384,concatenate descriptor to every selected base feature block
+motif_texture_dispersion__c10__source0p5,texture_dispersion,10.0,0.5,4,384,concatenate descriptor to every selected base feature block

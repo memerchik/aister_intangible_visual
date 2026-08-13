@@ -1,0 +1,190 @@
+{
+  "phase": "step02_phase_3_classical_baseline",
+  "baseline_version": "step01_frozen_features_grouped_cv_v1",
+  "evaluation_scope": "development_only_out_of_fold",
+  "sealed_test_evaluated": false,
+  "selection_rule": "highest mean five-fold accuracy; ties use mean macro F1 then model name",
+  "split_version": "step02_source_atomic_v3",
+  "split_seed": 20260719,
+  "split_assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+  "development_image_count": 1693,
+  "train_image_count": 1369,
+  "validation_image_count": 324,
+  "class_names": [
+    "01_opishnyan_ceramics",
+    "02_ornek",
+    "03_bubnivka_ceramics",
+    "04_petrykivka_painting",
+    "05_kosiv_ceramics"
+  ],
+  "selected_model": "knn_cosine_k5",
+  "selected_feature_set": "all",
+  "aggregate_oof_metrics": {
+    "accuracy": 0.6331955109273479,
+    "balanced_accuracy": 0.5917236524761418,
+    "macro_precision": 0.6080358508525687,
+    "macro_recall": 0.5917236524761418,
+    "macro_f1": 0.5920314632567261,
+    "top_3_accuracy": 0.8795038393384524
+  },
+  "selected_model_fold_metrics": [
+    {
+      "model_name": "knn_cosine_k5",
+      "feature_name": "all",
+      "cv_fold": "0",
+      "train_examples": 1193,
+      "validation_examples": 500,
+      "accuracy": 0.782,
+      "balanced_accuracy": 0.611210692986956,
+      "macro_precision": 0.6726560502989074,
+      "macro_recall": 0.611210692986956,
+      "macro_f1": 0.6260838291852313,
+      "top_3_accuracy": 0.934
+    },
+    {
+      "model_name": "knn_cosine_k5",
+      "feature_name": "all",
+      "cv_fold": "1",
+      "train_examples": 1449,
+      "validation_examples": 244,
+      "accuracy": 0.6147540983606558,
+      "balanced_accuracy": 0.5613848941755919,
+      "macro_precision": 0.5653442265795208,
+      "macro_recall": 0.5613848941755919,
+      "macro_f1": 0.5369842037395228,
+      "top_3_accuracy": 0.9139344262295082
+    },
+    {
+      "model_name": "knn_cosine_k5",
+      "feature_name": "all",
+      "cv_fold": "2",
+      "train_examples": 1423,
+      "validation_examples": 270,
+      "accuracy": 0.5555555555555556,
+      "balanced_accuracy": 0.5081248458967889,
+      "macro_precision": 0.5169406168251669,
+      "macro_recall": 0.5081248458967889,
+      "macro_f1": 0.4990037343841876,
+      "top_3_accuracy": 0.8629629629629629
+    },
+    {
+      "model_name": "knn_cosine_k5",
+      "feature_name": "all",
+      "cv_fold": "3",
+      "train_examples": 1351,
+      "validation_examples": 342,
+      "accuracy": 0.631578947368421,
+      "balanced_accuracy": 0.5716783216783218,
+      "macro_precision": 0.5856258555300314,
+      "macro_recall": 0.5716783216783218,
+      "macro_f1": 0.5748744738456284,
+      "top_3_accuracy": 0.8654970760233918
+    },
+    {
+      "model_name": "knn_cosine_k5",
+      "feature_name": "all",
+      "cv_fold": "4",
+      "train_examples": 1356,
+      "validation_examples": 337,
+      "accuracy": 0.4896142433234421,
+      "balanced_accuracy": 0.5010737653151446,
+      "macro_precision": 0.5179043782304652,
+      "macro_recall": 0.5010737653151446,
+      "macro_f1": 0.48135157751193214,
+      "top_3_accuracy": 0.8011869436201781
+    }
+  ],
+  "selected_model_fixed_validation_metrics": {
+    "model_name": "knn_cosine_k5",
+    "feature_name": "all",
+    "train_examples": 1369,
+    "validation_examples": 324,
+    "accuracy": 0.595679012345679,
+    "balanced_accuracy": 0.5464838350055741,
+    "macro_precision": 0.5492790897046216,
+    "macro_recall": 0.5464838350055741,
+    "macro_f1": 0.5456661924745119,
+    "top_3_accuracy": 0.9228395061728395
+  },
+  "per_class_metrics": [
+    {
+      "class_index": 0,
+      "class_name": "01_opishnyan_ceramics",
+      "precision": 0.8260869565217391,
+      "recall": 0.7964071856287425,
+      "f1": 0.8109756097560976,
+      "support": 501
+    },
+    {
+      "class_index": 1,
+      "class_name": "02_ornek",
+      "precision": 0.5574712643678161,
+      "recall": 0.662870159453303,
+      "f1": 0.6056191467221644,
+      "support": 439
+    },
+    {
+      "class_index": 2,
+      "class_name": "03_bubnivka_ceramics",
+      "precision": 0.5648854961832062,
+      "recall": 0.3474178403755869,
+      "f1": 0.43023255813953487,
+      "support": 213
+    },
+    {
+      "class_index": 3,
+      "class_name": "04_petrykivka_painting",
+      "precision": 0.6,
+      "recall": 0.7269230769230769,
+      "f1": 0.6573913043478261,
+      "support": 260
+    },
+    {
+      "class_index": 4,
+      "class_name": "05_kosiv_ceramics",
+      "precision": 0.49173553719008267,
+      "recall": 0.425,
+      "f1": 0.4559386973180077,
+      "support": 280
+    }
+  ],
+  "feature_config": {
+    "image_size": [
+      96,
+      96
+    ],
+    "hsv_bins": [
+      10,
+      4,
+      4
+    ],
+    "lbp_points": 8,
+    "lbp_radius": 1,
+    "hog_orientations": 9,
+    "hog_pixels_per_cell": [
+      16,
+      16
+    ],
+    "hog_cells_per_block": [
+      2,
+      2
+    ]
+  },
+  "feature_dimensions": {
+    "color": 160,
+    "hog": 900,
+    "lbp": 10,
+    "all": 1070
+  },
+  "feature_fingerprint_sha256": "0deb329632a7c15f68209fc3d6c76134724f905976b72c9226c2e1848b8b9d63",
+  "feature_cache_path": ".cache/step_02/classical_features_0deb329632a7c15f6820.npz",
+  "candidate_count": 5,
+  "software": {
+    "python": "3.12.13",
+    "numpy": "2.4.6",
+    "Pillow": "12.2.0",
+    "scikit_image": "0.26.0",
+    "scikit_learn": "1.8.0",
+    "matplotlib": "3.10.9"
+  }
+}

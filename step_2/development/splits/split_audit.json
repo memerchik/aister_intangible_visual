@@ -1,0 +1,418 @@
+{
+  "split_version": "step02_source_atomic_v3",
+  "split_seed": 20260719,
+  "policy": {
+    "production_ratios": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    },
+    "cv_folds": 5,
+    "group_precedence": "global same-acquisition-source union over human-adjudicated semantic union, then confirmed_source_group_id, then confirmed_object_group_id",
+    "allocator": "deterministic indivisible-group approximate stratification minimizing normalized class plus total L1 target deviation",
+    "test_policy": "sealed; never use for feature, model, threshold, or hyperparameter selection",
+    "old_split_policy": "provenance only; ignored for assignment"
+  },
+  "source_image_count": 2055,
+  "included_image_count": 2023,
+  "excluded_image_count": 32,
+  "excluded_reason_counts": {
+    "exact_or_reencoded_duplicate": 28,
+    "no_usable_visible_motif": 4
+  },
+  "production_split_counts": {
+    "train": 1369,
+    "validation": 324,
+    "test": 330
+  },
+  "class_counts": {
+    "01_opishnyan_ceramics": 589,
+    "02_ornek": 516,
+    "03_bubnivka_ceramics": 280,
+    "04_petrykivka_painting": 306,
+    "05_kosiv_ceramics": 332
+  },
+  "class_split_counts": {
+    "01_opishnyan_ceramics": {
+      "train": 397,
+      "validation": 104,
+      "test": 88
+    },
+    "02_ornek": {
+      "train": 361,
+      "validation": 78,
+      "test": 77
+    },
+    "03_bubnivka_ceramics": {
+      "train": 167,
+      "validation": 46,
+      "test": 67
+    },
+    "04_petrykivka_painting": {
+      "train": 214,
+      "validation": 46,
+      "test": 46
+    },
+    "05_kosiv_ceramics": {
+      "train": 230,
+      "validation": 50,
+      "test": 52
+    }
+  },
+  "production_allocation": {
+    "ratios": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    },
+    "target_total": {
+      "train": 1416,
+      "validation": 304,
+      "test": 303
+    },
+    "observed_total": {
+      "train": 1369,
+      "validation": 324,
+      "test": 330
+    },
+    "deviation_total": {
+      "train": -47,
+      "validation": 20,
+      "test": 27
+    },
+    "target_by_class": {
+      "01_opishnyan_ceramics": {
+        "train": 412,
+        "validation": 89,
+        "test": 88
+      },
+      "02_ornek": {
+        "train": 361,
+        "validation": 78,
+        "test": 77
+      },
+      "03_bubnivka_ceramics": {
+        "train": 196,
+        "validation": 42,
+        "test": 42
+      },
+      "04_petrykivka_painting": {
+        "train": 214,
+        "validation": 46,
+        "test": 46
+      },
+      "05_kosiv_ceramics": {
+        "train": 232,
+        "validation": 50,
+        "test": 50
+      }
+    },
+    "observed_by_class": {
+      "01_opishnyan_ceramics": {
+        "train": 397,
+        "validation": 104,
+        "test": 88
+      },
+      "02_ornek": {
+        "train": 361,
+        "validation": 78,
+        "test": 77
+      },
+      "03_bubnivka_ceramics": {
+        "train": 167,
+        "validation": 46,
+        "test": 67
+      },
+      "04_petrykivka_painting": {
+        "train": 214,
+        "validation": 46,
+        "test": 46
+      },
+      "05_kosiv_ceramics": {
+        "train": 230,
+        "validation": 50,
+        "test": 52
+      }
+    },
+    "deviation_by_class": {
+      "01_opishnyan_ceramics": {
+        "train": -15,
+        "validation": 15,
+        "test": 0
+      },
+      "02_ornek": {
+        "train": 0,
+        "validation": 0,
+        "test": 0
+      },
+      "03_bubnivka_ceramics": {
+        "train": -29,
+        "validation": 4,
+        "test": 25
+      },
+      "04_petrykivka_painting": {
+        "train": 0,
+        "validation": 0,
+        "test": 0
+      },
+      "05_kosiv_ceramics": {
+        "train": -2,
+        "validation": 0,
+        "test": 2
+      }
+    },
+    "max_absolute_total_deviation": 47,
+    "max_absolute_class_deviation": 29,
+    "normalized_class_plus_total_l1_objective": 1.280093631609,
+    "every_class_in_every_destination": true
+  },
+  "development_cv_fold_counts": {
+    "0": 500,
+    "1": 244,
+    "2": 270,
+    "3": 342,
+    "4": 337
+  },
+  "development_cv_class_counts": {
+    "0": {
+      "01_opishnyan_ceramics": 261,
+      "02_ornek": 88,
+      "03_bubnivka_ceramics": 43,
+      "04_petrykivka_painting": 52,
+      "05_kosiv_ceramics": 56
+    },
+    "1": {
+      "01_opishnyan_ceramics": 5,
+      "02_ornek": 88,
+      "03_bubnivka_ceramics": 43,
+      "04_petrykivka_painting": 52,
+      "05_kosiv_ceramics": 56
+    },
+    "2": {
+      "01_opishnyan_ceramics": 31,
+      "02_ornek": 88,
+      "03_bubnivka_ceramics": 43,
+      "04_petrykivka_painting": 52,
+      "05_kosiv_ceramics": 56
+    },
+    "3": {
+      "01_opishnyan_ceramics": 104,
+      "02_ornek": 88,
+      "03_bubnivka_ceramics": 42,
+      "04_petrykivka_painting": 52,
+      "05_kosiv_ceramics": 56
+    },
+    "4": {
+      "01_opishnyan_ceramics": 100,
+      "02_ornek": 87,
+      "03_bubnivka_ceramics": 42,
+      "04_petrykivka_painting": 52,
+      "05_kosiv_ceramics": 56
+    }
+  },
+  "development_cv_allocation": {
+    "ratios": {
+      "0": 0.2,
+      "1": 0.2,
+      "2": 0.2,
+      "3": 0.2,
+      "4": 0.2
+    },
+    "target_total": {
+      "0": 339,
+      "1": 339,
+      "2": 339,
+      "3": 338,
+      "4": 338
+    },
+    "observed_total": {
+      "0": 500,
+      "1": 244,
+      "2": 270,
+      "3": 342,
+      "4": 337
+    },
+    "deviation_total": {
+      "0": 161,
+      "1": -95,
+      "2": -69,
+      "3": 4,
+      "4": -1
+    },
+    "target_by_class": {
+      "01_opishnyan_ceramics": {
+        "0": 101,
+        "1": 100,
+        "2": 100,
+        "3": 100,
+        "4": 100
+      },
+      "02_ornek": {
+        "0": 88,
+        "1": 88,
+        "2": 88,
+        "3": 88,
+        "4": 87
+      },
+      "03_bubnivka_ceramics": {
+        "0": 43,
+        "1": 43,
+        "2": 43,
+        "3": 42,
+        "4": 42
+      },
+      "04_petrykivka_painting": {
+        "0": 52,
+        "1": 52,
+        "2": 52,
+        "3": 52,
+        "4": 52
+      },
+      "05_kosiv_ceramics": {
+        "0": 56,
+        "1": 56,
+        "2": 56,
+        "3": 56,
+        "4": 56
+      }
+    },
+    "observed_by_class": {
+      "01_opishnyan_ceramics": {
+        "0": 261,
+        "1": 5,
+        "2": 31,
+        "3": 104,
+        "4": 100
+      },
+      "02_ornek": {
+        "0": 88,
+        "1": 88,
+        "2": 88,
+        "3": 88,
+        "4": 87
+      },
+      "03_bubnivka_ceramics": {
+        "0": 43,
+        "1": 43,
+        "2": 43,
+        "3": 42,
+        "4": 42
+      },
+      "04_petrykivka_painting": {
+        "0": 52,
+        "1": 52,
+        "2": 52,
+        "3": 52,
+        "4": 52
+      },
+      "05_kosiv_ceramics": {
+        "0": 56,
+        "1": 56,
+        "2": 56,
+        "3": 56,
+        "4": 56
+      }
+    },
+    "deviation_by_class": {
+      "01_opishnyan_ceramics": {
+        "0": 160,
+        "1": -95,
+        "2": -69,
+        "3": 4,
+        "4": 0
+      },
+      "02_ornek": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      },
+      "03_bubnivka_ceramics": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      },
+      "04_petrykivka_painting": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      },
+      "05_kosiv_ceramics": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      }
+    },
+    "max_absolute_total_deviation": 161,
+    "max_absolute_class_deviation": 160,
+    "normalized_class_plus_total_l1_objective": 4.237653380147,
+    "every_class_in_every_destination": true
+  },
+  "split_group_count": 1051,
+  "presemantic_split_group_count": 1776,
+  "semantic_split_group_count": 1720,
+  "semantic_merged_group_count": 36,
+  "source_atomic_split_group_count": 1051,
+  "source_atomic_merged_group_count": 27,
+  "largest_split_group_size": 261,
+  "manual_reviewed_image_count": 429,
+  "manual_reviewed_group_count": 143,
+  "singleton_image_count": 1626,
+  "split_group_leakage_violations": [],
+  "source_atomic_group_leakage_violations": [],
+  "global_source_cohort_leakage_violations": [],
+  "semantic_group_leakage_violations": [],
+  "object_group_leakage_violations": [],
+  "content_hash_leakage_violations": [],
+  "cv_split_group_leakage_violations": [],
+  "cv_source_atomic_group_leakage_violations": [],
+  "cv_global_source_cohort_leakage_violations": [],
+  "cv_semantic_group_leakage_violations": [],
+  "cv_object_group_leakage_violations": [],
+  "cv_content_hash_leakage_violations": [],
+  "adjudicated_candidate_groups_crossing_splits": [],
+  "semantic_adjudication": {
+    "review_status": "complete",
+    "similarity_audit_fingerprint_sha256": "9cdaaa669450148bc93e3f7e7eb0172c77cca98a5c78e3e4ba68b6ef18fbf748",
+    "adjudication_file_sha256": "dc3a312bb0716260a3bbb0f04d20cc90aa9e1e144d3bac7288ab2123d8fed338",
+    "reviewed_component_count": 46,
+    "decision_counts": {
+      "distinct_unrelated": 1,
+      "partitioned": 1,
+      "same_physical_object": 5,
+      "same_source_distinct_objects": 39
+    },
+    "merge_group_count": 45,
+    "candidate_image_count": 118,
+    "semantic_group_membership_fingerprint_sha256": "9b483862fa8ea485d08d69ef23df569a55190c6ad6e0334bca520fa6dc6af2bf"
+  },
+  "global_source_adjudication": {
+    "review_version": "global_source_cohorts_v1",
+    "review_status": "complete",
+    "inventory_projection_fingerprint_sha256": "bc90b6022b2f8bb6183e7d6f9cb73ab1908900077c70ad5ca4ea9355b01c81aa",
+    "adjudication_file_sha256": "01476014ee037c7a8fbdf5ea9d1c7f8649b6472b9adf476d7b8296df8392a550",
+    "cohort_count": 28,
+    "direct_member_image_count": 982,
+    "propagated_member_image_count": 993,
+    "relationship_counts": {
+      "same_acquisition_source": 28
+    },
+    "source_atomic_group_membership_fingerprint_sha256": "f213f459363e3e6bcb745eec77f68d924c4e06575577c44582db7a172782072a"
+  },
+  "assignment_fingerprint_sha256": "59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b",
+  "generated_csv_sha256": {
+    "split_manifest.csv": "ff404524a2d594b5e01713b86cf270819e1ef995c385ef1aabdffdce18b8925b",
+    "train.csv": "5de21791926dadc8cb0dcb01685b795b3caa945b620728f2089d896a7a4941ad",
+    "validation.csv": "227c1b93aa759cd96410564cdd34d9c26b206c7cbf46ebe55b6f42a9e62a0eb6",
+    "test.csv": "3da8c629ebd1852ebd9d763f477488c408f9650601400dc4ef6492b9d84640a5",
+    "development.csv": "6edfe64bcf549cf2875be41e0b07cd535706ccc0b1962d624be1f7eb64dc7023",
+    "split_summary.csv": "f4361167b294385d67488747622e1bffb3c48a01307c18f1591bc271310d7933"
+  }
+}
