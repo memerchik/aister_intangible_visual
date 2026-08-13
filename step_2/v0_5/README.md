@@ -78,6 +78,8 @@ Blueprint. It declares a Docker web service with:
 - one CPU inference thread to reduce memory pressure;
 - one-view inference micro-batches and automatic large-photo downscaling to
   stay within the free instance memory envelope;
+- one isolated prediction worker at a time, with overlapping requests rejected
+  immediately instead of queued in memory;
 - contribution collection disabled;
 - the gated weight downloaded to ephemeral `/tmp` storage after hash checking.
 
@@ -98,11 +100,20 @@ period, and use an ephemeral filesystem. The first request after a spin-down is
 therefore not immediate, and the 86 MB encoder must be reacquired after a fresh
 instance. The runtime streams checkpoint tensors into the encoder, processes
 the 12 frozen v4 views one at a time, serializes predictions, and caps decoded
-uploads at two megapixels. These controls reduce RAM without changing the
-model, crops, or scoring recipe. The current configuration remains a
-feasibility test for a supervisor demo; if measured usage still reaches the
-free limit, the next step is a larger Render instance or a model-hosting
-platform—not weakening the model contract.
+uploads at two megapixels. On Render, each accepted prediction runs in a
+short-lived worker process, so PyTorch/native allocations are returned to the
+operating system when the result is ready. The service never queues uploaded
+images: a concurrent request receives HTTP `429` with `Retry-After: 3` before
+its body is read. These controls reduce RAM without changing the model, crops,
+or scoring recipe. They add several seconds of per-request model-loading
+latency. The current configuration remains a feasibility test for a supervisor
+demo; if measured usage still reaches the free limit, the next step is a larger
+Render instance or a model-hosting platform—not weakening the model contract.
+
+Render health requests every few seconds are expected platform probes. The
+server now writes `Prediction accepted`, `Prediction completed`, and
+`Prediction rejected` messages immediately, because the built-in HTTP access
+log records a request only after a response begins.
 
 The public Render configuration disables contributions because free-instance
 files are not durable. Prediction images are neither written nor retained by

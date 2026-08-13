@@ -149,6 +149,10 @@ The deployment runtime now:
 - serializes image decoding and inference across requests;
 - automatically downsizes browser uploads above two megapixels and rejects an
   oversized direct API request before decoding its pixels.
+- admits only one prediction at a time and rejects overlap before reading the
+  request body;
+- runs each hosted prediction in a disposable process so retained PyTorch and
+  native allocator pages are reclaimed by the operating system.
 
 On the same machine, the fixed reference image fell from about `514 MiB` to
 `441 MiB` peak RSS. A synthetic two-megapixel worst-case image used about `438
@@ -156,6 +160,14 @@ MiB`. The reference feature bytes, ranking scores, labels, and six motif
 regions were unchanged exactly. This establishes a reasonable free-tier test
 margin, not a production capacity guarantee; Render's own service metrics and
 logs remain the authority after redeployment.
+
+A later long-lived-process stress test exposed cumulative native allocation:
+current RSS could rise from roughly `356 MiB` after warm-up to around `500 MiB`
+after repeated sequential predictions, despite garbage collection and allocator
+trimming. In isolated mode, ten sequential two-megapixel predictions all
+completed in about `3.1–3.3s` each and the persistent server stayed near `45
+MiB` after every worker exited. This is why the hosted service uses process
+isolation rather than an in-memory queue.
 
 ## Remaining limitations
 

@@ -4,11 +4,15 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
+import gc
 import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 import threading
 import time
 import uuid
@@ -52,6 +56,117 @@ STATIC_FILES = {
     "/aister-logo.png": ("static/aister-logo.png", "image/png"),
     "/favicon.svg": ("static/favicon.svg", "image/svg+xml"),
 }
+PREDICTION_WORKER = APPLICATION_ROOT / "prediction_worker.py"
+
+
+class PredictionBusyError(RuntimeError):
+    """Raised before reading an upload when the single inference slot is busy."""
+
+
+def release_unused_memory() -> None:
+    """Return released Python/native allocations to the host where supported."""
+
+    gc.collect()
+    try:
+        process_library = ctypes.CDLL(None)
+        if sys.platform.startswith("linux"):
+            trim = process_library.malloc_trim
+            trim.argtypes = [ctypes.c_size_t]
+            trim.restype = ctypes.c_int
+            trim(0)
+        elif sys.platform == "darwin":
+            pressure_relief = process_library.malloc_zone_pressure_relief
+            pressure_relief.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+            pressure_relief.restype = ctypes.c_size_t
+            pressure_relief(None, 0)
+    except (AttributeError, OSError):
+        # Allocation cleanup is a best-effort hosting optimization. The
+        # single-flight gate remains the hard memory-safety boundary.
+        pass
+
+
+class IsolatedOrnamentPredictor:
+    """Run each prediction in a disposable process to release native RAM."""
+
+    def __init__(
+        self,
+        application_root: Path,
+        weight_path: Path,
+        threads: int,
+        inference_batch_size: int,
+        timeout_seconds: int = 180,
+    ):
+        if timeout_seconds < 1:
+            raise ValueError("timeout_seconds must be positive")
+        self.application_root = application_root.resolve()
+        self.weight_path = weight_path.resolve()
+        self.threads = threads
+        self.inference_batch_size = inference_batch_size
+        self.timeout_seconds = timeout_seconds
+
+    def warmup(self) -> None:
+        # The checkpoint was already downloaded and hash-verified. Loading the
+        # encoder here would defeat per-request process isolation.
+        return
+
+    def predict_bytes(self, image_bytes: bytes):
+        with tempfile.TemporaryDirectory(prefix="aister-prediction-") as temporary:
+            root = Path(temporary)
+            input_path = root / "input.image"
+            output_path = root / "result.json"
+            input_path.write_bytes(image_bytes)
+            command = (
+                sys.executable,
+                str(PREDICTION_WORKER),
+                "--application-root",
+                str(self.application_root),
+                "--weight-path",
+                str(self.weight_path),
+                "--input",
+                str(input_path),
+                "--output",
+                str(output_path),
+                "--threads",
+                str(self.threads),
+                "--inference-batch-size",
+                str(self.inference_batch_size),
+            )
+            try:
+                completed = subprocess.run(
+                    command,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    timeout=self.timeout_seconds,
+                    check=False,
+                )
+            except subprocess.TimeoutExpired as error:
+                raise AssistedInferenceError(
+                    "The analysis exceeded the showcase time limit. Try a smaller image."
+                ) from error
+            if completed.returncode != 0:
+                print(
+                    "Prediction worker failed: "
+                    f"exit_code={completed.returncode}; stderr={completed.stderr[-2000:]}",
+                    flush=True,
+                )
+                raise AssistedInferenceError(
+                    "The isolated prediction worker could not complete the analysis."
+                )
+            try:
+                payload = json.loads(output_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as error:
+                raise AssistedInferenceError(
+                    "The isolated prediction worker returned an invalid result."
+                ) from error
+            result = payload.get("result")
+            detected_format = payload.get("detected_format")
+            if not isinstance(result, dict) or not isinstance(detected_format, str):
+                raise AssistedInferenceError(
+                    "The isolated prediction worker returned an incomplete result."
+                )
+            return result, detected_format
 
 
 @dataclass(frozen=True)
@@ -210,6 +325,24 @@ class ApplicationService:
         self.contributions = ContributionStore(contribution_root)
         self.contributions_enabled = contributions_enabled
         self.started_at = time.time()
+        self._prediction_gate = threading.Lock()
+        self._prediction_sequence = 0
+        self._prediction_sequence_lock = threading.Lock()
+
+    def begin_prediction(self) -> str:
+        if not self._prediction_gate.acquire(blocking=False):
+            raise PredictionBusyError(
+                "Another image is already being analyzed. Wait for it to finish before trying again."
+            )
+        with self._prediction_sequence_lock:
+            self._prediction_sequence += 1
+            return f"request-{self._prediction_sequence}"
+
+    def finish_prediction(self) -> None:
+        # Keep the slot occupied until allocator cleanup is complete so the
+        # next upload cannot overlap with retained tensors from this request.
+        release_unused_memory()
+        self._prediction_gate.release()
 
     def health(self) -> Mapping[str, object]:
         return {
@@ -220,12 +353,14 @@ class ApplicationService:
             "calibrated": False,
             "sealed_test_evaluated": False,
             "contributions_enabled": self.contributions_enabled,
+            "prediction_busy": self._prediction_gate.locked(),
+            "maximum_concurrent_predictions": 1,
         }
 
     def public_config(self) -> Mapping[str, object]:
         return {"contributions_enabled": self.contributions_enabled}
 
-    def predict(self, payload: Mapping[str, object]) -> Mapping[str, object]:
+    def predict_admitted(self, payload: Mapping[str, object]) -> Mapping[str, object]:
         image_value = payload.get("image")
         file_name = payload.get("file_name", "uploaded-image")
         if not isinstance(image_value, str):
@@ -251,6 +386,13 @@ class ApplicationService:
             response["storage"] = "none"
         response["processing_ms"] = elapsed_ms
         return response
+
+    def predict(self, payload: Mapping[str, object]) -> Mapping[str, object]:
+        self.begin_prediction()
+        try:
+            return self.predict_admitted(payload)
+        finally:
+            self.finish_prediction()
 
     def contribute(self, payload: Mapping[str, object]) -> Mapping[str, object]:
         if not self.contributions_enabled:
@@ -291,11 +433,18 @@ def build_handler(service: ApplicationService):
                 "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'",
             )
 
-        def _send_json(self, payload: Mapping[str, object], status: HTTPStatus = HTTPStatus.OK) -> None:
+        def _send_json(
+            self,
+            payload: Mapping[str, object],
+            status: HTTPStatus = HTTPStatus.OK,
+            extra_headers: Optional[Mapping[str, str]] = None,
+        ) -> None:
             data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
             self.send_response(status)
             self._security_headers("application/json; charset=utf-8")
             self.send_header("Cache-Control", "no-store")
+            for name, value in (extra_headers or {}).items():
+                self.send_header(name, value)
             self.send_header("Content-Length", str(len(data)))
             self.end_headers()
             self.wfile.write(data)
@@ -350,10 +499,33 @@ def build_handler(service: ApplicationService):
 
         def do_POST(self) -> None:  # noqa: N802
             path = urlparse(self.path).path
+            prediction_request_id = None
             try:
+                if path == "/api/predict":
+                    try:
+                        prediction_request_id = service.begin_prediction()
+                    except PredictionBusyError as error:
+                        print("Prediction rejected: inference slot busy", flush=True)
+                        self.close_connection = True
+                        self._send_json(
+                            {"error": str(error), "status": HTTPStatus.TOO_MANY_REQUESTS.value},
+                            status=HTTPStatus.TOO_MANY_REQUESTS,
+                            extra_headers={"Retry-After": "3", "Connection": "close"},
+                        )
+                        return
+                    print(
+                        f"Prediction accepted: {prediction_request_id}; "
+                        f"content_length={self.headers.get('Content-Length', 'unknown')}",
+                        flush=True,
+                    )
                 payload = self._read_json()
                 if path == "/api/predict":
-                    response = service.predict(payload)
+                    response = service.predict_admitted(payload)
+                    print(
+                        f"Prediction completed: {prediction_request_id}; "
+                        f"processing_ms={response.get('processing_ms', 'unknown')}",
+                        flush=True,
+                    )
                 elif path == "/api/contribute":
                     response = service.contribute(payload)
                 else:
@@ -370,6 +542,9 @@ def build_handler(service: ApplicationService):
                     "The application could not complete this request. Check the server log for details.",
                     HTTPStatus.INTERNAL_SERVER_ERROR,
                 )
+            finally:
+                if prediction_request_id is not None:
+                    service.finish_prediction()
 
     return AisterRequestHandler
 
@@ -408,12 +583,24 @@ def main() -> None:
     }
     print("Preparing the provisional v0.5 model...", flush=True)
     weight_path = ensure_model_weight()
-    predictor = AssistedOrnamentPredictor(
-        application_root=APPLICATION_ROOT,
-        weight_path=weight_path,
-        threads=args.threads,
-        inference_batch_size=args.inference_batch_size,
-    )
+    isolated_predictions = os.environ.get(
+        "AISTER_ISOLATE_PREDICTIONS", "false"
+    ).lower() in {"1", "true", "yes", "on"}
+    if isolated_predictions:
+        predictor = IsolatedOrnamentPredictor(
+            application_root=APPLICATION_ROOT,
+            weight_path=weight_path,
+            threads=args.threads,
+            inference_batch_size=args.inference_batch_size,
+            timeout_seconds=int(os.environ.get("AISTER_PREDICTION_TIMEOUT_SECONDS", "180")),
+        )
+    else:
+        predictor = AssistedOrnamentPredictor(
+            application_root=APPLICATION_ROOT,
+            weight_path=weight_path,
+            threads=args.threads,
+            inference_batch_size=args.inference_batch_size,
+        )
     predictor.warmup()
     service = ApplicationService(
         predictor,
@@ -424,6 +611,11 @@ def main() -> None:
     server.daemon_threads = True
     url = f"http://{args.host}:{args.port}/"
     print(f"AISTER v0.5 is ready at {url}", flush=True)
+    print(
+        "Prediction execution: "
+        + ("isolated process per request" if isolated_predictions else "in-process"),
+        flush=True,
+    )
     if contributions_enabled:
         print("Predictions are not written to disk unless contribution consent is given.", flush=True)
     else:

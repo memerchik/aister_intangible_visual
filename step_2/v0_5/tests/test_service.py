@@ -3,6 +3,7 @@ import importlib.util
 import json
 import sys
 import tempfile
+import threading
 import unittest
 from pathlib import Path
 
@@ -37,6 +38,18 @@ class StubPredictor:
             "sealed_test_evaluated": False,
         }
         return result, "png"
+
+
+class BlockingPredictor(StubPredictor):
+    def __init__(self):
+        self.started = threading.Event()
+        self.release = threading.Event()
+
+    def predict_bytes(self, image_bytes):
+        self.started.set()
+        if not self.release.wait(timeout=5):
+            raise RuntimeError("blocking predictor timed out")
+        return super().predict_bytes(image_bytes)
 
 
 class AssistedApplicationServiceTests(unittest.TestCase):
@@ -124,6 +137,37 @@ class AssistedApplicationServiceTests(unittest.TestCase):
             )
         self.assertFalse(self.contribution_root.exists())
 
+    def test_only_one_prediction_is_admitted_without_queueing_uploads(self):
+        predictor = BlockingPredictor()
+        service = server_module.ApplicationService(
+            predictor, self.contribution_root, contributions_enabled=False
+        )
+        completed = []
+        first = threading.Thread(target=lambda: completed.append(service.predict(self.payload)))
+        first.start()
+        self.assertTrue(predictor.started.wait(timeout=2))
+        self.assertTrue(service.health()["prediction_busy"])
+        self.assertEqual(service.health()["maximum_concurrent_predictions"], 1)
+        with self.assertRaisesRegex(server_module.PredictionBusyError, "already"):
+            service.predict(self.payload)
+        predictor.release.set()
+        first.join(timeout=5)
+        self.assertFalse(first.is_alive())
+        self.assertEqual(len(completed), 1)
+        self.assertFalse(service.health()["prediction_busy"])
+
+    def test_prediction_slot_is_released_after_an_error(self):
+        class FailingPredictor:
+            def predict_bytes(self, image_bytes):
+                raise RuntimeError("expected failure")
+
+        service = server_module.ApplicationService(
+            FailingPredictor(), self.contribution_root, contributions_enabled=False
+        )
+        with self.assertRaisesRegex(RuntimeError, "expected failure"):
+            service.predict(self.payload)
+        self.assertFalse(service.health()["prediction_busy"])
+
 
 class AssistedInterfaceContractTests(unittest.TestCase):
     def test_interface_contains_required_transparency_and_accessibility_copy(self):
@@ -153,6 +197,9 @@ class AssistedInterfaceContractTests(unittest.TestCase):
         server_source = (APP_ROOT / "server.py").read_text()
         self.assertIn("rootDir: step_2/v0_5", render_yaml)
         self.assertIn('value: "false"', render_yaml)
+        self.assertIn("AISTER_ISOLATE_PREDICTIONS", render_yaml)
+        self.assertIn('value: "true"', render_yaml)
+        self.assertIn("prediction_worker.py", dockerfile)
         self.assertNotIn("development", dockerfile)
         self.assertNotIn("ornament_classifier", server_source)
         self.assertIn("aister_runtime.inference", server_source)

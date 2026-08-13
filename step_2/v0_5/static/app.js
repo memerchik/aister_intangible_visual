@@ -59,6 +59,8 @@ const state = {
   result: null,
   motifVisible: true,
   contributionsEnabled: true,
+  predictionController: null,
+  predictionSequence: 0,
 };
 
 async function loadPublicConfig() {
@@ -168,6 +170,10 @@ function selectFile(file) {
 
 async function analyze() {
   if (!state.file || !state.dataUrl) return;
+  if (state.predictionController) state.predictionController.abort();
+  const controller = new AbortController();
+  const sequence = ++state.predictionSequence;
+  state.predictionController = controller;
   ui.analyzeButton.disabled = true;
   showView("loading");
   try {
@@ -175,17 +181,26 @@ async function analyze() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ image: state.dataUrl, file_name: state.file.name }),
+      signal: controller.signal,
     });
     const payload = await response.json();
+    if (sequence !== state.predictionSequence) return;
     if (!response.ok) throw new Error(payload.error || "The analysis could not be completed.");
     state.result = payload;
     renderResult(payload);
     showView("result");
   } catch (error) {
+    if (sequence !== state.predictionSequence) return;
     showView("upload");
-    setError(error instanceof Error ? error.message : "The analysis could not be completed.");
+    const message = error instanceof DOMException && error.name === "AbortError"
+      ? "The previous analysis was cancelled. You can try another image."
+      : (error instanceof Error ? error.message : "The analysis could not be completed.");
+    setError(message);
   } finally {
-    ui.analyzeButton.disabled = !state.file;
+    if (sequence === state.predictionSequence) {
+      state.predictionController = null;
+      ui.analyzeButton.disabled = !state.file;
+    }
   }
 }
 
@@ -347,6 +362,9 @@ async function contribute() {
 }
 
 function resetApplication() {
+  if (state.predictionController) state.predictionController.abort();
+  state.predictionController = null;
+  state.predictionSequence += 1;
   state.result = null;
   clearFile();
   ui.feedbackPanel.hidden = true;

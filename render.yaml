@@ -16,6 +16,10 @@ services:
         value: 1
       - key: AISTER_INFERENCE_BATCH_SIZE
         value: 1
+      - key: AISTER_ISOLATE_PREDICTIONS
+        value: "true"
+      - key: AISTER_PREDICTION_TIMEOUT_SECONDS
+        value: 180
       - key: AISTER_ENABLE_CONTRIBUTIONS
         value: "false"
       - key: AISTER_DINOV3_WEIGHT
