@@ -135,6 +135,28 @@ The actual local server and model were exercised through the browser:
 - the tested result page had one visible H1, no images missing alt text, no
   visible unlabeled controls, and no browser console errors or warnings.
 
+### Render free-tier memory correction
+
+The first Render prediction exceeded the instance memory limit. A fixed local
+measurement reproduced the cause: the original runtime peaked at about `514
+MiB` because it encoded all 12 v4 views together, after a loader that also
+retained a second checkpoint-sized tensor dictionary during startup.
+
+The deployment runtime now:
+
+- streams checkpoint tensors directly into the allocated model;
+- encodes the 12 unchanged views one at a time;
+- serializes image decoding and inference across requests;
+- automatically downsizes browser uploads above two megapixels and rejects an
+  oversized direct API request before decoding its pixels.
+
+On the same machine, the fixed reference image fell from about `514 MiB` to
+`441 MiB` peak RSS. A synthetic two-megapixel worst-case image used about `438
+MiB`. The reference feature bytes, ranking scores, labels, and six motif
+regions were unchanged exactly. This establishes a reasonable free-tier test
+margin, not a production capacity guarantee; Render's own service metrics and
+logs remain the authority after redeployment.
+
 ## Remaining limitations
 
 The UI is close to a final product experience, but the model and operational

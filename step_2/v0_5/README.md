@@ -76,6 +76,8 @@ Blueprint. It declares a Docker web service with:
 - health endpoint `/api/health`;
 - Render-provided `PORT` binding through `HOST=0.0.0.0`;
 - one CPU inference thread to reduce memory pressure;
+- one-view inference micro-batches and automatic large-photo downscaling to
+  stay within the free instance memory envelope;
 - contribution collection disabled;
 - the gated weight downloaded to ephemeral `/tmp` storage after hash checking.
 
@@ -94,9 +96,13 @@ Deployment steps:
 Free Render instances have tight CPU and memory limits, spin down after an idle
 period, and use an ephemeral filesystem. The first request after a spin-down is
 therefore not immediate, and the 86 MB encoder must be reacquired after a fresh
-instance. The current configuration is a feasibility test for a supervisor
-demo; if the container exceeds the free memory limit, the next step is a larger
-Render instance or a model-hosting platform—not weakening the model contract.
+instance. The runtime streams checkpoint tensors into the encoder, processes
+the 12 frozen v4 views one at a time, serializes predictions, and caps decoded
+uploads at two megapixels. These controls reduce RAM without changing the
+model, crops, or scoring recipe. The current configuration remains a
+feasibility test for a supervisor demo; if measured usage still reaches the
+free limit, the next step is a larger Render instance or a model-hosting
+platform—not weakening the model contract.
 
 The public Render configuration disables contributions because free-instance
 files are not durable. Prediction images are neither written nor retained by

@@ -14,6 +14,8 @@ services:
         value: 0.0.0.0
       - key: AISTER_THREADS
         value: 1
+      - key: AISTER_INFERENCE_BATCH_SIZE
+        value: 1
       - key: AISTER_ENABLE_CONTRIBUTIONS
         value: "false"
       - key: AISTER_DINOV3_WEIGHT

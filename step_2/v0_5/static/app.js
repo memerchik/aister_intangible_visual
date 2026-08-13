@@ -1,6 +1,7 @@
 "use strict";
 
 const MAX_BYTES = 12 * 1024 * 1024;
+const MAX_IMAGE_PIXELS = 2 * 1000 * 1000;
 const ACCEPTED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 const LABEL_TONES = {
   "01_opishnyan_ceramics": "tone-opishnyan",
@@ -105,6 +106,34 @@ function clearFile() {
   setError("");
 }
 
+function normalizedUpload(file, sourceUrl) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.addEventListener("load", () => {
+      const pixels = image.naturalWidth * image.naturalHeight;
+      if (pixels <= MAX_IMAGE_PIXELS) {
+        resolve({ dataUrl: sourceUrl, resized: false });
+        return;
+      }
+      const scale = Math.sqrt(MAX_IMAGE_PIXELS / pixels);
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.floor(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.floor(image.naturalHeight * scale));
+      const context = canvas.getContext("2d");
+      if (!context) {
+        reject(new Error("This browser could not prepare the image."));
+        return;
+      }
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve({ dataUrl: canvas.toDataURL("image/jpeg", 0.9), resized: true });
+    });
+    image.addEventListener("error", () => reject(new Error("The selected image could not be decoded.")));
+    image.src = sourceUrl;
+  });
+}
+
 function selectFile(file) {
   setError("");
   if (!file) return;
@@ -117,15 +146,21 @@ function selectFile(file) {
     return;
   }
   const reader = new FileReader();
-  reader.addEventListener("load", () => {
-    state.file = file;
-    state.dataUrl = String(reader.result);
-    ui.selectedPreview.src = state.dataUrl;
-    ui.selectedName.textContent = file.name;
-    ui.selectedMeta.textContent = `${formatBytes(file.size)} · ${file.type.replace("image/", "").toUpperCase()}`;
-    ui.dropZone.hidden = true;
-    ui.selectedFile.hidden = false;
-    ui.analyzeButton.disabled = false;
+  reader.addEventListener("load", async () => {
+    try {
+      const prepared = await normalizedUpload(file, String(reader.result));
+      state.file = file;
+      state.dataUrl = prepared.dataUrl;
+      ui.selectedPreview.src = state.dataUrl;
+      ui.selectedName.textContent = file.name;
+      const resizeNote = prepared.resized ? " · optimized for analysis" : "";
+      ui.selectedMeta.textContent = `${formatBytes(file.size)} · ${file.type.replace("image/", "").toUpperCase()}${resizeNote}`;
+      ui.dropZone.hidden = true;
+      ui.selectedFile.hidden = false;
+      ui.analyzeButton.disabled = false;
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "The selected image could not be prepared.");
+    }
   });
   reader.addEventListener("error", () => setError("The selected image could not be read."));
   reader.readAsDataURL(file);

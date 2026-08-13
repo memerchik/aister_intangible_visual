@@ -1,4 +1,5 @@
 import json
+import inspect
 import sys
 import unittest
 from pathlib import Path
@@ -14,8 +15,10 @@ if str(SOURCE_ROOT) not in sys.path:
 
 from aister_runtime.inference import (  # noqa: E402
     CLASS_ORDER,
+    MAX_DECODED_PIXELS,
     MODEL_WEIGHT_SHA256,
     AssistedOrnamentPredictor,
+    Dinov3FeatureExtractor,
     LinearModelArtifact,
 )
 
@@ -29,6 +32,18 @@ WEIGHT_PATH = (
 
 
 class AssistedModelArtifactTests(unittest.TestCase):
+    def test_low_memory_defaults_are_frozen_for_showcase_hosting(self):
+        self.assertEqual(MAX_DECODED_PIXELS, 2_000_000)
+        parameters = inspect.signature(Dinov3FeatureExtractor).parameters
+        self.assertEqual(parameters["inference_batch_size"].default, 1)
+
+    def test_inference_batch_size_must_be_positive(self):
+        extractor = Dinov3FeatureExtractor.__new__(Dinov3FeatureExtractor)
+        with self.assertRaisesRegex(ValueError, "inference_batch_size"):
+            Dinov3FeatureExtractor.__init__(
+                extractor, WEIGHT_PATH, threads=1, inference_batch_size=0
+            )
+
     def test_packaged_model_contract_is_provisional_and_sealed(self):
         manifest = json.loads((ARTIFACT_ROOT / "model_manifest.json").read_text())
         self.assertEqual(manifest["status"], "provisional_human_assisted_not_promoted")

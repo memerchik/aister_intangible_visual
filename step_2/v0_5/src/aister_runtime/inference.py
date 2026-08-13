@@ -41,7 +41,7 @@ CERAMIC_BOUNDARY_CLASSES = frozenset(
     ("01_opishnyan_ceramics", "03_bubnivka_ceramics")
 )
 MAX_UPLOAD_BYTES = 12 * 1024 * 1024
-MAX_DECODED_PIXELS = 30_000_000
+MAX_DECODED_PIXELS = 2_000_000
 MIN_IMAGE_DIMENSION = 32
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
@@ -219,7 +219,7 @@ def decode_image(image_bytes: bytes) -> Tuple[Image.Image, str]:
                 raise InvalidImageError("Only JPEG, PNG, and WebP images are supported")
             width, height = opened.size
             if width * height > MAX_DECODED_PIXELS:
-                raise InvalidImageError("The decoded image is larger than the 30 megapixel limit")
+                raise InvalidImageError("The decoded image is larger than the 2 megapixel limit")
             if min(width, height) < MIN_IMAGE_DIMENSION:
                 raise InvalidImageError("Both image dimensions must be at least 32 pixels")
             oriented = ImageOps.exif_transpose(opened)
@@ -240,11 +240,19 @@ def decode_image(image_bytes: bytes) -> Tuple[Image.Image, str]:
 class Dinov3FeatureExtractor:
     """Load the pinned local encoder and reproduce the fixed v4 representations."""
 
-    def __init__(self, weight_path: Optional[Path] = None, threads: int = 4):
+    def __init__(
+        self,
+        weight_path: Optional[Path] = None,
+        threads: int = 4,
+        inference_batch_size: int = 1,
+    ):
         if threads < 1:
             raise ValueError("threads must be positive")
+        if inference_batch_size < 1:
+            raise ValueError("inference_batch_size must be positive")
         self.weight_path = self._resolve_weight(weight_path)
         self.threads = threads
+        self.inference_batch_size = inference_batch_size
         self._model = None
 
     @staticmethod
@@ -286,46 +294,63 @@ class Dinov3FeatureExtractor:
         torch.manual_seed(20260719)
         torch.use_deterministic_algorithms(True, warn_only=False)
         torch.set_float32_matmul_precision("highest")
-        with safe_open(str(self.weight_path), framework="pt", device="cpu") as handle:
-            source = {key: handle.get_tensor(key) for key in handle.keys()}
         model = timm.create_model(
             MODEL_ARCHITECTURE,
             pretrained=False,
             num_classes=0,
             img_size=INPUT_SIZE,
         )
-        state: Dict[str, object] = {
-            "cls_token": source["embeddings.cls_token"],
-            "reg_token": source["embeddings.register_tokens"],
-            "patch_embed.proj.weight": source["embeddings.patch_embeddings.weight"],
-            "patch_embed.proj.bias": source["embeddings.patch_embeddings.bias"],
-            "norm.weight": source["norm.weight"],
-            "norm.bias": source["norm.bias"],
-        }
-        for index in range(12):
-            old = f"layer.{index}."
-            new = f"blocks.{index}."
-            state[new + "gamma_1"] = source[old + "layer_scale1.lambda1"]
-            state[new + "gamma_2"] = source[old + "layer_scale2.lambda1"]
-            for name in ("norm1.weight", "norm1.bias", "norm2.weight", "norm2.bias"):
-                state[new + name] = source[old + name]
-            state[new + "attn.q_bias"] = source[old + "attention.q_proj.bias"]
-            state[new + "attn.v_bias"] = source[old + "attention.v_proj.bias"]
-            state[new + "attn.qkv.weight"] = torch.cat(
-                (
-                    source[old + "attention.q_proj.weight"],
-                    source[old + "attention.k_proj.weight"],
-                    source[old + "attention.v_proj.weight"],
-                ),
-                dim=0,
+        parameters = dict(model.named_parameters())
+
+        def copy_parameter(target: str, source: str, handle) -> None:
+            parameters[target].copy_(handle.get_tensor(source))
+
+        # Copy one tensor at a time from the memory-mapped checkpoint. The old
+        # loader retained a second full parameter dictionary until the model
+        # was ready, which put small hosting instances close to their RAM cap.
+        with torch.no_grad(), safe_open(
+            str(self.weight_path), framework="pt", device="cpu"
+        ) as handle:
+            copy_parameter("cls_token", "embeddings.cls_token", handle)
+            copy_parameter("reg_token", "embeddings.register_tokens", handle)
+            copy_parameter(
+                "patch_embed.proj.weight", "embeddings.patch_embeddings.weight", handle
             )
-            state[new + "attn.proj.weight"] = source[old + "attention.o_proj.weight"]
-            state[new + "attn.proj.bias"] = source[old + "attention.o_proj.bias"]
-            state[new + "mlp.fc1.weight"] = source[old + "mlp.up_proj.weight"]
-            state[new + "mlp.fc1.bias"] = source[old + "mlp.up_proj.bias"]
-            state[new + "mlp.fc2.weight"] = source[old + "mlp.down_proj.weight"]
-            state[new + "mlp.fc2.bias"] = source[old + "mlp.down_proj.bias"]
-        model.load_state_dict(state, strict=True)
+            copy_parameter(
+                "patch_embed.proj.bias", "embeddings.patch_embeddings.bias", handle
+            )
+            copy_parameter("norm.weight", "norm.weight", handle)
+            copy_parameter("norm.bias", "norm.bias", handle)
+            for index in range(12):
+                old = f"layer.{index}."
+                new = f"blocks.{index}."
+                copy_parameter(new + "gamma_1", old + "layer_scale1.lambda1", handle)
+                copy_parameter(new + "gamma_2", old + "layer_scale2.lambda1", handle)
+                for name in ("norm1.weight", "norm1.bias", "norm2.weight", "norm2.bias"):
+                    copy_parameter(new + name, old + name, handle)
+                copy_parameter(new + "attn.q_bias", old + "attention.q_proj.bias", handle)
+                copy_parameter(new + "attn.v_bias", old + "attention.v_proj.bias", handle)
+                qkv = parameters[new + "attn.qkv.weight"]
+                width = qkv.shape[0] // 3
+                qkv[:width].copy_(handle.get_tensor(old + "attention.q_proj.weight"))
+                qkv[width : 2 * width].copy_(
+                    handle.get_tensor(old + "attention.k_proj.weight")
+                )
+                qkv[2 * width :].copy_(
+                    handle.get_tensor(old + "attention.v_proj.weight")
+                )
+                copy_parameter(
+                    new + "attn.proj.weight", old + "attention.o_proj.weight", handle
+                )
+                copy_parameter(
+                    new + "attn.proj.bias", old + "attention.o_proj.bias", handle
+                )
+                copy_parameter(new + "mlp.fc1.weight", old + "mlp.up_proj.weight", handle)
+                copy_parameter(new + "mlp.fc1.bias", old + "mlp.up_proj.bias", handle)
+                copy_parameter(
+                    new + "mlp.fc2.weight", old + "mlp.down_proj.weight", handle
+                )
+                copy_parameter(new + "mlp.fc2.bias", old + "mlp.down_proj.bias", handle)
         model.eval()
         if {parameter.device.type for parameter in model.parameters()} != {"cpu"}:
             raise AssistedInferenceError("The v0.5 encoder must run on CPU")
@@ -391,9 +416,13 @@ class Dinov3FeatureExtractor:
         self.load()
         if self._model is None:
             raise AssistedInferenceError("The encoder did not initialize")
+        batches = []
         with torch.inference_mode():
-            features = self._model.forward_features(self._images_to_tensor(images))[:, 0]
-        return _normalize_rows(features.detach().cpu().numpy()).astype(np.float32)
+            for start in range(0, len(images), self.inference_batch_size):
+                batch = images[start : start + self.inference_batch_size]
+                features = self._model.forward_features(self._images_to_tensor(batch))[:, 0]
+                batches.append(features.detach().cpu().numpy())
+        return _normalize_rows(np.concatenate(batches, axis=0)).astype(np.float32)
 
     def extract(self, image: Image.Image) -> Tuple[np.ndarray, Tuple[Mapping[str, object], ...]]:
         proposals = select_motif_proposals(image)
@@ -432,6 +461,7 @@ class AssistedOrnamentPredictor:
         application_root: Optional[Path] = None,
         weight_path: Optional[Path] = None,
         threads: int = 4,
+        inference_batch_size: int = 1,
     ):
         root = (
             Path(application_root).expanduser().resolve()
@@ -440,8 +470,12 @@ class AssistedOrnamentPredictor:
         )
         artifact_directory = root / "artifacts"
         self.artifact = LinearModelArtifact.load(artifact_directory)
-        self.extractor = Dinov3FeatureExtractor(weight_path=weight_path, threads=threads)
-        self._lock = threading.Lock()
+        self.extractor = Dinov3FeatureExtractor(
+            weight_path=weight_path,
+            threads=threads,
+            inference_batch_size=inference_batch_size,
+        )
+        self._lock = threading.RLock()
 
     def warmup(self) -> None:
         self.extractor.load()
@@ -488,5 +522,9 @@ class AssistedOrnamentPredictor:
         }
 
     def predict_bytes(self, image_bytes: bytes) -> Tuple[Mapping[str, object], str]:
-        image, detected_format = decode_image(image_bytes)
-        return self.predict_image(image), detected_format
+        # Decode as well as inference under one lock. This prevents concurrent
+        # uploads from holding multiple full-resolution RGB images beside the
+        # encoder on memory-constrained showcase instances.
+        with self._lock:
+            image, detected_format = decode_image(image_bytes)
+            return self.predict_image(image), detected_format

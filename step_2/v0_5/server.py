@@ -381,6 +381,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--threads", type=int, default=int(os.environ.get("AISTER_THREADS", "4"))
     )
+    parser.add_argument(
+        "--inference-batch-size",
+        type=int,
+        default=int(os.environ.get("AISTER_INFERENCE_BATCH_SIZE", "1")),
+        help="Number of image views encoded together; keep at 1 on low-memory hosts",
+    )
     parser.add_argument("--open", action="store_true", help="Open the local app in the default browser")
     parser.add_argument(
         "--contribution-directory",
@@ -406,6 +412,7 @@ def main() -> None:
         application_root=APPLICATION_ROOT,
         weight_path=weight_path,
         threads=args.threads,
+        inference_batch_size=args.inference_batch_size,
     )
     predictor.warmup()
     service = ApplicationService(
