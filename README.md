@@ -54,6 +54,9 @@ prepared Render free-tier deployment.
 - [`development/README.md`](step_2/development/README.md) — results and reproduction commands
 - [`development/phases/README.md`](step_2/development/phases/README.md) — phase map
 - [`development/ARCHITECTURE.md`](step_2/development/ARCHITECTURE.md) — ownership and relocation rules
+- [`development/DATASET_CARD.md`](step_2/development/DATASET_CARD.md) — dataset composition, splits, provenance, and intended use
+- [`development/VALIDITY_FRAMEWORK.md`](step_2/development/VALIDITY_FRAMEWORK.md) — computational, dataset, and interpretive validity
+- [`development/outputs/README.md`](step_2/development/outputs/README.md) — metrics, predictions, and confusion-matrix index
 - [`development/PHASE_5_EVOLUTION.md`](step_2/development/PHASE_5_EVOLUTION.md) — v1–v5 record
 - [`development/PHASE_5_GATES.md`](step_2/development/PHASE_5_GATES.md) — all promotion gates
 

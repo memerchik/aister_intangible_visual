@@ -10,6 +10,12 @@ workshop remain unchanged in `step_1/`.
 - [`phases/README.md`](phases/README.md) summarizes the five development phases.
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) explains the directory layout and the
   relocation from the old `step_02/` path.
+- [`DATASET_CARD.md`](DATASET_CARD.md) records composition, exclusions, splits,
+  provenance limits, and intended use.
+- [`VALIDITY_FRAMEWORK.md`](VALIDITY_FRAMEWORK.md) separates computational,
+  dataset, and human-interpretive evidence and outlines future task designs.
+- [`outputs/README.md`](outputs/README.md) indexes metrics, predictions, and
+  confusion matrices from Phases 3–5.
 - [`PHASE_1_FINDINGS.md`](PHASE_1_FINDINGS.md) covers the dataset audit.
 - [`PHASE_2_FINDINGS.md`](PHASE_2_FINDINGS.md) describes the evaluation split.
 - [`PHASE_3_FINDINGS.md`](PHASE_3_FINDINGS.md) reports the classical baseline.
@@ -94,7 +100,7 @@ demonstration and expert feedback, but it is not a validated production model.
 | `splits/` | Current partitions, folds, split policy, hashes, and audit |
 | `scripts/` | Dataset builders and experiment runners |
 | `tests/` | Integrity, isolation, determinism, and output checks |
-| `outputs/` | Saved metrics, predictions, diagnostics, and experiment records |
+| [`outputs/`](outputs/README.md) | Saved metrics, predictions, diagnostics, and experiment records |
 | `src/` | Reusable modelling code used by the later experiments |
 | `phases/` | Short phase summaries and links to the files above |
 

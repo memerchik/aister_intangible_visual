@@ -50,6 +50,48 @@ The v3–v5 non-regression floors allow at most a 0.20 percentage-point accuracy
 drop, a 0.20 point macro-F1 drop, and a 0.50 point source-robustness drop from
 the recorded v1 result.
 
+## Gate rationale and failure interpretation
+
+These gates are project-specific decision rules defined for the frozen Phase 5
+experiments. They combine aggregate quality, class-boundary behavior,
+source-cohort robustness, fold stability, and selection stability. A failed
+gate identifies the condition that prevented promotion; it does not by itself
+prove a single cause.
+
+### Shared gates
+
+| Gate | Why it is tracked | What a failure indicates |
+|---|---|---|
+| Overall accuracy | Provides a direct aggregate measure of correct five-way decisions across all development images. | The procedure does not meet the minimum overall correctness required for promotion, even if some classes perform well. |
+| Overall macro F1 | Gives every class equal weight while combining precision and recall. | Aggregate accuracy may be masking weak or imbalanced class-level behavior. |
+| Opishnyan recall | Protects the largest class from being lost across the difficult ceramic boundary. | Too many true Opishnyan images are assigned to other classes. |
+| Bubnivka precision | Limits false Bubnivka assignments, especially Opishnyan images admitted into the smaller Bubnivka class. | A Bubnivka prediction is not sufficiently specific under the required operating point. |
+| Ceramic macro F1 | Summarizes balanced performance over Opishnyan, Bubnivka, and Kosiv ceramics. | The method has not achieved the required joint precision/recall quality across the three ceramic classes. |
+| Opishnyan → Bubnivka errors | Directly bounds the dominant asymmetric confusion in absolute image counts. | The model still crosses the Opishnyan/Bubnivka boundary too often, regardless of its overall score. |
+| Challenging-Opishnyan accuracy | Tests Opishnyan images from the three named difficult cohorts together with images lacking a named source cohort. | Performance is too dependent on easier or better represented Opishnyan sources. |
+| Hard-three Opishnyan pooled accuracy | Measures image-weighted accuracy across `gray_catalog_b`, `shelf_figurines`, and `shop_cubbies`. | The combined difficult-source image pool remains below the required accuracy. |
+| Hard-three Opishnyan cohort-macro accuracy | Gives each of the three difficult cohorts equal influence, independent of cohort size. | At least one difficult source can remain weak even when a larger cohort raises the pooled result. |
+| Large named-source macro accuracy | Gives equal weight to every identified source cohort with at least 20 development images. | Performance does not transfer consistently across the larger known acquisition sources. |
+| Worst outer-fold accuracy | Sets a floor on the weakest source-held-out fold. | At least one held-out source grouping is substantially less reliable than the aggregate result. |
+| Outer-fold accuracy standard deviation | Limits variability across the five source-atomic outer folds. | Performance is too sensitive to which source groups are held out. |
+| Ornek recall floor | Prevents a new procedure from sacrificing established Ornek recognition. | Too many Ornek examples are missed despite possible gains elsewhere. |
+| Bubnivka recall floor | Prevents gains in Bubnivka precision from being obtained simply by avoiding Bubnivka predictions. | Too many true Bubnivka images are missed. |
+| Petrykivka recall floor | Prevents the ceramic-focused work from regressing Petrykivka recognition. | Too many Petrykivka examples are missed despite possible gains elsewhere. |
+| Kosiv recall floor | Protects the third ceramic class while the Opishnyan/Bubnivka boundary is adjusted. | Too many true Kosiv images are missed. |
+| Base-recipe stability | Checks whether the full-development base winner remains competitive in at least four source-held-out selections. | The selected base recipe is sensitive to the particular sources available during selection. |
+
+### Iteration-specific gates
+
+| Gate | Why it is tracked | What a failure indicates |
+|---|---|---|
+| Pair-correction recipe stability | Checks whether the v2 binary correction transfers across outer source splits. | The chosen correction settings are source-dependent and do not repeat reliably. |
+| Consensus-fusion recipe stability | Checks whether the v3 encoder and blend choice remains competitive across outer source splits. | The apparent fusion benefit depends on the selection subset or held-out sources. |
+| Motif-recipe stability | Checks whether the v4 motif descriptor and classifier settings repeat across outer source splits. | The selected motif aggregation recipe is not stable enough across source compositions. |
+| Fixed-consensus stability | Verifies that the v5 fixed four-head recipe remains eligible under the frozen limits in at least four outer searches. | Even without post-base recipe selection, the consensus does not transfer consistently across source-held-out evaluations. |
+| V1 accuracy non-regression | Keeps later methods within the allowed aggregate-accuracy loss from the v1 reference. | A later method trades away more overall correct decisions than the contract permits. |
+| V1 macro-F1 non-regression | Keeps later methods within the allowed class-balanced F1 loss from v1. | A later method sacrifices too much equal-weight class performance. |
+| V1 source-robustness non-regression | Protects the source-cohort improvement established by v1. | A later method's aggregate or boundary gain is accompanied by an unacceptable loss on source-robust evaluation. |
+
 ## Gates failed by all five versions
 
 Exactly two shared gates were not satisfied by any Phase 5 candidate:
