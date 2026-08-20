@@ -1,13 +1,13 @@
 # AISTER Ukrainian ornament classifier
 
-This repository identifies five Ukrainian ornament traditions from images. It
-now has three clear boundaries:
+This repository contains an image classifier for five Ukrainian ornament
+traditions. The work is organized into three parts:
 
 | Folder | Purpose |
 |---|---|
 | [`step_1/`](step_1/) | Preserved prototype and workshop materials |
-| [`step_2/development/`](step_2/development/README.md) | Complete leakage-audited research history, datasets, phase outputs, scripts, and tests |
-| [`step_2/v0_5/`](step_2/v0_5/README.md) | Self-contained provisional web application and Render deployment root |
+| [`step_2/development/`](step_2/development/README.md) | Audited research history, datasets, experiment outputs, scripts, and tests |
+| [`step_2/v0_5/`](step_2/v0_5/README.md) | Standalone preview application and Render deployment files |
 
 Start with [`step_2/README.md`](step_2/README.md) for the short project map.
 Before a public commit, run the
@@ -30,11 +30,11 @@ most stable and passed 18 of 21 promotion gates. None passed every gate, so no
 candidate advanced to calibration or the one-shot sealed evaluation. The
 330-image test partition remains sealed.
 
-The separate v0.5 application packages the fixed v4 full-development recipe as
-a transparent, human-assisted showcase. It returns an immediate best visual
+The v0.5 application packages the fixed v4 full-development recipe as a
+transparent, human-assisted preview. It returns an immediate best visual
 match, all five uncalibrated ranking scores, and six motif regions. It does not
 claim production accuracy, calibrated confidence, unknown-class detection, or
-formal Phase 6 status.
+release-ready validation.
 
 ## Run the showcase locally
 

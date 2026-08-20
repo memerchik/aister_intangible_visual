@@ -1,8 +1,7 @@
 # AISTER Ornament Lens v0.5
 
-This folder is the complete runtime boundary for the provisional
-human-assisted showcase. It can be copied or built without
-`step_2/development/`.
+This folder contains the standalone human-assisted application. It can be
+copied, run, and deployed without `step_2/development/`.
 
 The application accepts one JPEG, PNG, or WebP image and returns:
 
@@ -13,9 +12,10 @@ The application accepts one JPEG, PNG, or WebP image and returns:
 - optional human confirmation or correction;
 - optional contribution collection when the deployment explicitly enables it.
 
-V0.5 is not a promoted Phase 6 model. It has no calibrated confidence,
-unknown-class rejection, sealed-test result, or production-accuracy claim. See
-[`FINDINGS.md`](FINDINGS.md) for the evidence and limitations.
+V0.5 is a preview of the intended user experience, not a validated production
+classifier. It has no calibrated confidence, unknown-class rejection, or
+sealed-test result. See [`FINDINGS.md`](FINDINGS.md) for the supporting evidence
+and known limitations.
 
 ## Folder map
 
@@ -24,7 +24,7 @@ v0_5/
 ├── Dockerfile                    # Render/container build
 ├── requirements.txt             # container runtime dependencies
 ├── requirements-local.txt       # local runtime, including PyTorch
-├── server.py                     # HTTP service and privacy boundary
+├── server.py                     # HTTP service, upload handling, and API
 ├── product_contract.json         # frozen product claims and restrictions
 ├── artifacts/                    # small packaged linear classifier
 ├── src/aister_runtime/           # image preprocessing and inference
@@ -106,9 +106,9 @@ operating system when the result is ready. The service never queues uploaded
 images: a concurrent request receives HTTP `429` with `Retry-After: 3` before
 its body is read. These controls reduce RAM without changing the model, crops,
 or scoring recipe. They add several seconds of per-request model-loading
-latency. The current configuration remains a feasibility test for a supervisor
-demo; if measured usage still reaches the free limit, the next step is a larger
-Render instance or a model-hosting platform—not weakening the model contract.
+latency. This setup is suitable for a low-traffic demonstration. If it still
+exceeds the free memory or request-time limits, it will need a larger Render
+instance or a dedicated model-hosting service.
 
 Render health requests every few seconds are expected platform probes. The
 server now writes `Prediction accepted`, `Prediction completed`, and
@@ -168,6 +168,10 @@ the texture-weighted mean of six label-free motif tiles, a 768-dimensional
 input, five-class L2 logistic regression with `C=10`, source-group exponent
 `0.5`, and all 1,693 development records. It never accesses the sealed test.
 
-Dataset-image rights and the custom DINOv3 licence still require review before
-making this a general public release. A supervisor showcase should retain the
-provisional disclosures and should not be presented as a validated v1 product.
+## Release status
+
+The current build is ready for a controlled demonstration. A general public v1
+release still requires independent model evaluation, calibrated confidence or
+a clear alternative decision policy, unknown-image handling, durable storage
+and expert review for contributions, and review of dataset-image rights and the
+custom DINOv3 licence.

@@ -1,65 +1,87 @@
-# Phase 2 source-atomic evaluation contract
+# Dataset splits and evaluation protocol
 
-This directory is the single source of truth for Step 02 dataset membership. Paths in the CSV files are relative to `step_02/data/`.
+This directory defines the current Step 2 dataset assignments. Image paths in
+the CSV files are relative to [`../data/`](../data/README.md).
 
-## Current production split
+## Current split
 
-- `train.csv`: 1,369 images for fitting model parameters.
-- `validation.csv`: 324 images for development-only diagnostics.
-- `test.csv`: 330 images sealed until the complete model and decision policy are frozen.
-- `development.csv`: the 1,693 non-test images, with source-blocked `cv_fold` values 0–4.
+The current version is `step02_source_atomic_v3`, generated with seed
+`20260719`.
 
-The five development folds contain 500, 244, 270, 342, and 337 images. All five classes occur in every production partition and every fold.
+- `train.csv`: 1,369 images used to fit model parameters.
+- `validation.csv`: 324 images used for secondary development diagnostics.
+- `development.csv`: all 1,693 non-test images, with source-blocked `cv_fold`
+  values from 0 to 4.
+- `test.csv`: 330 images reserved for one final evaluation after the model and
+  decision policy are frozen.
+- `split_manifest.csv`: all 2,055 inventory records, including the 32 excluded
+  images and their reasons.
 
-This is an approximate, not exact, stratification. The 70/15/15 production targets are about 1,416/304/303, but large acquisition cohorts cannot be split. In particular, one 261-image Opishnyan source cohort occupies all of fold 0 for that cohort and creates most of the CV imbalance. Report aggregate OOF metrics and unweighted fold mean/variation together.
+The five development folds contain 500, 244, 270, 342, and 337 images. Each
+class appears in every partition and every fold. The sizes are intentionally
+uneven because related images remain together; one Opishnyan acquisition cohort
+alone contains 261 images. Reports therefore include both aggregate out-of-fold
+metrics and the unweighted mean and variation across folds.
 
 ## Leakage controls
 
-The assignment unit is the union of, in precedence order:
+Related records are joined into one assignment group using, in order:
 
-1. the 28 visually reviewed global same-acquisition-source cohorts;
-2. the 46 visually adjudicated pretrained-similarity components;
+1. 28 visually reviewed acquisition-source cohorts;
+2. 46 visually reviewed pretrained-similarity components;
 3. manually confirmed source groups;
 4. manually confirmed physical-object groups;
 5. identical included image bytes.
 
-The global audit directly assigns 982 included images to conservative source cohorts; propagation through the prior semantic groups gives 993 source-atomic members. The final split has 1,051 indivisible groups, with a maximum size of 261.
+The final split contains 1,051 indivisible groups. No reviewed acquisition
+cohort, semantic group, source group, physical object, or included content hash
+crosses a production split or a development fold.
 
-No source-atomic group, global source cohort, semantic group, confirmed source group, confirmed object group, or included content hash crosses a production split or a development CV fold. The 32 excluded images remain in `split_manifest.csv` without an assignment:
+The 32 excluded images are kept in `split_manifest.csv` without an assignment:
 
-- 28 exact or visually identical re-encoded copies;
+- 28 exact or visually identical copies;
 - 4 images without a usable visible motif.
 
-Source cohorts are visual inferences from repeated watermarks, backdrops, camera/export signatures, or coherent sessions. Unassigned images are not proven independent, and shared provenance is not a licence to redistribute an image.
+Source cohorts are inferred from repeated watermarks, backdrops, camera/export
+signatures, and coherent photography sessions. Images without a cohort are not
+proven to have independent provenance. A shared source also says nothing about
+whether an image may legally be redistributed.
 
-## Superseded versions
+## Earlier split versions
 
-`step02_grouped_v1` was replaced after a pretrained-embedding audit revealed missed same-object/source relationships. `step02_semantic_grouped_v2` integrated those relationships but was replaced after all 28 global acquisition cohorts were found to cross its evaluation boundaries. Neither earlier test partition remains a benchmark.
+`step02_grouped_v1` was replaced after an embedding review found missed
+same-object and same-source relationships. `step02_semantic_grouped_v2` added
+those relationships but was replaced after 28 broader acquisition cohorts were
+found to cross its partitions. Results based on those earlier test partitions
+are not current benchmarks.
 
-The current version is `step02_source_atomic_v3`, seed `20260719`. Its assignment fingerprint is:
+The v3 assignment fingerprint is:
 
 `59718f69dc0b3f6c2eeee2b372d3e5381b48aa957e15c0128abbdda3719f9f4b`
 
-## Usage rules
+## Using the split
 
-1. Treat `old_split` and all superseded Step 02 assignments as provenance only.
-2. Use only train/validation and the five development folds for model selection.
-3. Keep all source/group fields intact in every downstream experiment.
-4. Report aggregate OOF metrics plus unweighted fold mean and standard deviation because fold sizes differ materially.
-5. Freeze preprocessing, representation, model, hyperparameters, calibration, and rejection policy before any test evaluation.
-6. Evaluate `test.csv` exactly once for the final frozen candidate; never tune from its predictions or errors.
-7. Report macro F1, balanced accuracy, per-class recall, confusion matrix, and top-k accuracy alongside top-1 accuracy.
+- Treat `old_split` and superseded Step 2 assignments as provenance only.
+- Use the train, validation, and five development folds for model development.
+- Keep the source and group columns when creating experiment data.
+- Report aggregate out-of-fold metrics and the unweighted fold mean and
+  standard deviation.
+- Report macro F1, balanced accuracy, per-class recall, confusion matrix, and
+  top-k accuracy alongside top-1 accuracy.
+- Keep the test set out of embeddings, predictions, error analysis, selection,
+  calibration, and threshold design until the final system is frozen.
 
-The v3 sealed test has not been evaluated.
+The v3 test set has not been evaluated.
 
-## Reproduction
+## Rebuild and validate
 
 Run from the repository root:
 
 ```bash
-python3 step_02/scripts/build_global_source_cohorts.py
-python3 step_02/scripts/build_splits.py
-python3 -m unittest discover -s step_02/tests -v
+python3 step_2/development/scripts/build_global_source_cohorts.py
+python3 step_2/development/scripts/build_splits.py
+python3 -m unittest discover -s step_2/development/tests -v
 ```
 
-`split_audit.json` records exact input/review fingerprints, target and observed allocations, CSV hashes, group counts, and all leakage checks.
+`split_audit.json` records input fingerprints, observed allocations, CSV hashes,
+group counts, and the leakage checks performed by the builder.

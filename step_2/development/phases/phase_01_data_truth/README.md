@@ -1,20 +1,19 @@
-# Phase 01 — data truth
+# Phase 1: data audit
 
-**Status: complete.** Phase 1 established what images exist, which records are
-usable, and which images must remain linked or be excluded. It did not train a
-model or create the current evaluation assignment.
+Phase 1 established what images exist, which records are usable, and which
+images are duplicates or belong together. This phase contains data review only;
+model training and evaluation splits are handled in later phases.
 
-## Outcome
+## Results
 
 - 2,055 supported, decodable image files were inventoried across five labels.
-- Visual review completed all 143 multi-image candidate groups covering 429
-  images.
+- All 143 multi-image candidate groups, covering 429 images, were reviewed.
 - 28 exact or visually identical copies and 4 images without a usable motif
-  were marked for exclusion, leaving 2,023 modelling records.
+  were excluded, leaving 2,023 modelling records.
 - `step_1/` remained unchanged as the prototype and recovery copy.
 - Image provenance and redistribution licences remain unknown.
 
-## Canonical evidence
+## Files and findings
 
 - [Phase 1 findings](../../PHASE_1_FINDINGS.md)
 - [Data-copy notes](../../data/README.md)
@@ -23,20 +22,18 @@ model or create the current evaluation assignment.
 - [Audit summary](../../metadata/data_audit.json)
 - [Review index](../../review/IMAGE_REVIEW_INDEX.md)
 - [Completed review workbook](../../review/outputs/019f6af8-e0cf-7513-85b2-f6eb3920df46/phase_1_image_review.xlsx)
-- [Machine-readable adjudication](../../review/outputs/019f6af8-e0cf-7513-85b2-f6eb3920df46/phase_1_manual_review.json)
+- [Machine-readable review decisions](../../review/outputs/019f6af8-e0cf-7513-85b2-f6eb3920df46/phase_1_manual_review.json)
 
-## Rebuild surface
+## Code and tests
 
-- Runner: [`build_manifest.py`](../../scripts/build_manifest.py)
+- Dataset inventory: [`build_manifest.py`](../../scripts/build_manifest.py)
 - Integrity tests: [`test_phase_1_outputs.py`](../../tests/test_phase_1_outputs.py)
 - Review tests: [`test_manual_review_outputs.py`](../../tests/test_manual_review_outputs.py)
 
-The manifest is the reproducible base inventory. Human decisions remain in the
-review artifacts and are joined downstream; they are not written back into the
-base manifest.
+The generated manifest is the base image inventory. Manual decisions are stored
+in the review files and joined by later scripts rather than written back into
+the original manifest.
 
-## Boundary
-
-The original `dataset_dev` and `dataset_test` locations record prior provenance
-only. They are not valid evaluation partitions. Phase 2 owns all current split
-assignments.
+The original `dataset_dev` and `dataset_test` directories are retained as
+provenance. Current evaluation assignments come from the Phase 2 split files,
+not from those directory names.

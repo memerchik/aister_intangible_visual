@@ -1,4 +1,4 @@
-# Step 2
+# Step 2: audited development and application preview
 
 Step 2 is split into a research workspace and a deployable application.
 
@@ -8,9 +8,10 @@ step_2/
 └── v0_5/          # self-contained application and Docker build context
 ```
 
-## Choose a destination
+## Contents
 
-- Open [`development/`](development/README.md) to inspect the full scientific
+- [`development/`](development/README.md) contains the full scientific
   process, phase findings, frozen outputs, evaluation contracts, and model
   reproduction commands.
-- Open [`v0_5/`](v0_5/README.md) to run, edit, test, or deploy the current showcase.
+- [`v0_5/`](v0_5/README.md) contains the standalone web application, frontend,
+  tests, and Render deployment configuration.

@@ -1,58 +1,53 @@
-# Step 2 development phase map
+# Development phases
 
-This directory is the navigation layer for Step 02. It organizes the work by
-phase without relocating, copying, or renaming any canonical artifact.
+This directory provides a short guide to each part of the Step 2 research. The
+datasets, scripts, tests, and result files remain in their main directories;
+the phase pages link to them and summarize what was learned.
 
 ## Status
 
-| Phase | Status | Role | Primary evidence |
+| Phase | Status | Work | Main report |
 |---|---|---|---|
-| [01 — data truth](phase_01_data_truth/README.md) | Complete | Inventory, duplicate detection, and visual adjudication | [`PHASE_1_FINDINGS.md`](../PHASE_1_FINDINGS.md) |
-| [02 — evaluation protocol](phase_02_evaluation_protocol/README.md) | Complete | Source-atomic v3 splits and leakage controls | [`PHASE_2_FINDINGS.md`](../PHASE_2_FINDINGS.md) |
-| [03 — classical baseline](phase_03_classical_baseline/README.md) | Complete | Frozen handcrafted-feature reference | [`PHASE_3_FINDINGS.md`](../PHASE_3_FINDINGS.md) |
-| [04 — pretrained screen](phase_04_pretrained_screen/README.md) | Complete | Frozen-encoder development screen | [`PHASE_4_FINDINGS.md`](../PHASE_4_FINDINGS.md) |
-| [05 — source robustness](phase_05_source_robustness/README.md) | V1–v5 complete; all rejected; modelling closed pending new data | Nested source-robust selection, correction, fusion, motif localization/consensus, and promotion decisions | [`PHASE_5_EVOLUTION.md`](../PHASE_5_EVOLUTION.md) ([v5](../PHASE_5_V5_FINDINGS.md), [v4](../PHASE_5_V4_FINDINGS.md), [v3](../PHASE_5_V3_FINDINGS.md), [v2](../PHASE_5_V2_FINDINGS.md), [v1](../PHASE_5_FINDINGS.md)) |
+| [1 — data audit](phase_01_data_truth/README.md) | Complete | Inventory, duplicate detection, and visual review | [`PHASE_1_FINDINGS.md`](../PHASE_1_FINDINGS.md) |
+| [2 — evaluation protocol](phase_02_evaluation_protocol/README.md) | Complete | Source-atomic v3 splits and leakage controls | [`PHASE_2_FINDINGS.md`](../PHASE_2_FINDINGS.md) |
+| [3 — classical baseline](phase_03_classical_baseline/README.md) | Complete | Handcrafted-feature reference | [`PHASE_3_FINDINGS.md`](../PHASE_3_FINDINGS.md) |
+| [4 — pretrained encoders](phase_04_pretrained_screen/README.md) | Complete | Frozen-encoder comparison | [`PHASE_4_FINDINGS.md`](../PHASE_4_FINDINGS.md) |
+| [5 — source robustness](phase_05_source_robustness/README.md) | Complete; no candidate met every release gate | Source-aware selection, correction, fusion, motif localization, and stability testing | [`PHASE_5_EVOLUTION.md`](../PHASE_5_EVOLUTION.md) |
 
-“Complete” means that the phase's declared development work and evidence are
-complete. It does not mean that a deployable classifier or an unbiased final
-performance estimate exists. In particular, the 330-image test set remains
+All five research phases have finished, but the project does not yet have an
+independently validated production model. The 330-image test set remains
 sealed and unevaluated.
 
-## Provisional application track
+## Application preview
 
-[`../../v0_5/`](../../v0_5/README.md) is a separate, runnable
-human-assisted product preview built from the fixed v4 full-development recipe.
-It provides immediate rankings, motif visualization, human confirmation, and
-opt-in data contribution without claiming that Phase 5 passed. It is not a
-sixth Phase 5 experiment, does not start Phase 6, and does not access the sealed
-test. The formal phase map below therefore remains unchanged.
+[`../../v0_5/`](../../v0_5/README.md) is a separate, runnable application built
+from the fixed v4 full-development recipe. It provides immediate rankings,
+motif visualization, human confirmation, and optional data contribution. Its
+scores are uncalibrated, and it does not access the sealed test set or claim
+production accuracy.
 
-## Where canonical files remain
+## File locations
 
-- [`data/`](../data/README.md) contains the unchanged Step 02 image copy.
-- [`metadata/`](../metadata/SCHEMA.md) is the base inventory and audit layer.
-- [`review/`](../review/IMAGE_REVIEW_INDEX.md) contains human adjudication and
+- [`data/`](../data/README.md) contains the verified Step 2 image copy.
+- [`metadata/`](../metadata/SCHEMA.md) contains the inventory and audit data.
+- [`review/`](../review/IMAGE_REVIEW_INDEX.md) contains manual review and
   source-cohort evidence.
-- [`splits/`](../splits/README.md) is the current evaluation contract.
-- [`scripts/`](../scripts) contains the reproducible phase runners.
+- [`splits/`](../splits/README.md) defines the current evaluation split.
+- [`scripts/`](../scripts) contains dataset builders and experiment runners.
 - [`tests/`](../tests) contains integrity and reproducibility checks.
-- [`outputs/`](../outputs) contains immutable experiment evidence.
+- [`outputs/`](../outputs) contains saved experiment results.
+- [`src/`](../src/README.md) contains reusable modelling code.
 
-The phase folders contain documentation and links only. A link from a phase
-does not make the linked artifact phase-local, and no dataset or model output
-should be duplicated here. Development implementation remains under `../src/`,
-with phase-specific outputs under `../outputs/`. The deployable runtime is
-owned separately by `../../v0_5/`.
+The phase folders themselves contain documentation and links only.
 
-## Evaluation rule
+## Evaluation protocol
 
-Model development may use [`train.csv`](../splits/train.csv),
+Model development uses [`train.csv`](../splits/train.csv),
 [`validation.csv`](../splits/validation.csv), and the source-blocked folds in
-[`development.csv`](../splits/development.csv). The sealed
-[`test.csv`](../splits/test.csv) manifest must not be used for embeddings,
-predictions, error analysis, selection, calibration, or threshold design. It
-may be evaluated exactly once only after the entire model and decision policy
-have been frozen in a later phase.
+[`development.csv`](../splits/development.csv). [`test.csv`](../splits/test.csv)
+is reserved for one evaluation after the complete model and decision policy
+have been frozen. It is excluded from embeddings, predictions, error analysis,
+model selection, calibration, and threshold design during development.
 
-[`registry.json`](registry.json) provides the same phase map in a small
-machine-readable form.
+[`registry.json`](registry.json) provides the phase map in a small,
+machine-readable format.

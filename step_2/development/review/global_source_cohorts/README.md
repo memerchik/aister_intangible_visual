@@ -1,8 +1,19 @@
 # Global acquisition/source cohort review
 
-This directory records the completed full-inventory visual audit used to prevent class-correlated acquisition cues from crossing evaluation boundaries. All 2,023 included images were reviewed in naturally sorted contact sheets with the semantic-v2 production split and CV fold overlaid. The review identified 28 conservative, non-overlapping cohorts containing 982 images (48.54% of the included inventory). The remaining 1,041 images are unassigned because no repeated source relationship was visually strong enough; unassigned does not mean proven-independent provenance.
+This directory records the full-inventory visual audit used to keep repeated
+acquisition cues on one side of each evaluation split. All 2,023 included
+images were reviewed in naturally sorted contact sheets with the semantic-v2
+split and fold overlaid. The review identified 28 conservative, non-overlapping
+cohorts containing 982 images (48.54% of the included inventory). The remaining
+1,041 images are unassigned because no repeated source relationship was strong
+enough to identify visually; this does not prove that their sources are
+independent.
 
-`adjudication.json` is canonical and contains explicit, sorted image IDs. `cohort_members.csv` is a readable projection with the current `step02_source_atomic_v3` boundary assignments. Filename rules below only document how the visually reviewed cohorts can be reproduced; downstream split code must consume the explicit IDs.
+`adjudication.json` contains the reviewed, sorted image IDs used by the split
+builder. `cohort_members.csv` presents the same cohorts with their current
+`step02_source_atomic_v3` assignments. The filename rules below explain how the
+reviewed cohorts were identified; the split code uses the explicit IDs rather
+than inferring membership from filenames.
 
 ## Method and decision rule
 
@@ -47,7 +58,7 @@ Before source-cohort integration, all 28 cohorts crossed more than one semantic-
 
 The largest cohort, `src_global_opn_roundmark_catalog`, has 261 images and 88 pre-cohort semantic groups. A strict source-blocked five-fold protocol therefore cannot also keep equal per-class fold sizes. Evaluation should preserve the source boundary and report the resulting fold imbalance or use explicit leave-source-cohort diagnostics; splitting the cohort would knowingly leak the identical watermark.
 
-## Deliberately unmerged and uncertain cases
+## Uncertain cases kept separate
 
 - The two large Opishnyan gray-studio cohorts may share an institution, but they remain separate because export dimensions and catalog sequences differ and common provenance cannot be proved visually.
 - Bubnivka fair, museum-interior, and dark-cloth cohorts are session inferences from repeated environments and camera signatures; unlike the Vohnik cohort, they do not have an explicit source mark.
@@ -60,7 +71,7 @@ The largest cohort, `src_global_opn_roundmark_catalog`, has 261 images and 88 pr
 From the repository root:
 
 ```bash
-python3 step_02/scripts/build_global_source_cohorts.py
+python3 step_2/development/scripts/build_global_source_cohorts.py
 ```
 
 The generator fails if inventory counts, expected cohort counts, inclusion status, class labels, image-ID uniqueness, or non-overlap change.

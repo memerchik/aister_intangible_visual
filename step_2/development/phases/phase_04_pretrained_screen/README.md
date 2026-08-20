@@ -1,10 +1,10 @@
-# Phase 04 — frozen pretrained-representation screen
+# Phase 4: pretrained encoder comparison
 
-**Status: complete at the exploratory development level.** Phase 4 compares
-frozen image encoders and view policies with a fixed class-balanced logistic
-probe on the source-atomic v3 folds. It does not create a deployable model.
+Phase 4 compares frozen image encoders and view policies with a fixed,
+class-balanced logistic probe on the source-atomic v3 folds. The results are an
+exploratory model comparison rather than a deployable model.
 
-## Outcome
+## Results
 
 The selected `dinov3_vits16__cls__global_fivecrop` representation reaches:
 
@@ -14,29 +14,26 @@ The selected `dinov3_vits16__cls__global_fivecrop` representation reaches:
 - 99.5275% top-3 accuracy;
 - 93.0985% ± 5.9735 percentage points unweighted fold accuracy.
 
-These metrics are **selection-conditional and exploratory**. The same OOF
-results selected the representation, and earlier prototype work informed the
-candidate family and probe setting. They show a strong development candidate,
-not an unbiased 93% production guarantee. Scores are also uncalibrated.
+The same out-of-fold results were used to select the representation, and the
+earlier prototype influenced the candidates tested. These numbers therefore
+describe development performance rather than an unbiased 93% production
+estimate. The probability values are also uncalibrated.
 
-## Canonical evidence
+## Files and findings
 
 - [Phase 4 findings](../../PHASE_4_FINDINGS.md)
-- [Output inventory and reproduction notes](../../outputs/phase_4_pretrained/README.md)
-- [Canonical metrics](../../outputs/phase_4_pretrained/metrics.json)
+- [Output inventory](../../outputs/phase_4_pretrained/README.md)
+- [Metrics](../../outputs/phase_4_pretrained/metrics.json)
 - [Representation comparison](../../outputs/phase_4_pretrained/representation_summary.csv)
-- [OOF predictions](../../outputs/phase_4_pretrained/oof_predictions.csv)
+- [Out-of-fold predictions](../../outputs/phase_4_pretrained/oof_predictions.csv)
 - [Confusion matrix](../../outputs/phase_4_pretrained/confusion_matrix.png)
 
-## Rebuild surface
+## Code and tests
 
-- Runner: [`run_pretrained_embeddings.py`](../../scripts/run_pretrained_embeddings.py)
+- Experiment runner: [`run_pretrained_embeddings.py`](../../scripts/run_pretrained_embeddings.py)
 - Pinned environment: [`requirements-phase4.txt`](../../requirements-phase4.txt)
 - Output tests: [`test_phase_4_pretrained_outputs.py`](../../tests/test_phase_4_pretrained_outputs.py)
 
-## Boundary
-
-The runner, metadata, and outputs are frozen evidence for this completed screen.
 The 330-image test set remains untouched. The selected DINOv3 checkpoint is
-gated and uses a custom licence; legal review and resolution of dataset-image
-rights are required before deployment.
+gated and uses a custom licence; both the model licence and dataset-image rights
+need review before deployment.
