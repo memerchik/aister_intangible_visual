@@ -3,6 +3,20 @@
 This repository contains an image classifier for five Ukrainian ornament
 traditions. The work is organized into three parts:
 
+## Video presentation
+
+<p align="center">
+  <a href="https://uniluxembourg-my.sharepoint.com/:v:/g/personal/023130081b_uni_lu/IQBKHkaQxYjZRLDVwL2eoa5NAR4eipiNLxXXAoWRwThq0Ak?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&amp;e=ugW7Rr">
+    <img src="assets/project-presentation-thumbnail.png"
+         alt="Watch the AISTER project video presentation"
+         width="900">
+  </a>
+</p>
+
+<p align="center">
+  <strong><a href="https://uniluxembourg-my.sharepoint.com/:v:/g/personal/023130081b_uni_lu/IQBKHkaQxYjZRLDVwL2eoa5NAR4eipiNLxXXAoWRwThq0Ak?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&amp;e=ugW7Rr">▶ Watch the project presentation on OneDrive</a></strong>
+</p>
+
 | Folder | Purpose |
 |---|---|
 | [`step_1/`](step_1/) | Preserved prototype and workshop materials |
